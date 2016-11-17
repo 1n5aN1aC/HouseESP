@@ -23,8 +23,8 @@ char ssid[] = "joshua"; // your network SSID (name)        //
 char pass[] = "";       // your network password           //
 //---------------------------------------------------------//
 
-LedControl lc1=LedControl(D5,D6,D7,1); //Initialize MAX7219
-char timeDigits[6] = "----00";           //Most recent 
+LedControl lc1 = LedControl(D5,D6,D7,1); //Initialize MAX7219
+char timeDigits[] = "----00";           //Most recent 
 
 void setup()
 {
@@ -59,12 +59,18 @@ void setup()
 void loop()
 {
   String timeDisplay = NTP.getTimeStr();
+  char minDig1 = timeDisplay.charAt(3);
   char minDig2 = timeDisplay.charAt(4);
-  lc1.setChar(0, 0, minDig2, true);
   char secDig1 = timeDisplay.charAt(6);
-  lc1.setChar(0, 1, secDig1, false);
   char secDig2 = timeDisplay.charAt(7);
-  lc1.setChar(0, 2, secDig2, false);
+  lc1.setChar(0, 0, minDig1, false);
+  lc1.setChar(0, 1, minDig2, false);
+  lc1.setChar(0, 2, secDig1, false);
+  lc1.setChar(0, 3, secDig2, false);
+  
+  lc1.setChar(0, 4, secDig2, false);
+  
+  Serial.println(timeDisplay);
   
   time_t t = now(); // store the current time in time variable t
   hour(t);          // returns the hour for the given time t
@@ -75,10 +81,5 @@ void loop()
   month(t);         // the month for the given time t
   year(t);          // the year for the given time t
   
-  Serial.println(NTP.getTimeStr());
   delay(1000);  //   REMOVE DELAY FOR A COUNTER.................................................../////////////////////////
-}
-
-void () {
-	
 }
