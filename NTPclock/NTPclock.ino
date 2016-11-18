@@ -35,7 +35,7 @@ void setup() {
   beginNTP();    //Start up NTP Client & time keeping
 
   lc1.shutdown(0,false);
-  lc1.setIntensity(0, 10);     // Needs moved out to seperate function.  Plus controls to raise / lower.
+  lc1.setIntensity(0, 10);     //TODO: Needs moved out to seperate function.  Plus controls to raise / lower.
 }
 
 // Main program loop
@@ -45,23 +45,50 @@ void loop() {
   timeDigits[1] = timeDisplay.charAt(4);
   timeDigits[2] = timeDisplay.charAt(6);
   timeDigits[3] = timeDisplay.charAt(7);
-  for (i=0;i++;i<4;) {
+  for (int i=0; i<4; i++) {
+    Serial.print(i);
     lc1.setChar(0, i, timeDigits[i], false);
   }
-  lc1.setChar(0, 4, secDig2, false); //test for progress bar
+  lc1.setChar(0, 4, timeDigits[3], false); //test for progress bar
+  lc1.setRow(0, 5, 31);
   
   Serial.println(timeDisplay);
   
-  time_t time = now(); // store the current time in time variable t
-  hour(t);             // returns the hour for the given time t
-  minute(t);           // returns the minute for the given time t
-  second(t);           // returns the second for the given time t
-  day(t);              // the day for the given time t
-  weekday(t);          // day of the week for the given time t
-  month(t);            // the month for the given time t
-  year(t);             // the year for the given time t
+  time_t nowTime = now(); // store the current time in time variable t
+  hour(nowTime);             // returns the hour for the given time t
+  minute(nowTime);           // returns the minute for the given time t
+  second(nowTime);           // returns the second for the given time t
+  day(nowTime);              // the day for the given time t
+  weekday(nowTime);          // day of the week for the given time t
+  month(nowTime);            // the month for the given time t
+  year(nowTime);             // the year for the given time t
   
-  delay(1000);         //   REMOVE DELAY FOR A COUNTER..............................PLEASE!!!!......../////////////////////////
+  delay(1000);         //TODO:   REMOVE DELAY FOR A COUNTER..............................PLEASE!!!!......../////////////////////////
+}
+
+// Controlls a 10-segment LED bargraph
+// int bars: 0-10
+void setBar(int bars) {
+  
+  
+  for (int i=0; i<10; i++) {
+    
+  }
+
+  switch(c) {
+  case 0:
+    lc.setLed(0,r,e,state); 
+    break;
+
+  case 1:
+    lc.setLed(0,r+4,e,state); 
+    break;
+
+  case 2:
+    lc.setLed(0,r,e,state); 
+    lc.setLed(0,r+4,e,state);     
+    break;
+  }
 }
 
 // Initial connection to WiFi
@@ -82,12 +109,8 @@ void connectWifi() {
 
 // Initial set up of NTP
 void beginNTP() {
-  Serial.print("Starting NTP client.");
+  Serial.print("Starting NTP client...");
   NTP.begin("pool.ntp.org", 4, true);
   NTP.setInterval(60);
-  while (NTP.getLastNTPSync() == 0) {     //returns a time_t, so not sure this will work or not.
-    delay(500);
-    Serial.print(".");
-  }
   Serial.println("Done.");
 }
