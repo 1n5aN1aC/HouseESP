@@ -54,40 +54,24 @@ void loop() {
   
   Serial.println(timeDisplay);
   
-  time_t nowTime = now(); // store the current time in time variable t
-  hour(nowTime);             // returns the hour for the given time t
-  minute(nowTime);           // returns the minute for the given time t
-  second(nowTime);           // returns the second for the given time t
-  day(nowTime);              // the day for the given time t
-  weekday(nowTime);          // day of the week for the given time t
-  month(nowTime);            // the month for the given time t
-  year(nowTime);             // the year for the given time t
+  time_t nowTime = now();            //store the current time in time variable t
+  int portion = second(nowTime) / 6; //get the number of bars that should be lit
+  setBar(portion);                   //and then set them
   
   delay(1000);         //TODO:   REMOVE DELAY FOR A COUNTER..............................PLEASE!!!!......../////////////////////////
 }
 
 // Controlls a 10-segment LED bargraph
-// int bars: 0-10
+// int bars: 0-10 number of bars that should be on
 void setBar(int bars) {
-  
-  
-  for (int i=0; i<10; i++) {
-    
+  boolean segments[10] = {false, false, false, false, false, false, false, false, false, false};
+  for (int i = 0; i<bars; i++) {   //set true up to the number of bars
+    segments[i] = true;
   }
-
-  switch(c) {
-  case 0:
-    lc.setLed(0,r,e,state); 
-    break;
-
-  case 1:
-    lc.setLed(0,r+4,e,state); 
-    break;
-
-  case 2:
-    lc.setLed(0,r,e,state); 
-    lc.setLed(0,r+4,e,state);     
-    break;
+  
+  for (int i=0; i<5; i++) {        //Set the LEDs
+    lc1.setLed(0,4,segments[i]);     //0-4
+    lc1.setLed(0,5,i,segments[i+5]); //5-9
   }
 }
 
