@@ -35,21 +35,19 @@ void setup() {
   beginNTP();    //Start up NTP Client & time keeping
 
   lc1.shutdown(0,false);
-  lc1.setIntensity(0, 10);
+  lc1.setIntensity(0, 10);     // Needs moved out to seperate function.  Plus controls to raise / lower.
 }
 
 // Main program loop
 void loop() {
   String timeDisplay = NTP.getTimeStr();
-  char minDig1 = timeDisplay.charAt(3);
-  char minDig2 = timeDisplay.charAt(4);
-  char secDig1 = timeDisplay.charAt(6);
-  char secDig2 = timeDisplay.charAt(7);
-  lc1.setChar(0, 0, minDig1, false);
-  lc1.setChar(0, 1, minDig2, false);
-  lc1.setChar(0, 2, secDig1, false);
-  lc1.setChar(0, 3, secDig2, false);
-  
+  timeDigits[0] = timeDisplay.charAt(3);
+  timeDigits[1] = timeDisplay.charAt(4);
+  timeDigits[2] = timeDisplay.charAt(6);
+  timeDigits[3] = timeDisplay.charAt(7);
+  for (i=0;i++;i<4;) {
+    lc1.setChar(0, i, timeDigits[i], false);
+  }
   lc1.setChar(0, 4, secDig2, false); //test for progress bar
   
   Serial.println(timeDisplay);
@@ -66,7 +64,7 @@ void loop() {
   delay(1000);         //   REMOVE DELAY FOR A COUNTER..............................PLEASE!!!!......../////////////////////////
 }
 
-// Inition connection to WiFi
+// Initial connection to WiFi
 void connectWifi() {
   Serial.print("Connecting to ");
   Serial.print(ssid);
