@@ -41,22 +41,20 @@ void setup() {
 // Main program loop
 void loop() {
   String timeDisplay = NTP.getTimeStr();
-  timeDigits[0] = timeDisplay.charAt(3);
-  timeDigits[1] = timeDisplay.charAt(4);
-  timeDigits[2] = timeDisplay.charAt(6);
-  timeDigits[3] = timeDisplay.charAt(7);
+  timeDigits[0] = timeDisplay.charAt(0);
+  timeDigits[1] = timeDisplay.charAt(1);
+  timeDigits[2] = timeDisplay.charAt(3);
+  timeDigits[3] = timeDisplay.charAt(4);
   for (int i=0; i<4; i++) {
     Serial.print(i);
     lc1.setChar(0, i, timeDigits[i], false);
   }
-  lc1.setChar(0, 4, timeDigits[3], false); //test for progress bar
-  lc1.setRow(0, 5, 31);
   
   Serial.println(timeDisplay);
   
-  time_t nowTime = now();            //store the current time in time variable t
-  int portion = second(nowTime) / 6; //get the number of bars that should be lit
-  setBar(portion);                   //and then set them
+  time_t nowTime = now();                  //store the current time in time variable t
+  int portion = (second(nowTime) / 6) + 1; //get the number of bars that should be lit
+  setBar(portion);                         //and then set them
   
   delay(1000);         //TODO:   REMOVE DELAY FOR A COUNTER..............................PLEASE!!!!......../////////////////////////
 }
@@ -64,14 +62,14 @@ void loop() {
 // Controlls a 10-segment LED bargraph
 // int bars: 0-10 number of bars that should be on
 void setBar(int bars) {
-  boolean segments[10] = {false, false, false, false, false, false, false, false, false, false};
+  bool segment[10] = {false, false, false, false, false, false, false, false, false, false};
   for (int i = 0; i<bars; i++) {   //set true up to the number of bars
-    segments[i] = true;
+    segment[i] = true;
   }
   
   for (int i=0; i<5; i++) {        //Set the LEDs
-    lc1.setLed(0,4,segments[i]);     //0-4
-    lc1.setLed(0,5,i,segments[i+5]); //5-9
+    lc1.setLed(0,4,i,segment[i]);   //0-4
+    lc1.setLed(0,5,i,segment[i+5]); //5-9
   }
 }
 
