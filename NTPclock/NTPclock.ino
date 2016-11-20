@@ -10,11 +10,13 @@
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
 //----------------------------------------------------------------------------------------------------------------
 
-
-#include <LedControl.h>
-#include <ESP8266WiFi.h>
-#include <TimeLib.h>
-#include <NtpClientLib.h>
+#include <pgmspace.h>     // Used by RTC Library.  Specific for ESP8266
+#include <RtcDS3231.h>    // RTC Library
+#include <Wire.h>         // Incuded here so that Arduino library object file references work
+#include <LedControl.h>   // MAX7219 display control library
+#include <ESP8266WiFi.h>  // We need to use the wifi for NTP
+#include <TimeLib.h>      // This library helps with easy time-keeping
+#include <NtpClientLib.h> // The NTP library
 
 //---------------------------------------------------------//
 //              CONFIGURE YOUR NETWORK HERE                //
@@ -23,8 +25,9 @@ char ssid[] = "joshua"; // your network SSID (name)        //
 char pass[] = "";       // your network password           //
 //---------------------------------------------------------//
 
-LedControl lc1 = LedControl(D5,D6,D7,1); //Initialize MAX7219
-char timeDigits[] = "----";              //String represntation of current time
+RtcDS3231 RTC;
+LedControl lc1 = LedControl(D5,D6,D7,1); // Initialize MAX7219
+char timeDigits[] = "----";              // String represntation of current time
 
 // Initial set up routines
 void setup() {
@@ -84,15 +87,11 @@ void connectWifi() {
     Serial.print(".");
   }
   Serial.println("  Done.");
-  
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
 }
 
 // Initial set up of NTP
 void beginNTP() {
   Serial.print("Starting NTP client...");
   NTP.begin("pool.ntp.org", 4, true);
-  NTP.setInterval(60);
   Serial.println("Done.");
 }
