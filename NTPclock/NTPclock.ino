@@ -34,7 +34,8 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
 
-  connectWifi(); //First, connect to wifi
+  RTCSetup();    //Restore RTC time immediently to current time
+  connectWifi(); //Then connect to wifi
   beginNTP();    //Start up NTP Client & time keeping
 
   lc1.shutdown(0,false);
@@ -89,9 +90,29 @@ void connectWifi() {
   Serial.println("  Done.");
 }
 
+// Set up the RTC.  Also loads RTC time to get time faster.
+void RTCSetup() {
+  RTC.Begin();
+
+  //If RTC is still valid, set it as current time
+  if (RTC.IsDateTimeValid()) {
+    RtcDateTime now = RTC.GetDateTime();
+    setTime(now.Hour(), now.Minute(), now.Second(), now.Day(), now.Month(), now.Year() );
+  }
+
+  //Make sure RTC is actually running...
+  if (!RTC.GetIsRunning()){
+    RTC.SetIsRunning(true);
+  }
+
+  //Never assume the Rtc was last configured by you, so just clear them to your needed state
+  RTC.SetSquareWavePin(DS3231SquareWavePin_ModeNone);
+}
+
 // Initial set up of NTP
 void beginNTP() {
   Serial.print("Starting NTP client...");
   NTP.begin("pool.ntp.org", 4, true);
+  NTP.setInterval(21600);
   Serial.println("Done.");
 }
