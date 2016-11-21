@@ -36,11 +36,12 @@ void setup() {
   connectWifi(); //Then connect to wifi
   beginNTP();    //Start up NTP Client & time keeping
 
+  //Called upon NTP update.
   NTP.onNTPSyncEvent([](NTPSyncEvent_t ntpEvent) {
     if (ntpEvent == 0) {
       Serial.print("Got NTP time: ");
       Serial.println(NTP.getTimeDateString(NTP.getLastNTPSync()));
-      RTC.set(now() );
+      RTC.set(NTP.getLastNTPSync());
     }
   });
 
@@ -54,18 +55,7 @@ void loop() {
   updateMisc();   //
   delay(1000);    //
 
-  Serial.print( month() );
-  Serial.print(" ");
-  Serial.print( day() );
-  Serial.print(" ");
-  Serial.print( year() );
-  Serial.print(" ");
-  Serial.print( hour() );
-  Serial.print(" ");
-  Serial.print( minute() );
-  Serial.print(" ");
-  Serial.print( second() );
-  Serial.println();
+  NTP.getTimeDateString(now() );
 }
 
 // 
