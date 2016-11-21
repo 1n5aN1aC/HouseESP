@@ -4221,7 +4221,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="C3" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="0.1μF"/>
 <part name="C4" library="SparkFun-Capacitors" deviceset="CAP" device="1206"/>
 <part name="C5" library="SparkFun-Capacitors" deviceset="CAP" device="1206"/>
-<part name="C6" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1"/>
+<part name="C6" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="470μF"/>
 <part name="C7" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1"/>
 <part name="C8" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="10μF"/>
 <part name="POWER" library="SparkFun-Connectors" deviceset="M02" device="JST-PTH-VERT"/>
