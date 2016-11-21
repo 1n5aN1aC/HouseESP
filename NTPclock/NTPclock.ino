@@ -32,6 +32,9 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
 
+  lc1.shutdown(0,false);
+  lc1.setIntensity(0, 10);     //TODO: Needs moved out to seperate function.  Plus controls to raise / lower.
+
   RTCSetup();    //Restore RTC time immediently to current time
   connectWifi(); //Then connect to wifi
   beginNTP();    //Start up NTP Client & time keeping
@@ -39,14 +42,11 @@ void setup() {
   //Called upon NTP update.
   NTP.onNTPSyncEvent([](NTPSyncEvent_t ntpEvent) {
     if (ntpEvent == 0) {
-      Serial.print("Got NTP time: ");
-      Serial.println(NTP.getTimeDateString(NTP.getLastNTPSync()));
+      Serial.print(NTP.getTimeDateString(NTP.getLastNTPSync()));
+      Serial.println(" NTP UPDATE!");
       RTC.set(NTP.getLastNTPSync());
     }
   });
-
-  lc1.shutdown(0,false);
-  lc1.setIntensity(0, 10);     //TODO: Needs moved out to seperate function.  Plus controls to raise / lower.
 }
 
 // Main program loop
@@ -55,7 +55,7 @@ void loop() {
   updateMisc();   //
   delay(1000);    //
 
-  NTP.getTimeDateString(now() );
+  Serial.println(NTP.getTimeDateString(now() ) );
 }
 
 // 
@@ -93,14 +93,9 @@ void setBar(int bars) {
 // Initial connection to WiFi
 void connectWifi() {
   Serial.print("Connecting to ");
-  Serial.print(ssid);
+  Serial.println(ssid);
   WiFi.begin(ssid, pass);
-  
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("  Done.");
+  delay(5000);
 }
 
 // Set up the RTC.  Also loads RTC time to get time faster
@@ -114,7 +109,7 @@ void RTCSetup() {
 // Initial set up of NTP
 void beginNTP() {
   Serial.print("Starting NTP client...");
-  NTP.begin("pool.ntp.org", 4, true);
+  NTP.begin("pool.ntp.org", -8, true);
   NTP.setInterval(21600);
   Serial.println("Done.");
 }
