@@ -11,7 +11,7 @@
 //----------------------------------------------------------------------------------------------------------------
 
 #include <pgmspace.h>     // Used by RTC Library.  Specific for ESP8266
-#include <RtcDS3231.h>    // RTC Library
+#include <DS3232RTC.h>    // RTC Library
 #include <Wire.h>         // Incuded here so that Arduino library object file references work
 #include <LedControl.h>   // MAX7219 display control library
 #include <ESP8266WiFi.h>  // We need to use the wifi for NTP
@@ -25,7 +25,6 @@ char ssid[] = "joshua"; // your network SSID (name)        //
 char pass[] = "";       // your network password           //
 //---------------------------------------------------------//
 
-RtcDS3231 RTC;
 LedControl lc1 = LedControl(D5,D6,D7,1); // Initialize MAX7219
 
 // Initial set up routines
@@ -37,15 +36,36 @@ void setup() {
   connectWifi(); //Then connect to wifi
   beginNTP();    //Start up NTP Client & time keeping
 
+  NTP.onNTPSyncEvent([](NTPSyncEvent_t ntpEvent) {
+    if (ntpEvent == 0) {
+      Serial.print("Got NTP time: ");
+      Serial.println(NTP.getTimeDateString(NTP.getLastNTPSync()));
+      RTC.set(now() );
+    }
+  });
+
   lc1.shutdown(0,false);
   lc1.setIntensity(0, 10);     //TODO: Needs moved out to seperate function.  Plus controls to raise / lower.
 }
 
 // Main program loop
 void loop() {
-  updateDigits();
-  updateMisc();
-  delay(1000);         //TODO:   REMOVE DELAY FOR A COUNTER..............................PLEASE!!!!......../////////////////////////
+  updateDigits(); //
+  updateMisc();   //
+  delay(1000);    //
+
+  Serial.print( month() );
+  Serial.print(" ");
+  Serial.print( day() );
+  Serial.print(" ");
+  Serial.print( year() );
+  Serial.print(" ");
+  Serial.print( hour() );
+  Serial.print(" ");
+  Serial.print( minute() );
+  Serial.print(" ");
+  Serial.print( second() );
+  Serial.println();
 }
 
 // 
@@ -93,23 +113,12 @@ void connectWifi() {
   Serial.println("  Done.");
 }
 
-// Set up the RTC.  Also loads RTC time to get time faster.
+// Set up the RTC.  Also loads RTC time to get time faster
 void RTCSetup() {
-  RTC.Begin();
-
-  //If RTC is still valid, set it as current time
-  if (RTC.IsDateTimeValid()) {
-    RtcDateTime now = RTC.GetDateTime();
-    setTime(now.Hour(), now.Minute(), now.Second(), now.Day(), now.Month(), now.Year() );
-  }
-
-  //Make sure RTC is actually running...
-  if (!RTC.GetIsRunning()){
-    RTC.SetIsRunning(true);
-  }
-
-  //Never assume the Rtc was last configured by you, so just clear them to your needed state
-  RTC.SetSquareWavePin(DS3231SquareWavePin_ModeNone);
+  time_t RTCTime = RTC.get();  //Get RTC time
+  setTime(RTCTime);            //Set it as current time
+  RTC.squareWave(SQWAVE_NONE); //Never assume the Rtc was last configured by you, so just clear them to your needed state
+  updateDigits();  //Force update of display while loop() not running
 }
 
 // Initial set up of NTP
