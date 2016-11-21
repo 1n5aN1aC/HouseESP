@@ -27,7 +27,6 @@ char pass[] = "";       // your network password           //
 
 RtcDS3231 RTC;
 LedControl lc1 = LedControl(D5,D6,D7,1); // Initialize MAX7219
-char timeDigits[] = "----";              // String represntation of current time
 
 // Initial set up routines
 void setup() {
@@ -44,23 +43,27 @@ void setup() {
 
 // Main program loop
 void loop() {
-  String timeDisplay = NTP.getTimeStr();
-  timeDigits[0] = timeDisplay.charAt(0);
-  timeDigits[1] = timeDisplay.charAt(1);
-  timeDigits[2] = timeDisplay.charAt(3);
-  timeDigits[3] = timeDisplay.charAt(4);
-  for (int i=0; i<4; i++) {
-    Serial.print(i);
-    lc1.setChar(0, i, timeDigits[i], false);
-  }
-  
-  Serial.println(timeDisplay);
-  
-  time_t nowTime = now();                  //store the current time in time variable t
-  int portion = (second(nowTime) / 6) + 1; //get the number of bars that should be lit
-  setBar(portion);                         //and then set them
-  
+  updateDigits();
+  updateMisc();
   delay(1000);         //TODO:   REMOVE DELAY FOR A COUNTER..............................PLEASE!!!!......../////////////////////////
+}
+
+// 
+void updateDigits() {
+  if ((hour() / 10) == 0) {
+    lc1.setChar(0, 0, ' ', false);
+  } else {
+    lc1.setChar(0, 0, (hour() / 10), false);
+  }
+  lc1.setChar(0, 1, (hour() % 10), false);
+  lc1.setChar(0, 2, (minute() / 10), false);
+  lc1.setChar(0, 3, (minute() % 10), false);
+}
+
+// 
+void updateMisc() {
+  int portion = (second() / 6) + 1; //get the number of bars that should be lit
+  setBar(portion);                  //and then set them
 }
 
 // Controlls a 10-segment LED bargraph
