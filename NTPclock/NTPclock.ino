@@ -51,14 +51,14 @@ void setup() {
 
 // Main program loop
 void loop() {
-  updateDigits(); //
-  updateMisc();   //
-  delay(1000);    //
+  updateDigits(); //Update the time display
+  updateMisc();   //Update the rest of the display
+  delay(1000);    //CHANGE THIS TO A COUNTER-BASED DELAY.  NOT THIS EVIL STUFF THAT IS A DELAY()
 
   Serial.println(NTP.getTimeDateString(now() ) );
 }
 
-// 
+// Handles updating the primary 7-segment display
 void updateDigits() {
   if ((hour() / 10) == 0) {
     lc1.setChar(0, 0, ' ', false);
@@ -84,13 +84,14 @@ void setBar(int bars) {
     segment[i] = true;
   }
   
-  for (int i=0; i<5; i++) {        //Set the LEDs
+  for (int i=0; i<5; i++) {         //Set the LEDs
     lc1.setLed(0,4,i,segment[i]);   //0-4
     lc1.setLed(0,5,i,segment[i+5]); //5-9
   }
 }
 
 // Initial connection to WiFi
+// We wait for 5 seconds to connect, but do not block on the connection.
 void connectWifi() {
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -103,13 +104,13 @@ void RTCSetup() {
   time_t RTCTime = RTC.get();  //Get RTC time
   setTime(RTCTime);            //Set it as current time
   RTC.squareWave(SQWAVE_NONE); //Never assume the Rtc was last configured by you, so just clear them to your needed state
-  updateDigits();  //Force update of display while loop() not running
+  updateDigits();              //Force update of display while loop() not running
 }
 
 // Initial set up of NTP
 void beginNTP() {
   Serial.print("Starting NTP client...");
-  NTP.begin("pool.ntp.org", -8, true);
-  NTP.setInterval(21600);
+  NTP.begin("pool.ntp.org", -8, true);    //-8 is pacific time, true means dst
+  NTP.setInterval(21600);                 //every 6 hours
   Serial.println("Done.");
 }
