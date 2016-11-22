@@ -4212,7 +4212,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </class>
 </classes>
 <parts>
-<part name="U$1" library="NODEMCUv1" deviceset="ESP12E_DEVKIT" device=""/>
+<part name="U$1" library="NODEMCUv1" deviceset="ESP12E_DEVKIT" device="" value="NODEMCU V3"/>
 <part name="IC1" library="max7219" deviceset="MAX7219CNG" device=""/>
 <part name="R1" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206"/>
 <part name="R2" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206"/>
@@ -4454,31 +4454,15 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="DIGIT0" class="0">
 <segment>
-<pinref part="DIG_3" gate="G$1" pin="G1"/>
-<pinref part="DIG_3" gate="G$1" pin="G2"/>
-<wire x1="76.2" y1="17.78" x2="76.2" y2="15.24" width="0.1524" layer="91"/>
-<wire x1="76.2" y1="10.16" x2="76.2" y2="15.24" width="0.1524" layer="91"/>
-<junction x="76.2" y="15.24"/>
-</segment>
-<segment>
 <pinref part="IC1" gate="G$1" pin="DIG0"/>
 <wire x1="58.42" y1="58.42" x2="55.88" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="DIGIT1" class="0">
 <segment>
-<pinref part="DIG_2" gate="G$1" pin="G1"/>
-<pinref part="DIG_2" gate="G$1" pin="G2"/>
-<wire x1="111.76" y1="17.78" x2="111.76" y2="15.24" width="0.1524" layer="91"/>
-<wire x1="111.76" y1="10.16" x2="111.76" y2="15.24" width="0.1524" layer="91"/>
-<junction x="111.76" y="15.24"/>
-</segment>
-<segment>
 <pinref part="IC1" gate="G$1" pin="DIG1"/>
 <wire x1="58.42" y1="55.88" x2="55.88" y2="55.88" width="0.1524" layer="91"/>
 </segment>
-</net>
-<net name="DIGIT2" class="0">
 <segment>
 <pinref part="DIG_1" gate="G$1" pin="G1"/>
 <pinref part="DIG_1" gate="G$1" pin="G2"/>
@@ -4486,6 +4470,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="147.32" y1="10.16" x2="147.32" y2="15.24" width="0.1524" layer="91"/>
 <junction x="147.32" y="15.24"/>
 </segment>
+</net>
+<net name="DIGIT2" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="DIG2"/>
 <wire x1="58.42" y1="53.34" x2="55.88" y2="53.34" width="0.1524" layer="91"/>
@@ -4758,6 +4744,13 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="236.22" y1="10.16" x2="236.22" y2="15.24" width="0.1524" layer="91"/>
 <junction x="236.22" y="15.24"/>
 </segment>
+<segment>
+<pinref part="DIG_3" gate="G$1" pin="G1"/>
+<pinref part="DIG_3" gate="G$1" pin="G2"/>
+<wire x1="76.2" y1="17.78" x2="76.2" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="10.16" x2="76.2" y2="15.24" width="0.1524" layer="91"/>
+<junction x="76.2" y="15.24"/>
+</segment>
 </net>
 <net name="DIGIT4" class="0">
 <segment>
@@ -4785,6 +4778,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="233.68" y1="10.16" x2="233.68" y2="30.48" width="0.1524" layer="91"/>
 <junction x="233.68" y="30.48"/>
 </segment>
+<segment>
+<pinref part="DIG_2" gate="G$1" pin="G1"/>
+<pinref part="DIG_2" gate="G$1" pin="G2"/>
+<wire x1="111.76" y1="17.78" x2="111.76" y2="15.24" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="DATA" class="0">
 <segment>
@@ -4800,26 +4798,26 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="CLK" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="D6"/>
-<wire x1="73.66" y1="104.14" x2="81.28" y2="104.14" width="0.1524" layer="91"/>
-<label x="76.2" y="104.14" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="IC1" gate="G$1" pin="CLK"/>
 <wire x1="27.94" y1="58.42" x2="20.32" y2="58.42" width="0.1524" layer="91"/>
 <label x="20.32" y="58.42" size="1.778" layer="95"/>
 </segment>
-</net>
-<net name="LOAD" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="D7"/>
 <wire x1="73.66" y1="101.6" x2="81.28" y2="101.6" width="0.1524" layer="91"/>
 <label x="76.2" y="101.6" size="1.778" layer="95"/>
 </segment>
+</net>
+<net name="LOAD" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="LOAD"/>
 <wire x1="27.94" y1="53.34" x2="20.32" y2="53.34" width="0.1524" layer="91"/>
 <label x="20.32" y="53.34" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="D6"/>
+<wire x1="73.66" y1="104.14" x2="81.28" y2="104.14" width="0.1524" layer="91"/>
+<label x="76.2" y="104.14" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="DOUT" class="0">
