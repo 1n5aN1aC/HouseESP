@@ -61,13 +61,13 @@ void loop() {
 // Handles updating the primary 7-segment display
 void updateDigits() {
   if ((hour() / 10) == 0) {
-    lc1.setChar(0, 0, ' ', false);
+    lc1.setChar(0, 6, ' ', false);
   } else {
-    lc1.setChar(0, 0, (hour() / 10), false);
+    lc1.setChar(0, 6, (hour() / 10), false);
   }
-  lc1.setChar(0, 1, (hour() % 10), false);
-  lc1.setChar(0, 2, (minute() / 10), false);
-  lc1.setChar(0, 3, (minute() % 10), false);
+  lc1.setChar(0, 0, (hour() % 10), false);
+  lc1.setChar(0, 1, (minute() / 10), false);
+  lc1.setChar(0, 5, (minute() % 10), false);
 }
 
 // 
@@ -85,8 +85,8 @@ void setBar(int bars) {
   }
   
   for (int i=0; i<5; i++) {         //Set the LEDs
-    lc1.setLed(0,4,i,segment[i]);   //0-4
-    lc1.setLed(0,5,i,segment[i+5]); //5-9
+    lc1.setLed(0,7,i,segment[i]);   //0-4
+    lc1.setLed(0,3,i,segment[i+5]); //5-9
   }
 }
 
