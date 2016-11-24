@@ -89,6 +89,13 @@ void updateDigits() {
 void updateMisc() {
   int portion = (second() / 6) + 1; //get the number of bars that should be lit
   setBar(portion);                  //and then set them
+
+  //Every other second....
+  if (second() % 2 == 1) {
+    lc1.setLed(0,0,0,true);
+  } else {
+    lc1.setLed(0,0,0,false);
+  }
 }
 
 // Controlls a 10-segment LED bargraph
