@@ -62,16 +62,20 @@ void loop() {
 
 // Handles updating the primary 7-segment display
 void updateDigits() {
-  if ((hour() / 10) == 0) {
+  //If non-military time & 13-23 time, subtract 12 to get real hours...
+  int theHour = hour();
+  if (!militaryTime && theHour > 12) {
+    theHour = hour() - 12;
+  }
+  //If the hour is less than 10, display an empty far left digit
+  if ((theHour / 10) == 0) {
     lc1.setChar(0, 6, ' ', false);
   }
-  else if (militaryTime) {
-    lc1.setChar(0, 6, (hour() / 10), false);
-  }
+  //Otherwise, normal hour digit
   else {
-    lc1.setChar(0, 6, (hourFormat12() / 10), false);
+    lc1.setChar(0, 6, (theHour / 10), false);
   }
-  lc1.setChar(0, 0, (hour() % 10), false);
+  lc1.setChar(0, 0, (theHour % 10), false);
   lc1.setChar(0, 1, (minute() / 10), false);
   lc1.setChar(0, 5, (minute() % 10), false);
 }
