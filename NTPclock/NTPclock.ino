@@ -27,6 +27,8 @@ char pass[] = "";       // your network password           //
 
 LedControl lc1 = LedControl(D5,D6,D7,1); // Initialize MAX7219
 unsigned long timeLastBlinked = millis();
+unsigned long timeLastUpdated = millis();
+
 bool militaryTime = false;
 
 // Initial set up routines
@@ -53,11 +55,14 @@ void setup() {
 
 // Main program loop
 void loop() {
-  updateDigits(); //Update the time display
-  updateMisc();   //Update the rest of the display
-  delay(1000);    //CHANGE THIS TO A COUNTER-BASED DELAY.  NOT THIS EVIL STUFF THAT IS A DELAY()
-
-  Serial.println(NTP.getTimeDateString(now() ) );
+  if (millis() > (timeLastUpdated + 1000)) {
+    updateDigits(); //Update the time display
+    updateMisc();   //Update the rest of the display
+    
+    Serial.println(NTP.getTimeDateString(now() ) );
+    
+    timeLastUpdated = millis();
+  }
 }
 
 // Handles updating the primary 7-segment display
