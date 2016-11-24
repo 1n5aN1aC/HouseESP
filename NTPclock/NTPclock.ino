@@ -26,6 +26,8 @@ char pass[] = "";       // your network password           //
 //---------------------------------------------------------//
 
 LedControl lc1 = LedControl(D5,D6,D7,1); // Initialize MAX7219
+unsigned long timeLastBlinked = millis();
+bool militaryTime = false;
 
 // Initial set up routines
 void setup() {
@@ -39,7 +41,7 @@ void setup() {
   connectWifi(); //Then connect to wifi
   beginNTP();    //Start up NTP Client & time keeping
 
-  //Called upon NTP update.
+  //Called on NTP update.
   NTP.onNTPSyncEvent([](NTPSyncEvent_t ntpEvent) {
     if (ntpEvent == 0) {
       Serial.print(NTP.getTimeDateString(NTP.getLastNTPSync()));
@@ -62,8 +64,12 @@ void loop() {
 void updateDigits() {
   if ((hour() / 10) == 0) {
     lc1.setChar(0, 6, ' ', false);
-  } else {
+  }
+  else if (militaryTime) {
     lc1.setChar(0, 6, (hour() / 10), false);
+  }
+  else {
+    lc1.setChar(0, 6, (hourFormat12() / 10), false);
   }
   lc1.setChar(0, 0, (hour() % 10), false);
   lc1.setChar(0, 1, (minute() / 10), false);
