@@ -85,15 +85,17 @@ void updateDigits() {
   lc1.setChar(0, 5, (minute() % 10), false);
 }
 
-// 
+// This is misc stuff that may need updated.  Called once per second
 void updateMisc() {
   int portion = (second() / 6) + 1; //get the number of bars that should be lit
   setBar(portion);                  //and then set them
 
   //Every other second....
   if (second() % 2 == 1) {
+    //Turn second flasher on
     lc1.setLed(0,0,0,true);
   } else {
+    //Turn second flasher off
     lc1.setLed(0,0,0,false);
   }
 }
