@@ -26,10 +26,10 @@ char pass[] = "";       // your network password           //
 //---------------------------------------------------------//
 
 LedControl lc1 = LedControl(D5,D6,D7,1); // Initialize MAX7219
-unsigned long timeLastBlinked = millis();
 unsigned long timeLastUpdated = millis();
 
 bool militaryTime = false;
+int brightness = 7;
 
 // Initial set up routines
 void setup() {
@@ -37,7 +37,7 @@ void setup() {
   Serial.println();
 
   lc1.shutdown(0,false);
-  lc1.setIntensity(0, 10);     //TODO: Needs moved out to seperate function.  Plus controls to raise / lower.
+  lc1.setIntensity(0, brightness);     //TODO: Needs moved out to seperate function.  Plus controls to raise / lower.
 
   RTCSetup();    //Restore RTC time immediently to current time
   connectWifi(); //Then connect to wifi
