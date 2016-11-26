@@ -10,7 +10,6 @@
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
 //----------------------------------------------------------------------------------------------------------------
 
-#include <pgmspace.h>     // Used by RTC Library.  Specific for ESP8266
 #include <DS3232RTC.h>    // RTC Library
 #include <Wire.h>         // Incuded here so that Arduino library object file references work
 #include <LedControl.h>   // MAX7219 display control library
