@@ -157,10 +157,14 @@
 <wire x1="0" y1="0" x2="115" y2="0" width="0" layer="20"/>
 <wire x1="115" y1="85" x2="0" y2="85" width="0" layer="20"/>
 <wire x1="0" y1="85" x2="0" y2="0" width="0" layer="20"/>
-<wire x1="115" y1="0" x2="115" y2="85" width="0" layer="20"/>
 <rectangle x1="31" y1="1" x2="49" y2="2" layer="41"/>
 <rectangle x1="31" y1="1" x2="49" y2="2" layer="42"/>
 <rectangle x1="31" y1="5" x2="32" y2="6" layer="42"/>
+<text x="55" y="-8" size="1.778" layer="48">Joshua villwock</text>
+<wire x1="115" y1="0" x2="115" y2="18" width="0" layer="20"/>
+<wire x1="115" y1="18" x2="106" y2="27" width="0" layer="20" curve="-90"/>
+<wire x1="106" y1="27" x2="115" y2="36" width="0" layer="20" curve="-90"/>
+<wire x1="115" y1="36" x2="115" y2="85" width="0" layer="20"/>
 </plain>
 <libraries>
 <library name="NODEMCUv1">
@@ -845,9 +849,10 @@ design rules under a new name.</description>
 <element name="D2" library="SparkFun-LED" package="LED3MM" value="" x="50" y="58">
 <attribute name="PROD_ID" value="DIO-08794" x="50" y="58" size="1.778" layer="27" display="off"/>
 </element>
-<element name="SG1" library="SparkFun-Electromechanical" package="BUZZER-12MM" value="BUZZERPTH" x="70" y="21"/>
+<element name="BUZ1" library="SparkFun-Electromechanical" package="BUZZER-12MM" value="BUZZERPTH" x="70" y="21"/>
 <element name="J2" library="SparkFun-Connectors" package="1X02" value="" x="53" y="24"/>
 <element name="R4" library="SparkFun-Resistors" package="1206" value="100Ω" x="62" y="21.25" rot="R270"/>
+<element name="FRAME1" library="SparkFun-Aesthetics" package="CREATIVE_COMMONS" value="FRAME-LETTER" x="24" y="-8"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -903,7 +908,7 @@ design rules under a new name.</description>
 <wire x1="11.5" y1="5" x2="31.09" y2="5" width="0.6096" layer="1"/>
 <wire x1="10.77" y1="4.27" x2="11.5" y2="5" width="0.6096" layer="1"/>
 <contactref element="J2" pad="2"/>
-<contactref element="SG1" pad="+"/>
+<contactref element="BUZ1" pad="+"/>
 <wire x1="63.6" y1="37.5" x2="63.6" y2="36.6" width="0.6096" layer="16"/>
 <wire x1="63.6" y1="36.6" x2="62.43" y2="35.43" width="0.6096" layer="16"/>
 <wire x1="62.43" y1="35.43" x2="62.43" y2="33.84" width="0.6096" layer="16"/>
@@ -1476,7 +1481,7 @@ design rules under a new name.</description>
 </signal>
 <signal name="N$8">
 <contactref element="R4" pad="1"/>
-<contactref element="SG1" pad="-"/>
+<contactref element="BUZ1" pad="-"/>
 <wire x1="62" y1="22.65" x2="65.1" y2="22.65" width="0.6096" layer="1"/>
 <wire x1="65.1" y1="22.65" x2="66.75" y2="21" width="0.6096" layer="1"/>
 </signal>
