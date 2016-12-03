@@ -161,13 +161,11 @@
 <rectangle x1="31" y1="1" x2="49" y2="2" layer="42"/>
 <rectangle x1="31" y1="5" x2="32" y2="6" layer="42"/>
 <text x="55" y="-8" size="1.778" layer="48">Joshua villwock</text>
-<wire x1="115" y1="0" x2="115" y2="18" width="0" layer="20"/>
-<wire x1="115" y1="18" x2="106" y2="27" width="0" layer="20" curve="-90"/>
-<wire x1="106" y1="27" x2="115" y2="36" width="0" layer="20" curve="-90"/>
-<wire x1="115" y1="36" x2="115" y2="85" width="0" layer="20"/>
+<wire x1="115" y1="0" x2="115" y2="17" width="0" layer="20"/>
+<wire x1="115" y1="35" x2="115" y2="85" width="0" layer="20"/>
 <hole x="111" y="81" drill="3"/>
 <hole x="111" y="4" drill="3"/>
-<hole x="4" y="45" drill="3"/>
+<hole x="5" y="45" drill="3"/>
 <text x="23.5" y="47" size="1.778" layer="22" rot="MR270">GND
 3.3V
 SDA
@@ -176,6 +174,14 @@ SQL
 32K</text>
 <text x="89.5" y="5.75" size="1.778" layer="22" rot="MR0">+</text>
 <text x="57" y="6" size="1.778" layer="22" rot="MR0">+</text>
+<text x="90.5" y="38.25" size="1.778" layer="22" rot="MR0">+</text>
+<wire x1="115" y1="35" x2="113" y2="33" width="0" layer="20" curve="-90"/>
+<wire x1="113" y1="33" x2="109" y2="33" width="0" layer="20"/>
+<wire x1="109" y1="33" x2="107" y2="31" width="0" layer="20" curve="90"/>
+<wire x1="107" y1="31" x2="107" y2="21" width="0" layer="20"/>
+<wire x1="107" y1="21" x2="109" y2="19" width="0" layer="20" curve="90"/>
+<wire x1="109" y1="19" x2="113" y2="19" width="0" layer="20"/>
+<wire x1="113" y1="19" x2="115" y2="17" width="0" layer="20" curve="-90"/>
 </plain>
 <libraries>
 <library name="NODEMCUv1">
@@ -1453,8 +1459,8 @@ design rules under a new name.</description>
 <polygon width="0.6096" layer="1" pour="cutout">
 <vertex x="54" y="41"/>
 <vertex x="54" y="34"/>
-<vertex x="86" y="32"/>
-<vertex x="86" y="41"/>
+<vertex x="88" y="32"/>
+<vertex x="88" y="41"/>
 </polygon>
 </signal>
 <signal name="N$5">
