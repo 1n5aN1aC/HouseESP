@@ -4656,7 +4656,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </class>
 </classes>
 <parts>
-<part name="U$1" library="NODEMCUv1" deviceset="ESP12E_DEVKIT" device="" value="NODEMCU V3"/>
+<part name="NODEMCU.V3" library="NODEMCUv1" deviceset="ESP12E_DEVKIT" device="" value=""/>
 <part name="IC1" library="max7219" deviceset="MAX7219CNG" device=""/>
 <part name="R1" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206"/>
 <part name="R2" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206"/>
@@ -4708,7 +4708,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <text x="193.04" y="-43.18" size="1.778" layer="97">Joshua Villwock</text>
 </plain>
 <instances>
-<instance part="U$1" gate="G$1" x="218.44" y="104.14"/>
+<instance part="NODEMCU.V3" gate="G$1" x="218.44" y="104.14"/>
 <instance part="IC1" gate="G$1" x="76.2" y="83.82"/>
 <instance part="R1" gate="G$1" x="50.8" y="81.28"/>
 <instance part="R2" gate="G$1" x="50.8" y="76.2"/>
@@ -4789,21 +4789,21 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <nets>
 <net name="GND" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="GND@5"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="GND@5"/>
 <wire x1="200.66" y1="119.38" x2="193.04" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="193.04" y1="119.38" x2="193.04" y2="99.06" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND@1"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="GND@1"/>
 <wire x1="193.04" y1="99.06" x2="193.04" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="193.04" y1="88.9" x2="200.66" y2="88.9" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND@0"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="GND@0"/>
 <wire x1="200.66" y1="99.06" x2="193.04" y2="99.06" width="0.1524" layer="91"/>
 <junction x="193.04" y="99.06"/>
 <wire x1="193.04" y1="88.9" x2="193.04" y2="73.66" width="0.1524" layer="91"/>
 <junction x="193.04" y="88.9"/>
-<pinref part="U$1" gate="G$1" pin="GND@3"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="GND@3"/>
 <wire x1="236.22" y1="88.9" x2="246.38" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="246.38" y1="88.9" x2="246.38" y2="106.68" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND@2"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="GND@2"/>
 <wire x1="246.38" y1="106.68" x2="236.22" y2="106.68" width="0.1524" layer="91"/>
 <wire x1="246.38" y1="73.66" x2="246.38" y2="88.9" width="0.1524" layer="91"/>
 <junction x="246.38" y="88.9"/>
@@ -4915,7 +4915,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <label x="86.36" y="-33.02" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="D1"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D1"/>
 <wire x1="236.22" y1="119.38" x2="243.84" y2="119.38" width="0.1524" layer="91"/>
 <label x="238.76" y="119.38" size="1.778" layer="95"/>
 </segment>
@@ -4927,7 +4927,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <label x="86.36" y="-35.56" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="D2"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D2"/>
 <wire x1="236.22" y1="116.84" x2="243.84" y2="116.84" width="0.1524" layer="91"/>
 <label x="238.76" y="116.84" size="1.778" layer="95"/>
 </segment>
@@ -5285,7 +5285,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </net>
 <net name="DATA" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="D5"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D5"/>
 <wire x1="236.22" y1="104.14" x2="243.84" y2="104.14" width="0.1524" layer="91"/>
 <label x="238.76" y="104.14" size="1.778" layer="95"/>
 </segment>
@@ -5302,7 +5302,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <label x="53.34" y="101.6" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="D7"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D7"/>
 <wire x1="236.22" y1="99.06" x2="243.84" y2="99.06" width="0.1524" layer="91"/>
 <label x="238.76" y="99.06" size="1.778" layer="95"/>
 </segment>
@@ -5314,7 +5314,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <label x="53.34" y="96.52" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="D6"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D6"/>
 <wire x1="236.22" y1="101.6" x2="243.84" y2="101.6" width="0.1524" layer="91"/>
 <label x="238.76" y="101.6" size="1.778" layer="95"/>
 </segment>
@@ -5345,7 +5345,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <segment>
 <pinref part="SUPPLY3" gate="G$1" pin="VCC"/>
 <wire x1="172.72" y1="99.06" x2="172.72" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="VIN"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="VIN"/>
 <pinref part="C7" gate="G$1" pin="+"/>
 <pinref part="C4" gate="G$1" pin="1"/>
 <pinref part="C2" gate="G$1" pin="1"/>
@@ -5393,25 +5393,25 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <junction x="109.22" y="-33.02"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="3V3@0"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="3V3@0"/>
 <pinref part="SUPPLY2" gate="G$1" pin="3.3V"/>
 <wire x1="200.66" y1="96.52" x2="185.42" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="185.42" y1="96.52" x2="185.42" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="3V3@1"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="3V3@1"/>
 <wire x1="236.22" y1="109.22" x2="243.84" y2="109.22" width="0.1524" layer="91"/>
 <label x="238.76" y="109.22" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="3V3@2"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="3V3@2"/>
 <wire x1="236.22" y1="86.36" x2="243.84" y2="86.36" width="0.1524" layer="91"/>
 <label x="238.76" y="86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D4" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="D4"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D4"/>
 <wire x1="236.22" y1="111.76" x2="243.84" y2="111.76" width="0.1524" layer="91"/>
 <label x="238.76" y="111.76" size="1.778" layer="95"/>
 </segment>
@@ -5423,7 +5423,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </net>
 <net name="D8" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="D8"/>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D8"/>
 <wire x1="236.22" y1="96.52" x2="243.84" y2="96.52" width="0.1524" layer="91"/>
 <label x="238.76" y="96.52" size="1.778" layer="95"/>
 </segment>
