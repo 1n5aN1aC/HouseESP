@@ -182,8 +182,8 @@ SQL
 <wire x1="107" y1="21" x2="109" y2="19" width="0" layer="20" curve="90"/>
 <wire x1="109" y1="19" x2="113" y2="19" width="0" layer="20"/>
 <wire x1="113" y1="19" x2="115" y2="17" width="0" layer="20" curve="-90"/>
-<text x="35" y="43" size="1.778" layer="22" rot="MR270">TX
-RX</text>
+<text x="30.25" y="43" size="1.778" layer="21" rot="R270">RX
+TX</text>
 </plain>
 <libraries>
 <library name="NODEMCUv1">
