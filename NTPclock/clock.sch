@@ -4669,7 +4669,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <part name="C7" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1"/>
 <part name="C8" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="10μF"/>
 <part name="POWER" library="SparkFun-Connectors" deviceset="M02" device="JST-PTH-VERT"/>
-<part name="J1" library="SparkFun-Connectors" deviceset="M06" device="POLAR"/>
+<part name="J0" library="SparkFun-Connectors" deviceset="M06" device="POLAR"/>
 <part name="DIG_3" library="custom_display" deviceset="7-SEGMENT-DISPLAY-REAL-1&quot;" device=""/>
 <part name="DIG_2" library="custom_display" deviceset="7-SEGMENT-DISPLAY-REAL-1&quot;" device=""/>
 <part name="DIG_1" library="custom_display" deviceset="7-SEGMENT-DISPLAY-REAL-1&quot;" device=""/>
@@ -4689,10 +4689,11 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <part name="D1" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="D2" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="BUZ1" library="SparkFun-Electromechanical" deviceset="BUZZER" device="PTH"/>
-<part name="J2" library="SparkFun-Connectors" deviceset="M02" device="PTH"/>
+<part name="J1" library="SparkFun-Connectors" deviceset="M02" device="PTH"/>
 <part name="R4" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206" value="100Ω"/>
 <part name="GND5" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="FRAME1" library="SparkFun-Aesthetics" deviceset="FRAME-LETTER" device=""/>
+<part name="SERIAL" library="SparkFun-Connectors" deviceset="M02" device="PTH"/>
 </parts>
 <sheets>
 <sheet>
@@ -4721,7 +4722,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <instance part="C7" gate="G$1" x="180.34" y="81.28"/>
 <instance part="C8" gate="G$1" x="50.8" y="63.5"/>
 <instance part="POWER" gate="G$1" x="33.02" y="-35.56"/>
-<instance part="J1" gate="G$1" x="81.28" y="-35.56"/>
+<instance part="J0" gate="G$1" x="81.28" y="-35.56"/>
 <instance part="DIG_3" gate="G$1" x="231.14" y="17.78"/>
 <instance part="DIG_2" gate="G$1" x="193.04" y="17.78"/>
 <instance part="DIG_1" gate="G$1" x="132.08" y="17.78"/>
@@ -4749,12 +4750,13 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <instance part="SUPPLY2" gate="G$1" x="185.42" y="99.06"/>
 <instance part="D1" gate="G$1" x="154.94" y="22.86" rot="R90"/>
 <instance part="D2" gate="G$1" x="154.94" y="12.7" rot="R90"/>
-<instance part="BUZ1" gate="G$1" x="134.62" y="-43.18" rot="R90"/>
-<instance part="J2" gate="G$1" x="144.78" y="-30.48"/>
-<instance part="R4" gate="G$1" x="149.86" y="-40.64"/>
-<instance part="GND5" gate="1" x="142.24" y="-45.72"/>
+<instance part="BUZ1" gate="G$1" x="129.54" y="-43.18" rot="R90"/>
+<instance part="J1" gate="G$1" x="134.62" y="-25.4"/>
+<instance part="R4" gate="G$1" x="144.78" y="-40.64"/>
+<instance part="GND5" gate="1" x="137.16" y="-45.72"/>
 <instance part="FRAME1" gate="G$1" x="25.4" y="-50.8"/>
 <instance part="FRAME1" gate="V" x="172.72" y="-50.8"/>
+<instance part="SERIAL" gate="G$1" x="154.94" y="-25.4"/>
 </instances>
 <busses>
 <bus name="DIGIT[0..7]">
@@ -4840,7 +4842,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <junction x="58.42" y="-40.64"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="1"/>
+<pinref part="J0" gate="G$1" pin="1"/>
 <label x="86.36" y="-40.64" size="1.778" layer="95"/>
 <pinref part="C5" gate="G$1" pin="2"/>
 <pinref part="GND1" gate="1" pin="GND"/>
@@ -4866,13 +4868,13 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <junction x="50.8" y="55.88"/>
 </segment>
 <segment>
-<pinref part="J2" gate="G$1" pin="2"/>
-<wire x1="152.4" y1="-27.94" x2="160.02" y2="-27.94" width="0.1524" layer="91"/>
-<label x="154.94" y="-27.94" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="2"/>
+<wire x1="142.24" y1="-22.86" x2="149.86" y2="-22.86" width="0.1524" layer="91"/>
+<label x="144.78" y="-22.86" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="BUZ1" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="-43.18" x2="142.24" y2="-43.18" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="-43.18" x2="137.16" y2="-43.18" width="0.1524" layer="91"/>
 <pinref part="GND5" gate="1" pin="GND"/>
 </segment>
 </net>
@@ -4893,14 +4895,14 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </net>
 <net name="32K" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="6"/>
+<pinref part="J0" gate="G$1" pin="6"/>
 <wire x1="86.36" y1="-27.94" x2="91.44" y2="-27.94" width="0.1524" layer="91"/>
 <label x="86.36" y="-27.94" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SQL" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="5"/>
+<pinref part="J0" gate="G$1" pin="5"/>
 <label x="86.36" y="-30.48" size="1.778" layer="95"/>
 <pinref part="R3" gate="G$1" pin="2"/>
 <wire x1="86.36" y1="-30.48" x2="96.52" y2="-30.48" width="0.1524" layer="91"/>
@@ -4910,7 +4912,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </net>
 <net name="SCL" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="4"/>
+<pinref part="J0" gate="G$1" pin="4"/>
 <wire x1="86.36" y1="-33.02" x2="91.44" y2="-33.02" width="0.1524" layer="91"/>
 <label x="86.36" y="-33.02" size="1.778" layer="95"/>
 </segment>
@@ -4922,7 +4924,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </net>
 <net name="SDA" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="3"/>
+<pinref part="J0" gate="G$1" pin="3"/>
 <wire x1="86.36" y1="-35.56" x2="91.44" y2="-35.56" width="0.1524" layer="91"/>
 <label x="86.36" y="-35.56" size="1.778" layer="95"/>
 </segment>
@@ -5379,7 +5381,7 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </net>
 <net name="3.3V" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="2"/>
+<pinref part="J0" gate="G$1" pin="2"/>
 <label x="86.36" y="-38.1" size="1.778" layer="95"/>
 <pinref part="C5" gate="G$1" pin="1"/>
 <wire x1="104.14" y1="-33.02" x2="109.22" y2="-33.02" width="0.1524" layer="91"/>
@@ -5417,8 +5419,8 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </segment>
 <segment>
 <pinref part="R4" gate="G$1" pin="2"/>
-<label x="157.48" y="-40.64" size="1.778" layer="95"/>
-<wire x1="154.94" y1="-40.64" x2="160.02" y2="-40.64" width="0.1524" layer="91"/>
+<label x="152.4" y="-40.64" size="1.778" layer="95"/>
+<wire x1="149.86" y1="-40.64" x2="154.94" y2="-40.64" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="D8" class="0">
@@ -5428,16 +5430,40 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <label x="238.76" y="96.52" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J2" gate="G$1" pin="1"/>
-<wire x1="152.4" y1="-30.48" x2="160.02" y2="-30.48" width="0.1524" layer="91"/>
-<label x="154.94" y="-30.48" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="1"/>
+<wire x1="142.24" y1="-25.4" x2="149.86" y2="-25.4" width="0.1524" layer="91"/>
+<label x="144.78" y="-25.4" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$8" class="0">
 <segment>
 <pinref part="R4" gate="G$1" pin="1"/>
 <pinref part="BUZ1" gate="G$1" pin="2"/>
-<wire x1="144.78" y1="-40.64" x2="137.16" y2="-40.64" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="-40.64" x2="132.08" y2="-40.64" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RX" class="0">
+<segment>
+<pinref part="NODEMCU.V3" gate="G$1" pin="RX"/>
+<wire x1="236.22" y1="93.98" x2="243.84" y2="93.98" width="0.1524" layer="91"/>
+<label x="238.76" y="93.98" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="SERIAL" gate="G$1" pin="2"/>
+<wire x1="162.56" y1="-22.86" x2="170.18" y2="-22.86" width="0.1524" layer="91"/>
+<label x="165.1" y="-22.86" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="TX" class="0">
+<segment>
+<pinref part="NODEMCU.V3" gate="G$1" pin="TX"/>
+<wire x1="236.22" y1="91.44" x2="243.84" y2="91.44" width="0.1524" layer="91"/>
+<label x="238.76" y="91.44" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="SERIAL" gate="G$1" pin="1"/>
+<wire x1="162.56" y1="-25.4" x2="170.18" y2="-25.4" width="0.1524" layer="91"/>
+<label x="165.1" y="-25.4" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
