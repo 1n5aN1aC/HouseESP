@@ -5015,12 +5015,12 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <wire x1="91.44" y1="81.28" x2="88.9" y2="81.28" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="B" pin="A"/>
-<wire x1="248.92" y1="27.94" x2="256.54" y2="27.94" width="0.1524" layer="91"/>
+<pinref part="BAR_GRAPH" gate="I" pin="A"/>
+<wire x1="248.92" y1="7.62" x2="256.54" y2="7.62" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="G" pin="A"/>
-<wire x1="248.92" y1="12.7" x2="256.54" y2="12.7" width="0.1524" layer="91"/>
+<pinref part="BAR_GRAPH" gate="D" pin="A"/>
+<wire x1="248.92" y1="22.86" x2="256.54" y2="22.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="B" class="0">
@@ -5045,12 +5045,12 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <wire x1="91.44" y1="78.74" x2="88.9" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="C" pin="A"/>
-<wire x1="248.92" y1="25.4" x2="256.54" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="BAR_GRAPH" gate="H" pin="A"/>
 <wire x1="248.92" y1="10.16" x2="256.54" y2="10.16" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="BAR_GRAPH" gate="C" pin="A"/>
+<wire x1="248.92" y1="25.4" x2="256.54" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="C" class="0">
@@ -5075,12 +5075,12 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <wire x1="91.44" y1="76.2" x2="88.9" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="D" pin="A"/>
-<wire x1="248.92" y1="22.86" x2="256.54" y2="22.86" width="0.1524" layer="91"/>
+<pinref part="BAR_GRAPH" gate="G" pin="A"/>
+<wire x1="248.92" y1="12.7" x2="256.54" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="I" pin="A"/>
-<wire x1="248.92" y1="7.62" x2="256.54" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="BAR_GRAPH" gate="B" pin="A"/>
+<wire x1="248.92" y1="27.94" x2="256.54" y2="27.94" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="D" class="0">
@@ -5105,17 +5105,17 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <wire x1="91.44" y1="73.66" x2="88.9" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="E" pin="A"/>
-<wire x1="248.92" y1="20.32" x2="256.54" y2="20.32" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="BAR_GRAPH" gate="J" pin="A"/>
-<wire x1="248.92" y1="5.08" x2="256.54" y2="5.08" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="D2" gate="G$1" pin="A"/>
 <wire x1="147.32" y1="12.7" x2="152.4" y2="12.7" width="0.1524" layer="91"/>
 <wire x1="147.32" y1="35.56" x2="147.32" y2="12.7" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="BAR_GRAPH" gate="F" pin="A"/>
+<wire x1="248.92" y1="15.24" x2="256.54" y2="15.24" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="BAR_GRAPH" gate="A" pin="A"/>
+<wire x1="248.92" y1="30.48" x2="256.54" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="E" class="0">
@@ -5211,12 +5211,12 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <wire x1="91.44" y1="63.5" x2="88.9" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="A" pin="A"/>
-<wire x1="248.92" y1="30.48" x2="256.54" y2="30.48" width="0.1524" layer="91"/>
+<pinref part="BAR_GRAPH" gate="J" pin="A"/>
+<wire x1="248.92" y1="5.08" x2="256.54" y2="5.08" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="BAR_GRAPH" gate="F" pin="A"/>
-<wire x1="248.92" y1="15.24" x2="256.54" y2="15.24" width="0.1524" layer="91"/>
+<pinref part="BAR_GRAPH" gate="E" pin="A"/>
+<wire x1="248.92" y1="20.32" x2="256.54" y2="20.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="DIGIT7" class="0">
