@@ -4208,281 +4208,6 @@ Standard 8.5x11 US Letter frame</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="SparkFun-Electromechanical">
-<description>&lt;h3&gt;SparkFun Electronics' preferred foot prints&lt;/h3&gt;
-In this library you'll find anything that moves- switches, relays, buttons, potentiometers. Also, anything that goes on a board but isn't electrical in nature- screws, standoffs, etc.&lt;br&gt;&lt;br&gt;
-We've spent an enormous amount of time creating and checking these footprints and parts, but it is the end user's responsibility to ensure correctness and suitablity for a given componet or application. If you enjoy using this library, please buy one of our products at www.sparkfun.com.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
-&lt;br&gt;&lt;br&gt;
-You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
-<packages>
-<package name="BUZZER-12MM">
-<description>&lt;b&gt;BUZZER&lt;/b&gt;</description>
-<circle x="0" y="0" radius="5.9" width="0.2032" layer="21"/>
-<circle x="0" y="0" radius="1.27" width="0.2032" layer="51"/>
-<pad name="-" x="-3.25" y="0" drill="0.9" diameter="1.778"/>
-<pad name="+" x="3.25" y="0" drill="0.9" diameter="1.778"/>
-<text x="-2.54" y="2.54" size="0.6096" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.175" y="-3.048" size="0.6096" layer="27" ratio="10">&gt;VALUE</text>
-</package>
-<package name="BUZZER-CMT1603">
-<wire x1="-8" y1="8" x2="-8" y2="-8" width="0.127" layer="21"/>
-<wire x1="-8" y1="-8" x2="8" y2="-8" width="0.127" layer="21"/>
-<wire x1="8" y1="-8" x2="8" y2="8" width="0.127" layer="21"/>
-<wire x1="8" y1="8" x2="-8" y2="8" width="0.127" layer="21"/>
-<smd name="P$1" x="-9.3" y="0" dx="2.5" dy="3" layer="1"/>
-<smd name="P$2" x="9.3" y="0" dx="2.5" dy="3" layer="1"/>
-</package>
-<package name="BUZZER-CCV">
-<wire x1="2.6" y1="-6" x2="-2.6" y2="-6" width="0.127" layer="51"/>
-<wire x1="2.6" y1="-6" x2="2.6" y2="-3.7" width="0.127" layer="51"/>
-<wire x1="-2.6" y1="-6" x2="-2.6" y2="-3.7" width="0.127" layer="51"/>
-<wire x1="-4.2" y1="1.6" x2="1.27" y2="4.318" width="0.2032" layer="21" curve="-86.141052"/>
-<wire x1="3.048" y1="3.302" x2="4.191" y2="1.651" width="0.2032" layer="21" curve="-25.69541"/>
-<wire x1="4.2" y1="-1.6" x2="2.6" y2="-3.7" width="0.2032" layer="21" curve="-31.605028"/>
-<wire x1="-3.302" y1="-3.048" x2="-2.6" y2="-3.6" width="0.2032" layer="21" curve="12.917633"/>
-<wire x1="-2.6" y1="-6" x2="2.6" y2="-6" width="0.2032" layer="21"/>
-<wire x1="2.6" y1="-6" x2="2.6" y2="-3.7" width="0.2032" layer="21"/>
-<wire x1="-2.6" y1="-6" x2="-2.6" y2="-3.6" width="0.2032" layer="21"/>
-<circle x="0" y="0" radius="4.5" width="0.127" layer="51"/>
-<smd name="-" x="-4" y="0" dx="3.2" dy="2.5" layer="1"/>
-<smd name="+" x="4" y="0" dx="3.2" dy="2.5" layer="1"/>
-<hole x="-3.9" y="-2.25" drill="0.8"/>
-<hole x="2.25" y="3.9" drill="0.8"/>
-</package>
-<package name="BUZZER-CMT1102">
-<wire x1="-5.5" y1="4.5" x2="5.5" y2="4.5" width="0.127" layer="51"/>
-<wire x1="5.5" y1="4.5" x2="5.5" y2="-4.5" width="0.127" layer="51"/>
-<wire x1="5.5" y1="-4.5" x2="-5.5" y2="-4.5" width="0.127" layer="51"/>
-<wire x1="-5.5" y1="-4.5" x2="-5.5" y2="4.5" width="0.127" layer="51"/>
-<wire x1="-5.5" y1="4.5" x2="-5.5" y2="2" width="0.2032" layer="21"/>
-<wire x1="-5.5" y1="4.5" x2="5.5" y2="4.5" width="0.2032" layer="21"/>
-<wire x1="5.5" y1="4.5" x2="5.5" y2="2" width="0.2032" layer="21"/>
-<wire x1="5.5" y1="-2" x2="5.5" y2="-4.5" width="0.2032" layer="21"/>
-<wire x1="5.5" y1="-4.5" x2="-5.5" y2="-4.5" width="0.2032" layer="21"/>
-<wire x1="-5.5" y1="-4.5" x2="-5.5" y2="-2" width="0.2032" layer="21"/>
-<smd name="1" x="-6.5" y="0" dx="3" dy="3" layer="1"/>
-<smd name="2" x="6.5" y="0" dx="3" dy="3" layer="1"/>
-</package>
-<package name="BUZZER-12MM-NS">
-<circle x="0" y="0" radius="5.9" width="0.2032" layer="51"/>
-<circle x="0" y="0" radius="1.27" width="0.2032" layer="51"/>
-<pad name="-" x="-3.25" y="0" drill="0.9"/>
-<pad name="+" x="3.25" y="0" drill="0.9"/>
-<text x="-2.54" y="2.54" size="0.6096" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.175" y="-3.048" size="0.6096" layer="27" ratio="10">&gt;VALUE</text>
-<text x="2.667" y="1.143" size="1.778" layer="51">+</text>
-</package>
-<package name="BUZZER-12MM-NS-KIT">
-<description>&lt;h3&gt;BUZZER-12MM-NS-KIT&lt;/h3&gt;
-Through-hole buzzer&lt;br&gt;
-&lt;br&gt;
-&lt;b&gt;Warning:&lt;/b&gt; This is the KIT version of this package. This package has a smaller diameter top stop mask, which doesn't cover the diameter of the pad. This means only the bottom side of the pads' copper will be exposed. You'll only be able to solder to the bottom side.</description>
-<circle x="0" y="0" radius="5.9" width="0.2032" layer="51"/>
-<circle x="0" y="0" radius="1.27" width="0.2032" layer="51"/>
-<pad name="-" x="-3.25" y="0" drill="0.9" diameter="1.8796" stop="no"/>
-<pad name="+" x="3.25" y="0" drill="0.9" diameter="1.8796" stop="no"/>
-<text x="-2.54" y="2.54" size="0.6096" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.175" y="-3.048" size="0.6096" layer="27" ratio="10">&gt;VALUE</text>
-<text x="2.667" y="1.143" size="1.778" layer="51">+</text>
-<polygon width="0.127" layer="30">
-<vertex x="3.2537" y="-0.9525" curve="-90"/>
-<vertex x="2.2988" y="-0.0228" curve="-90.011749"/>
-<vertex x="3.2512" y="0.9526" curve="-90"/>
-<vertex x="4.2012" y="-0.0254" curve="-90.024193"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="3.2512" y="-0.4445" curve="-90.012891"/>
-<vertex x="2.8067" y="-0.0203" curve="-90"/>
-<vertex x="3.2512" y="0.447" curve="-90"/>
-<vertex x="3.6931" y="-0.0101" curve="-90.012967"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="-3.2487" y="-0.9525" curve="-90"/>
-<vertex x="-4.2036" y="-0.0228" curve="-90.011749"/>
-<vertex x="-3.2512" y="0.9526" curve="-90"/>
-<vertex x="-2.3012" y="-0.0254" curve="-90.024193"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="-3.2512" y="-0.4445" curve="-90.012891"/>
-<vertex x="-3.6957" y="-0.0203" curve="-90"/>
-<vertex x="-3.2512" y="0.447" curve="-90"/>
-<vertex x="-2.8093" y="-0.0101" curve="-90.012967"/>
-</polygon>
-</package>
-<package name="BUZZER-CCV-KIT">
-<description>&lt;h3&gt;BUZZER-CCV-KIT&lt;/h3&gt;
-SMD Buzzer&lt;br&gt;
-&lt;br&gt;
-&lt;b&gt;Warning:&lt;/b&gt; This is the KIT version of this package. This package has longer pads to aid in hand soldering.</description>
-<wire x1="2.6" y1="-6" x2="-2.6" y2="-6" width="0.127" layer="51"/>
-<wire x1="2.6" y1="-6" x2="2.6" y2="-3.7" width="0.127" layer="51"/>
-<wire x1="-2.6" y1="-6" x2="-2.6" y2="-3.7" width="0.127" layer="51"/>
-<wire x1="-4.2" y1="1.6" x2="1.27" y2="4.318" width="0.2032" layer="21" curve="-86.141052"/>
-<wire x1="3.048" y1="3.302" x2="4.191" y2="1.651" width="0.2032" layer="21" curve="-25.69541"/>
-<wire x1="4.2" y1="-1.6" x2="2.6" y2="-3.7" width="0.2032" layer="21" curve="-31.605028"/>
-<wire x1="-3.302" y1="-3.048" x2="-2.6" y2="-3.6" width="0.2032" layer="21" curve="12.917633"/>
-<wire x1="-2.6" y1="-6" x2="2.6" y2="-6" width="0.2032" layer="21"/>
-<wire x1="2.6" y1="-6" x2="2.6" y2="-3.7" width="0.2032" layer="21"/>
-<wire x1="-2.6" y1="-6" x2="-2.6" y2="-3.6" width="0.2032" layer="21"/>
-<circle x="0" y="0" radius="4.5" width="0.127" layer="51"/>
-<smd name="-" x="-4.15" y="0" dx="3.5" dy="2" layer="1"/>
-<smd name="+" x="4.15" y="0" dx="3.5" dy="2" layer="1"/>
-<rectangle x1="-5.2" y1="-0.75" x2="-2.9" y2="0.75" layer="51"/>
-<rectangle x1="2.9" y1="-0.75" x2="5.2" y2="0.75" layer="51" rot="R180"/>
-<hole x="-3.9" y="-2.25" drill="0.8"/>
-<hole x="2.25" y="3.9" drill="0.8"/>
-</package>
-<package name="BUZZER-12MM-KIT">
-<circle x="0" y="0" radius="5.9" width="0.2032" layer="21"/>
-<circle x="0" y="0" radius="1.27" width="0.2032" layer="51"/>
-<pad name="-" x="-3.25" y="0" drill="0.9" diameter="1.8796" stop="no"/>
-<pad name="+" x="3.25" y="0" drill="0.9" diameter="1.8796" stop="no"/>
-<text x="-2.54" y="2.54" size="0.6096" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.175" y="-3.048" size="0.6096" layer="27" ratio="10">&gt;VALUE</text>
-<text x="2.667" y="1.143" size="1.778" layer="51">+</text>
-<polygon width="0.127" layer="30">
-<vertex x="3.2537" y="-0.9525" curve="-90"/>
-<vertex x="2.2988" y="-0.0228" curve="-90.011749"/>
-<vertex x="3.2512" y="0.9526" curve="-90"/>
-<vertex x="4.2012" y="-0.0254" curve="-90.024193"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="3.2512" y="-0.4445" curve="-90.012891"/>
-<vertex x="2.8067" y="-0.0203" curve="-90"/>
-<vertex x="3.2512" y="0.447" curve="-90"/>
-<vertex x="3.6931" y="-0.0101" curve="-90.012967"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="-3.2487" y="-0.9525" curve="-90"/>
-<vertex x="-4.2036" y="-0.0228" curve="-90.011749"/>
-<vertex x="-3.2512" y="0.9526" curve="-90"/>
-<vertex x="-2.3012" y="-0.0254" curve="-90.024193"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="-3.2512" y="-0.4445" curve="-90.012891"/>
-<vertex x="-3.6957" y="-0.0203" curve="-90"/>
-<vertex x="-3.2512" y="0.447" curve="-90"/>
-<vertex x="-2.8093" y="-0.0101" curve="-90.012967"/>
-</polygon>
-</package>
-</packages>
-<symbols>
-<symbol name="BUZZER">
-<wire x1="-1.27" y1="1.905" x2="0" y2="1.905" width="0.1524" layer="94"/>
-<wire x1="0" y1="1.905" x2="0" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="0" y1="1.905" x2="0" y2="1.27" width="0.1524" layer="94"/>
-<wire x1="0.635" y1="3.175" x2="0.635" y2="0.635" width="0.1524" layer="94"/>
-<wire x1="0.635" y1="0.635" x2="1.905" y2="0.635" width="0.1524" layer="94"/>
-<wire x1="1.905" y1="0.635" x2="1.905" y2="3.175" width="0.1524" layer="94"/>
-<wire x1="1.905" y1="3.175" x2="0.635" y2="3.175" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="2.54" x2="2.54" y2="1.905" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="1.905" x2="3.81" y2="1.905" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="1.905" x2="2.54" y2="1.27" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="0" x2="5.08" y2="3.81" width="0.254" layer="94"/>
-<wire x1="5.08" y1="3.81" x2="5.715" y2="3.81" width="0.254" layer="94"/>
-<wire x1="5.715" y1="3.81" x2="5.715" y2="4.445" width="0.254" layer="94"/>
-<wire x1="5.715" y1="4.445" x2="-3.175" y2="4.445" width="0.254" layer="94"/>
-<wire x1="-3.175" y1="4.445" x2="-3.175" y2="3.81" width="0.254" layer="94"/>
-<wire x1="-3.175" y1="3.81" x2="-2.54" y2="3.81" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="3.81" x2="-2.54" y2="0" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="3.81" x2="5.08" y2="3.81" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
-<text x="-2.54" y="5.08" size="1.778" layer="95">&gt;NAME</text>
-<text x="6.35" y="0" size="1.778" layer="96">&gt;VALUE</text>
-<pin name="2" x="2.54" y="-2.54" visible="off" length="short" direction="pas" rot="R90"/>
-<pin name="1" x="0" y="-2.54" visible="off" length="short" direction="pas" rot="R90"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="BUZZER" prefix="SG">
-<description>&lt;b&gt;Buzzer 12mm&lt;/b&gt;
-Spark Fun Electronics SKU : Comp-Buzzer</description>
-<gates>
-<gate name="G$1" symbol="BUZZER" x="0" y="0"/>
-</gates>
-<devices>
-<device name="PTH" package="BUZZER-12MM">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="SMD" package="BUZZER-CMT1603">
-<connects>
-<connect gate="G$1" pin="1" pad="P$1"/>
-<connect gate="G$1" pin="2" pad="P$2"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="SMD2" package="BUZZER-CCV">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="SMD3" package="BUZZER-CMT1102">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="NS" package="BUZZER-12MM-NS">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="PTH-NS-KIT" package="BUZZER-12MM-NS-KIT">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="COMP-08253" constant="no"/>
-</technology>
-</technologies>
-</device>
-<device name="SMD2-KIT" package="BUZZER-CCV-KIT">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="PTH-KIT" package="BUZZER-12MM-KIT">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="COMP-08253" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="custom_display">
 <packages>
 <package name="7-SEGMENT-REAL-1&quot;">
@@ -4688,12 +4413,10 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <part name="SUPPLY2" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
 <part name="D1" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="D2" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="BUZ1" library="SparkFun-Electromechanical" deviceset="BUZZER" device="PTH"/>
-<part name="J1" library="SparkFun-Connectors" deviceset="M02" device="PTH"/>
-<part name="R4" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206" value="100Ω"/>
-<part name="GND5" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="FRAME1" library="SparkFun-Aesthetics" deviceset="FRAME-LETTER" device=""/>
 <part name="SERIAL" library="SparkFun-Connectors" deviceset="M02" device="PTH"/>
+<part name="BUTTONS" library="SparkFun-Connectors" deviceset="M06" device="POLAR"/>
+<part name="GND5" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4703,23 +4426,25 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <wire x1="68.58" y1="-15.24" x2="25.4" y2="-15.24" width="0.1524" layer="97"/>
 <wire x1="119.38" y1="-15.24" x2="119.38" y2="-50.8" width="0.1524" layer="97"/>
 <wire x1="68.58" y1="-15.24" x2="68.58" y2="-50.8" width="0.1524" layer="97"/>
-<wire x1="274.32" y1="53.34" x2="129.54" y2="53.34" width="0.1524" layer="97"/>
+<wire x1="274.32" y1="53.34" x2="215.9" y2="53.34" width="0.1524" layer="97"/>
+<wire x1="215.9" y1="53.34" x2="129.54" y2="53.34" width="0.1524" layer="97"/>
 <wire x1="129.54" y1="53.34" x2="129.54" y2="134.62" width="0.1524" layer="97"/>
 <text x="264.16" y="-43.18" size="1.778" layer="97">1.1</text>
 <text x="193.04" y="-43.18" size="1.778" layer="97">Joshua Villwock</text>
+<wire x1="215.9" y1="134.62" x2="215.9" y2="53.34" width="0.1524" layer="97"/>
 </plain>
 <instances>
-<instance part="NODEMCU.V3" gate="G$1" x="218.44" y="104.14"/>
+<instance part="NODEMCU.V3" gate="G$1" x="182.88" y="96.52"/>
 <instance part="IC1" gate="G$1" x="76.2" y="83.82"/>
 <instance part="R1" gate="G$1" x="50.8" y="81.28"/>
 <instance part="R2" gate="G$1" x="50.8" y="76.2"/>
 <instance part="C1" gate="G$1" x="58.42" y="-35.56"/>
-<instance part="C2" gate="G$1" x="187.96" y="78.74"/>
+<instance part="C2" gate="G$1" x="152.4" y="71.12"/>
 <instance part="C3" gate="G$1" x="38.1" y="60.96"/>
-<instance part="C4" gate="G$1" x="172.72" y="78.74"/>
+<instance part="C4" gate="G$1" x="137.16" y="71.12"/>
 <instance part="C5" gate="G$1" x="109.22" y="-38.1"/>
 <instance part="C6" gate="G$1" x="48.26" y="-33.02"/>
-<instance part="C7" gate="G$1" x="180.34" y="81.28"/>
+<instance part="C7" gate="G$1" x="144.78" y="73.66"/>
 <instance part="C8" gate="G$1" x="50.8" y="63.5"/>
 <instance part="POWER" gate="G$1" x="33.02" y="-35.56"/>
 <instance part="J0" gate="G$1" x="81.28" y="-35.56"/>
@@ -4741,22 +4466,20 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <instance part="R3" gate="G$1" x="99.06" y="-33.02" rot="R90"/>
 <instance part="GND2" gate="1" x="58.42" y="-45.72"/>
 <instance part="GND3" gate="1" x="38.1" y="50.8"/>
-<instance part="GND4" gate="1" x="172.72" y="68.58"/>
+<instance part="GND4" gate="1" x="137.16" y="60.96"/>
 <instance part="SUPPLY1" gate="G$1" x="58.42" y="-25.4"/>
-<instance part="SUPPLY3" gate="G$1" x="172.72" y="99.06"/>
+<instance part="SUPPLY3" gate="G$1" x="137.16" y="91.44"/>
 <instance part="SUPPLY4" gate="G$1" x="38.1" y="71.12"/>
 <instance part="SUPPLY5" gate="G$1" x="109.22" y="-27.94"/>
 <instance part="GND1" gate="1" x="109.22" y="-45.72"/>
-<instance part="SUPPLY2" gate="G$1" x="185.42" y="99.06"/>
+<instance part="SUPPLY2" gate="G$1" x="149.86" y="91.44"/>
 <instance part="D1" gate="G$1" x="154.94" y="22.86" rot="R90"/>
 <instance part="D2" gate="G$1" x="154.94" y="12.7" rot="R90"/>
-<instance part="BUZ1" gate="G$1" x="129.54" y="-43.18" rot="R90"/>
-<instance part="J1" gate="G$1" x="134.62" y="-25.4"/>
-<instance part="R4" gate="G$1" x="144.78" y="-40.64"/>
-<instance part="GND5" gate="1" x="137.16" y="-45.72"/>
 <instance part="FRAME1" gate="G$1" x="25.4" y="-50.8"/>
 <instance part="FRAME1" gate="V" x="172.72" y="-50.8"/>
 <instance part="SERIAL" gate="G$1" x="154.94" y="-25.4"/>
+<instance part="BUTTONS" gate="G$1" x="127" y="-38.1"/>
+<instance part="GND5" gate="1" x="144.78" y="-45.72"/>
 </instances>
 <busses>
 <bus name="DIGIT[0..7]">
@@ -4792,39 +4515,39 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <net name="GND" class="0">
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="GND@5"/>
-<wire x1="200.66" y1="119.38" x2="193.04" y2="119.38" width="0.1524" layer="91"/>
-<wire x1="193.04" y1="119.38" x2="193.04" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="111.76" x2="157.48" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="111.76" x2="157.48" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="NODEMCU.V3" gate="G$1" pin="GND@1"/>
-<wire x1="193.04" y1="99.06" x2="193.04" y2="88.9" width="0.1524" layer="91"/>
-<wire x1="193.04" y1="88.9" x2="200.66" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="91.44" x2="157.48" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="81.28" x2="165.1" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="NODEMCU.V3" gate="G$1" pin="GND@0"/>
-<wire x1="200.66" y1="99.06" x2="193.04" y2="99.06" width="0.1524" layer="91"/>
-<junction x="193.04" y="99.06"/>
-<wire x1="193.04" y1="88.9" x2="193.04" y2="73.66" width="0.1524" layer="91"/>
-<junction x="193.04" y="88.9"/>
+<wire x1="165.1" y1="91.44" x2="157.48" y2="91.44" width="0.1524" layer="91"/>
+<junction x="157.48" y="91.44"/>
+<wire x1="157.48" y1="81.28" x2="157.48" y2="66.04" width="0.1524" layer="91"/>
+<junction x="157.48" y="81.28"/>
 <pinref part="NODEMCU.V3" gate="G$1" pin="GND@3"/>
-<wire x1="236.22" y1="88.9" x2="246.38" y2="88.9" width="0.1524" layer="91"/>
-<wire x1="246.38" y1="88.9" x2="246.38" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="200.66" y1="81.28" x2="210.82" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="81.28" x2="210.82" y2="99.06" width="0.1524" layer="91"/>
 <pinref part="NODEMCU.V3" gate="G$1" pin="GND@2"/>
-<wire x1="246.38" y1="106.68" x2="236.22" y2="106.68" width="0.1524" layer="91"/>
-<wire x1="246.38" y1="73.66" x2="246.38" y2="88.9" width="0.1524" layer="91"/>
-<junction x="246.38" y="88.9"/>
+<wire x1="210.82" y1="99.06" x2="200.66" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="66.04" x2="210.82" y2="81.28" width="0.1524" layer="91"/>
+<junction x="210.82" y="81.28"/>
 <pinref part="C2" gate="G$1" pin="2"/>
 <pinref part="C4" gate="G$1" pin="2"/>
 <pinref part="C7" gate="G$1" pin="-"/>
 <pinref part="GND4" gate="1" pin="GND"/>
-<wire x1="180.34" y1="73.66" x2="172.72" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="73.66" x2="187.96" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="187.96" y1="73.66" x2="187.96" y2="76.2" width="0.1524" layer="91"/>
-<junction x="180.34" y="73.66"/>
-<junction x="187.96" y="73.66"/>
-<wire x1="187.96" y1="73.66" x2="193.04" y2="73.66" width="0.1524" layer="91"/>
-<junction x="193.04" y="73.66"/>
-<wire x1="193.04" y1="73.66" x2="246.38" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="71.12" x2="172.72" y2="73.66" width="0.1524" layer="91"/>
-<junction x="172.72" y="73.66"/>
-<wire x1="180.34" y1="76.2" x2="180.34" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="73.66" x2="172.72" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="66.04" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="66.04" x2="152.4" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="66.04" x2="152.4" y2="68.58" width="0.1524" layer="91"/>
+<junction x="144.78" y="66.04"/>
+<junction x="152.4" y="66.04"/>
+<wire x1="152.4" y1="66.04" x2="157.48" y2="66.04" width="0.1524" layer="91"/>
+<junction x="157.48" y="66.04"/>
+<wire x1="157.48" y1="66.04" x2="210.82" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="63.5" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
+<junction x="137.16" y="66.04"/>
+<wire x1="144.78" y1="68.58" x2="144.78" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="66.04" x2="137.16" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="POWER" gate="G$1" pin="1"/>
@@ -4868,13 +4591,8 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <junction x="50.8" y="55.88"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="2"/>
-<wire x1="142.24" y1="-22.86" x2="149.86" y2="-22.86" width="0.1524" layer="91"/>
-<label x="144.78" y="-22.86" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="BUZ1" gate="G$1" pin="1"/>
-<wire x1="132.08" y1="-43.18" x2="137.16" y2="-43.18" width="0.1524" layer="91"/>
+<pinref part="BUTTONS" gate="G$1" pin="1"/>
+<wire x1="132.08" y1="-43.18" x2="144.78" y2="-43.18" width="0.1524" layer="91"/>
 <pinref part="GND5" gate="1" pin="GND"/>
 </segment>
 </net>
@@ -4918,8 +4636,8 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </segment>
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="D1"/>
-<wire x1="236.22" y1="119.38" x2="243.84" y2="119.38" width="0.1524" layer="91"/>
-<label x="238.76" y="119.38" size="1.778" layer="95"/>
+<wire x1="200.66" y1="111.76" x2="208.28" y2="111.76" width="0.1524" layer="91"/>
+<label x="203.2" y="111.76" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -4930,8 +4648,8 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </segment>
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="D2"/>
-<wire x1="236.22" y1="116.84" x2="243.84" y2="116.84" width="0.1524" layer="91"/>
-<label x="238.76" y="116.84" size="1.778" layer="95"/>
+<wire x1="200.66" y1="109.22" x2="208.28" y2="109.22" width="0.1524" layer="91"/>
+<label x="203.2" y="109.22" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="DIGIT0" class="0">
@@ -5288,8 +5006,8 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <net name="DATA" class="0">
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="D5"/>
-<wire x1="236.22" y1="104.14" x2="243.84" y2="104.14" width="0.1524" layer="91"/>
-<label x="238.76" y="104.14" size="1.778" layer="95"/>
+<wire x1="200.66" y1="96.52" x2="208.28" y2="96.52" width="0.1524" layer="91"/>
+<label x="203.2" y="96.52" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="G$1" pin="DIN"/>
@@ -5305,8 +5023,8 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </segment>
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="D7"/>
-<wire x1="236.22" y1="99.06" x2="243.84" y2="99.06" width="0.1524" layer="91"/>
-<label x="238.76" y="99.06" size="1.778" layer="95"/>
+<wire x1="200.66" y1="91.44" x2="208.28" y2="91.44" width="0.1524" layer="91"/>
+<label x="203.2" y="91.44" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LOAD" class="0">
@@ -5317,8 +5035,8 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </segment>
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="D6"/>
-<wire x1="236.22" y1="101.6" x2="243.84" y2="101.6" width="0.1524" layer="91"/>
-<label x="238.76" y="101.6" size="1.778" layer="95"/>
+<wire x1="200.66" y1="93.98" x2="208.28" y2="93.98" width="0.1524" layer="91"/>
+<label x="203.2" y="93.98" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="DOUT" class="0">
@@ -5346,20 +5064,20 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 </segment>
 <segment>
 <pinref part="SUPPLY3" gate="G$1" pin="VCC"/>
-<wire x1="172.72" y1="99.06" x2="172.72" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="91.44" x2="137.16" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="NODEMCU.V3" gate="G$1" pin="VIN"/>
 <pinref part="C7" gate="G$1" pin="+"/>
 <pinref part="C4" gate="G$1" pin="1"/>
 <pinref part="C2" gate="G$1" pin="1"/>
-<wire x1="200.66" y1="86.36" x2="187.96" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="187.96" y1="86.36" x2="180.34" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="86.36" x2="172.72" y2="86.36" width="0.1524" layer="91"/>
-<junction x="180.34" y="86.36"/>
-<wire x1="187.96" y1="83.82" x2="187.96" y2="86.36" width="0.1524" layer="91"/>
-<junction x="187.96" y="86.36"/>
-<junction x="172.72" y="86.36"/>
-<wire x1="180.34" y1="86.36" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="83.82" x2="172.72" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="78.74" x2="152.4" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="78.74" x2="144.78" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="78.74" x2="137.16" y2="78.74" width="0.1524" layer="91"/>
+<junction x="144.78" y="78.74"/>
+<wire x1="152.4" y1="76.2" x2="152.4" y2="78.74" width="0.1524" layer="91"/>
+<junction x="152.4" y="78.74"/>
+<junction x="137.16" y="78.74"/>
+<wire x1="144.78" y1="78.74" x2="144.78" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="76.2" x2="137.16" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C3" gate="G$1" pin="1"/>
@@ -5397,56 +5115,49 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="3V3@0"/>
 <pinref part="SUPPLY2" gate="G$1" pin="3.3V"/>
-<wire x1="200.66" y1="96.52" x2="185.42" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="185.42" y1="96.52" x2="185.42" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="88.9" x2="149.86" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="88.9" x2="149.86" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="3V3@1"/>
-<wire x1="236.22" y1="109.22" x2="243.84" y2="109.22" width="0.1524" layer="91"/>
-<label x="238.76" y="109.22" size="1.778" layer="95"/>
+<wire x1="200.66" y1="101.6" x2="208.28" y2="101.6" width="0.1524" layer="91"/>
+<label x="203.2" y="101.6" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="3V3@2"/>
-<wire x1="236.22" y1="86.36" x2="243.84" y2="86.36" width="0.1524" layer="91"/>
-<label x="238.76" y="86.36" size="1.778" layer="95"/>
+<wire x1="200.66" y1="78.74" x2="208.28" y2="78.74" width="0.1524" layer="91"/>
+<label x="203.2" y="78.74" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D4" class="0">
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="D4"/>
-<wire x1="236.22" y1="111.76" x2="243.84" y2="111.76" width="0.1524" layer="91"/>
-<label x="238.76" y="111.76" size="1.778" layer="95"/>
+<wire x1="200.66" y1="104.14" x2="208.28" y2="104.14" width="0.1524" layer="91"/>
+<label x="203.2" y="104.14" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R4" gate="G$1" pin="2"/>
-<label x="152.4" y="-40.64" size="1.778" layer="95"/>
-<wire x1="149.86" y1="-40.64" x2="154.94" y2="-40.64" width="0.1524" layer="91"/>
+<pinref part="BUTTONS" gate="G$1" pin="3"/>
+<wire x1="132.08" y1="-38.1" x2="137.16" y2="-38.1" width="0.1524" layer="91"/>
+<label x="132.08" y="-38.1" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D8" class="0">
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="D8"/>
-<wire x1="236.22" y1="96.52" x2="243.84" y2="96.52" width="0.1524" layer="91"/>
-<label x="238.76" y="96.52" size="1.778" layer="95"/>
+<wire x1="200.66" y1="88.9" x2="208.28" y2="88.9" width="0.1524" layer="91"/>
+<label x="203.2" y="88.9" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="1"/>
-<wire x1="142.24" y1="-25.4" x2="149.86" y2="-25.4" width="0.1524" layer="91"/>
-<label x="144.78" y="-25.4" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="N$8" class="0">
-<segment>
-<pinref part="R4" gate="G$1" pin="1"/>
-<pinref part="BUZ1" gate="G$1" pin="2"/>
-<wire x1="139.7" y1="-40.64" x2="132.08" y2="-40.64" width="0.1524" layer="91"/>
+<pinref part="BUTTONS" gate="G$1" pin="2"/>
+<wire x1="132.08" y1="-40.64" x2="137.16" y2="-40.64" width="0.1524" layer="91"/>
+<label x="132.08" y="-40.64" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RX" class="0">
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="RX"/>
-<wire x1="236.22" y1="93.98" x2="243.84" y2="93.98" width="0.1524" layer="91"/>
-<label x="238.76" y="93.98" size="1.778" layer="95"/>
+<wire x1="200.66" y1="86.36" x2="208.28" y2="86.36" width="0.1524" layer="91"/>
+<label x="203.2" y="86.36" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="SERIAL" gate="G$1" pin="2"/>
@@ -5457,13 +5168,49 @@ EZ is for kits. Pads are only exposed on the bottom side to help prevent solderi
 <net name="TX" class="0">
 <segment>
 <pinref part="NODEMCU.V3" gate="G$1" pin="TX"/>
-<wire x1="236.22" y1="91.44" x2="243.84" y2="91.44" width="0.1524" layer="91"/>
-<label x="238.76" y="91.44" size="1.778" layer="95"/>
+<wire x1="200.66" y1="83.82" x2="208.28" y2="83.82" width="0.1524" layer="91"/>
+<label x="203.2" y="83.82" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="SERIAL" gate="G$1" pin="1"/>
 <wire x1="162.56" y1="-25.4" x2="170.18" y2="-25.4" width="0.1524" layer="91"/>
 <label x="165.1" y="-25.4" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="D3" class="0">
+<segment>
+<pinref part="NODEMCU.V3" gate="G$1" pin="D3"/>
+<wire x1="200.66" y1="106.68" x2="208.28" y2="106.68" width="0.1524" layer="91"/>
+<label x="203.2" y="106.68" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="BUTTONS" gate="G$1" pin="4"/>
+<wire x1="132.08" y1="-35.56" x2="137.16" y2="-35.56" width="0.1524" layer="91"/>
+<label x="132.08" y="-35.56" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SD2" class="0">
+<segment>
+<pinref part="NODEMCU.V3" gate="G$1" pin="SD2"/>
+<wire x1="165.1" y1="104.14" x2="160.02" y2="104.14" width="0.1524" layer="91"/>
+<label x="160.02" y="104.14" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="BUTTONS" gate="G$1" pin="5"/>
+<wire x1="132.08" y1="-33.02" x2="137.16" y2="-33.02" width="0.1524" layer="91"/>
+<label x="132.08" y="-33.02" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SD3" class="0">
+<segment>
+<pinref part="NODEMCU.V3" gate="G$1" pin="SD3"/>
+<wire x1="165.1" y1="106.68" x2="160.02" y2="106.68" width="0.1524" layer="91"/>
+<label x="160.02" y="106.68" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="BUTTONS" gate="G$1" pin="6"/>
+<wire x1="132.08" y1="-30.48" x2="137.16" y2="-30.48" width="0.1524" layer="91"/>
+<label x="132.08" y="-30.48" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
