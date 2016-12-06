@@ -186,6 +186,12 @@ TX</text>
 <rectangle x1="41" y1="24" x2="42" y2="25" layer="41"/>
 <text x="107.25" y="5.5" size="1.778" layer="22" rot="MR0">+</text>
 <text x="107.5" y="10.5" size="1.778" layer="22" rot="MR270">-</text>
+<text x="76" y="27.5" size="1.778" layer="22" rot="MR270">GND
+D8
+D4
+D3
+SD1
+SD2</text>
 </plain>
 <libraries>
 <library name="NODEMCUv1">
