@@ -16,6 +16,7 @@
 #include <ESP8266WiFi.h>  // We need to use the wifi for NTP
 #include <TimeLib.h>      // This library helps with easy time-keeping
 #include <NtpClientLib.h> // The NTP library
+#include <PubSubClient.h> // MQTT Messaging Library
 
 //---------------------------------------------------------//
 //              CONFIGURE YOUR NETWORK HERE                //
@@ -23,12 +24,19 @@
 char ssid[] = "joshua"; // your network SSID (name)        //
 char pass[] = "";       // your network password           //
 //---------------------------------------------------------//
+char mqtt_server[] = "test.mosquitto.org";                 //
+char mqtt_user[] = "";                                     //
+char mqtt_password[] = "";                                 //
+//---------------------------------------------------------//
 
 LedControl lc1 = LedControl(D5,D6,D7,1); // Initialize MAX7219
+WiFiClient espClient;
+PubSubClient client(espClient);
 unsigned long timeLastUpdated = millis();
 
 bool militaryTime = false;
 int brightness = 7;
+long lastMsg = 0;
 
 // Initial set up routines
 void setup() {
@@ -50,10 +58,17 @@ void setup() {
       RTC.set(NTP.getLastNTPSync());
     }
   });
+  
+  client.setServer(mqtt_server, 1883);
 }
 
 // Main program loop
 void loop() {
+  if (!client.connected()) {
+      reconnect();
+    }
+  client.loop();
+  
   if (millis() > (timeLastUpdated + 1000)) {
     updateDigits(); //Update the time display
     updateMisc();   //Update the rest of the display
@@ -61,6 +76,38 @@ void loop() {
     Serial.println(NTP.getTimeDateString(now() ) );
     
     timeLastUpdated = millis();
+
+    int t = RTC.temperature();
+    float celsius = t / 4.0;
+    float fahrenheit = celsius * 9.0 / 5.0 + 32.0;
+
+    char result[8]; // Buffer big enough for 7-character float
+    dtostrf(celsius, 6, 2, result); // Leave room for too large numbers!
+    //client.publish("temp/random", result);
+  }
+}
+
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Create a random client ID
+    String clientId = "ESP8266Client-";
+    clientId += String(random(0xffff), HEX);
+    // Attempt to connect
+    if (client.connect(clientId.c_str())) {
+      Serial.println("connected");
+      // Once connected, publish an announcement...
+      client.publish("outTopic", "hello world");
+      // ... and resubscribe
+      client.subscribe("inTopic");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
   }
 }
 
