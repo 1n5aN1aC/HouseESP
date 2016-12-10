@@ -24,8 +24,6 @@ public:
   void beginNTP();
   void RTCSetup();
   int getHours();
-  int getMinutes();
-  int getSeconds();
 };
 
 extern TimeManager Time_Manager;

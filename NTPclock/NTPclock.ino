@@ -24,7 +24,7 @@
 #define PASS ""        // your network password            //
 //---------------------------------------------------------//
 
-unsigned long timeLastUpdated = millis();
+unsigned long displayLastUpdated = millis();
 
 // Initial set up routines
 void setup() {
@@ -42,13 +42,13 @@ void setup() {
 void loop() {
   MQTT_Helper.mqttLoop();
   
-  if (millis() > (timeLastUpdated + 1000)) {
+  if (millis() > (displayLastUpdated + 1000)) {
     LED_Helper.updateDigits(); //Update the time display
     LED_Helper.updateMisc();   //Update the rest of the display
     
-    Serial.println(NTP.getTimeDateString(now() ) );
+    Serial.println(NTP.getTimeDateString() );
     
-    timeLastUpdated = millis();
+    displayLastUpdated = millis();
 
     //int t = RTC.temperature();
     //float celsius = t / 4.0;

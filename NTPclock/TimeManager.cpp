@@ -50,11 +50,3 @@ int TimeManager::getHours() {
   else
     return hour();
 }
-
-int TimeManager::getMinutes() {
-  return minute();
-}
-
-int TimeManager::getSeconds() {
-  return second();
-}
