@@ -11,9 +11,7 @@
 //----------------------------------------------------------------------------------------------------------------
 
 #include <Wire.h>         // Incuded here so that Arduino library object file references work
-#ifndef _ESPwifi_
-  #include <ESP8266WiFi.h>  // We need to use the wifi for NTP
-#endif
+#include <ESP8266WiFi.h>  // We need to use the wifi for NTP
 
 #include "LEDHelper.h"
 #include "TimeManager.h"
@@ -22,8 +20,8 @@
 //---------------------------------------------------------//
 //              CONFIGURE YOUR NETWORK HERE                //
 //---------------------------------------------------------//
-#define ssid "joshua"  // your network SSID (name)         //
-#define pass ""        // your network password            //
+#define SSID "joshua"  // your network SSID (name)         //
+#define PASS ""        // your network password            //
 //---------------------------------------------------------//
 
 unsigned long timeLastUpdated = millis();
@@ -65,8 +63,8 @@ void loop() {
 // Initial connection to WiFi
 // We wait for 5 seconds to connect, but do not block on the connection.
 void connectWifi() {
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, pass);
+  Serial.println("Connecting to ");
+  Serial.println(SSID);
+  WiFi.begin(SSID, PASS);
   delay(5000);
 }

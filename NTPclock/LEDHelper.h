@@ -1,6 +1,13 @@
-//
-//
-//
+//----------------------------------------------------------------------------------------------------------------
+// LEDHelper.h
+// 
+// Manages controlling the MAX7219 chip & any other LEDs.
+// For ease, we define a global helper object, that then is used for all operations
+// 
+// Author - Joshua Villwock
+// Created - 2016-12-09
+// License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
+//----------------------------------------------------------------------------------------------------------------
 
 #ifndef __LEDHelper_H__
 #define __LEDHelper_H__

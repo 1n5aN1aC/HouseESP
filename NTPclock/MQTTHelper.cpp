@@ -1,10 +1,15 @@
-#include "MQTTHelper.h"
+//----------------------------------------------------------------------------------------------------------------
+// MQTTHelper.cpp
+// 
+// Manages controlling all MQTT communication & subscriptions.
+// For ease, we define a global object that can be used for all MQTT-related functions
+// 
+// Author - Joshua Villwock
+// Created - 2016-12-09
+// License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
+//----------------------------------------------------------------------------------------------------------------
 
-//---------------------------------------------------------//
-#define MQTT_SERVER "test.mosquitto.org"
-#define MQTT_USER ""
-#define MQTT_PASSWORD ""
-//---------------------------------------------------------//
+#include "MQTTHelper.h"
 
 MQTTHelper MQTT_Helper = MQTTHelper();
 
