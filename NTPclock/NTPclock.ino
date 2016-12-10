@@ -10,7 +10,6 @@
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
 //----------------------------------------------------------------------------------------------------------------
 
-#include <Wire.h>         // Incuded here so that Arduino library object file references work
 #include <ESP8266WiFi.h>  // We need to use the wifi for NTP
 
 #include "LEDHelper.h"
@@ -29,6 +28,7 @@ unsigned long displayLastUpdated = millis();
 // Initial set up routines
 void setup() {
   Serial.begin(115200);
+  Serial.println();
 
   LED_Helper.LED_Setup();     //Turn on the LEDS, etc.
 
@@ -49,6 +49,7 @@ void loop() {
     Serial.println(NTP.getTimeDateString() );
     
     displayLastUpdated = millis();
+    yield();
 
     //int t = RTC.temperature();
     //float celsius = t / 4.0;
@@ -63,7 +64,7 @@ void loop() {
 // Initial connection to WiFi
 // We wait for 5 seconds to connect, but do not block on the connection.
 void connectWifi() {
-  Serial.println("Connecting to ");
+  Serial.print("Connecting to ");
   Serial.println(SSID);
   WiFi.begin(SSID, PASS);
   delay(5000);

@@ -12,14 +12,18 @@
 #include "TimeManager.h"
 #include "LEDHelper.h"
 
+#include <DS3232RTC.h>    // RTC Library
+#include <TimeLib.h>      // Must be included AFTER DS3232RTC!!!
+#include <Wire.h>         // Incuded here so that Arduino library object file references work
+
 TimeManager Time_Manager = TimeManager();
 
 // Set up the RTC.  Also loads RTC time to get time faster
 void TimeManager::RTCSetup() {
-  time_t RTCTime = RTC.get();  //Get RTC time
-  setTime(RTCTime);            //Set it as current time
-  RTC.squareWave(SQWAVE_NONE); //Never assume the Rtc was last configured by you, so just clear them to your needed state
-  LED_Helper.updateDigits();              //Force update of display while loop() not running
+  time_t RTCTime = RTC.get();   //Get RTC time
+  setTime(RTCTime);             //Set it as current time
+  RTC.squareWave(SQWAVE_NONE);  //Never assume the Rtc was last configured by you, so just clear them to your needed state
+  LED_Helper.updateDigits();    //Force update of display while loop() not running
 }
 
 // Initial set up of NTP
@@ -42,10 +46,10 @@ void TimeManager::beginNTP() {
 
 int TimeManager::getHours() {
   //If non-military time & 13-23 time, subtract 12 to get real hours...
-  if (militaryTime && hour() > 12)
+  if (!militaryTime && hour() > 12)
     return hour() - 12;
   //If non-military time & 0, set hour to 12...
-  else if (militaryTime && hour() == 0)
+  else if (!militaryTime && hour() == 0)
     return 12;
   else
     return hour();

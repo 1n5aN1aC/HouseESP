@@ -12,7 +12,6 @@
 #ifndef __TimeManager_H__
 #define __TimeManager_H__
 
-#include <DS3232RTC.h>    // RTC Library
 #include <TimeLib.h>      // This library helps with easy time-keeping
 #include <NtpClientLib.h> // The NTP library
 
