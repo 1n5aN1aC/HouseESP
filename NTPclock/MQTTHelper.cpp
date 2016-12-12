@@ -47,3 +47,7 @@ void MQTTHelper::reconnect() {
   }
   lastMQTTReconnect = millis();
 }
+
+boolean MQTTHelper::publishMQTT(const char* channel, const char* data) {
+  mqttClient.publish(channel, data);
+}

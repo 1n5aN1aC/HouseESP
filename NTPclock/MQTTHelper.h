@@ -32,6 +32,7 @@ public:
   void mqttLoop();
   void connect();
   void reconnect();
+  boolean publishMQTT(const char* channel, const char* data);
 };
 
 extern MQTTHelper MQTT_Helper;
