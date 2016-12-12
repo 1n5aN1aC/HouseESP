@@ -13,6 +13,8 @@
 
 MQTTHelper MQTT_Helper = MQTTHelper();
 
+// Needs to be called by the main program loop frequently.
+// Makes sure we are still connected, and check for any new subscription replies.
 void MQTTHelper::mqttLoop() {
  if (!mqttClient.connected()) {
     reconnect();
@@ -20,14 +22,16 @@ void MQTTHelper::mqttLoop() {
   mqttClient.loop();
 }
 
+// Technically, just configures the connection.
+// reconnect() technically does the connecting
 void MQTTHelper::connect() {
   mqttClient = PubSubClient(espClient);
   mqttClient.setServer(MQTT_SERVER, 1883);
 }
 
-// Loop until we're reconnected
+// Tries to reconnect MQTT, but only if it hasn't tried in the last MQTT_RECONNECT_TIME seconds...
 void MQTTHelper::reconnect() {
-  while (!mqttClient.connected()) {
+  if (millis() > lastMQTTReconnect + MQTT_RECONNECT_TIME) {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
     String clientId = "ESP8266Client-";
@@ -38,9 +42,8 @@ void MQTTHelper::reconnect() {
     } else {
       Serial.print("failed, rc=");
       Serial.print(mqttClient.state());
-      Serial.println(" try again in 5 seconds");
-      // Wait 5 seconds before retrying
-      delay(5000);
+      Serial.println(" try again in MQTT_RECONNECT_TIME seconds");
     }
   }
+  lastMQTTReconnect = millis();
 }

@@ -13,6 +13,7 @@
 #define MQTT_SERVER "test.mosquitto.org"                   //
 #define MQTT_USER ""                                       //
 #define MQTT_PASSWORD ""                                   //
+#define MQTT_RECONNECT_TIME 10000                          //
 //---------------------------------------------------------//
 
 #ifndef __MQTTHelper_H__
@@ -25,6 +26,7 @@ class MQTTHelper
 {
   WiFiClient espClient;
   PubSubClient mqttClient;
+  long lastMQTTReconnect;
   
 public:
   void mqttLoop();
