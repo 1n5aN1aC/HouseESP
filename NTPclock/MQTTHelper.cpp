@@ -16,7 +16,7 @@ MQTTHelper MQTT_Helper = MQTTHelper();
 // Needs to be called by the main program loop frequently.
 // Makes sure we are still connected, and check for any new subscription replies.
 void MQTTHelper::mqttLoop() {
- if (!mqttClient.connected()) {
+  if (!mqttClient.connected()) {
     reconnect();
   }
   mqttClient.loop();
@@ -44,8 +44,8 @@ void MQTTHelper::reconnect() {
       Serial.print(mqttClient.state());
       Serial.println(" try again in MQTT_RECONNECT_TIME seconds");
     }
+    lastMQTTReconnect = millis();
   }
-  lastMQTTReconnect = millis();
 }
 
 boolean MQTTHelper::publishMQTT(const char* channel, const char* data) {

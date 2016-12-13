@@ -10,7 +10,7 @@
 //----------------------------------------------------------------------------------------------------------------
 //            CONFIGURE YOUR MQTT SERVER HERE              //
 //---------------------------------------------------------//
-#define MQTT_SERVER "test.mosquitto.org"                   //
+#define MQTT_SERVER "10.0.0.44"                            //
 #define MQTT_USER ""                                       //
 #define MQTT_PASSWORD ""                                   //
 #define MQTT_RECONNECT_TIME 10000                          //
@@ -26,7 +26,7 @@ class MQTTHelper
 {
   WiFiClient espClient;
   PubSubClient mqttClient;
-  long lastMQTTReconnect;
+  unsigned long lastMQTTReconnect;
   
 public:
   void mqttLoop();
