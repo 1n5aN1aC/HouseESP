@@ -24,6 +24,7 @@
 //---------------------------------------------------------//
 
 unsigned long displayLastUpdated = millis();
+unsigned long lastTempSend = millis();
 
 // Initial set up routines
 void setup() {
@@ -49,16 +50,18 @@ void loop() {
     Serial.println(NTP.getTimeDateString() );
     
     displayLastUpdated = millis();
-    yield();
 
-    //int t = RTC.temperature();
-    //float celsius = t / 4.0;
-    //float fahrenheit = celsius * 9.0 / 5.0 + 32.0;
-
-    //char result[8]; // Buffer big enough for 7-character float
-    //dtostrf(celsius, 6, 2, result); // Leave room for too large numbers!
-    //client.publish("temp/random", result);
+    if (millis() > lastTempSend + 10000) {
+      float celsius = Time_Manager.getTemperature();
+      float fahrenheit = celsius * 9.0 / 5.0 + 32.0;
+  
+      char result[8]; // Buffer big enough for 7-character float
+      dtostrf(fahrenheit, 6, 2, result); // Leave room for too large numbers!
+      MQTT_Helper.publishMQTT("temp/random", result);
+      lastTempSend = millis();
+    }
   }
+  yield();
 }
 
 // Initial connection to WiFi

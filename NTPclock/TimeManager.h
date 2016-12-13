@@ -22,6 +22,7 @@ class TimeManager
 public:
   void beginNTP();
   void RTCSetup();
+  float getTemperature();
   int getHours();
 };
 

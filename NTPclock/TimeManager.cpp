@@ -54,3 +54,8 @@ int TimeManager::getHours() {
   else
     return hour();
 }
+
+float TimeManager::getTemperature() {
+  int t = RTC.temperature();
+  return t / 4.0;
+}
