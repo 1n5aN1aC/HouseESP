@@ -22,6 +22,9 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h> // MQTT Messaging Library
 
+//Sadly, it can't be a class member, due to limitations in the library
+void MQTTCallbackShim(char* topic, byte* payload, unsigned int length);
+
 class MQTTHelper
 {
   WiFiClient espClient;
@@ -33,6 +36,8 @@ public:
   void connect();
   void reconnect();
   boolean publishMQTT(const char* channel, const char* data);
+  boolean subscribeTopic(char* topic, int qos);
+  void MQTTCallback(char* topic, byte* payload, unsigned int length);
 };
 
 extern MQTTHelper MQTT_Helper;

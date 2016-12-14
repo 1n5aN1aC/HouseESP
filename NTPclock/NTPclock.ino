@@ -40,6 +40,7 @@ void setup() {
   connectWifi();              //Then connect to wifi
   Time_Manager.beginNTP();    //Start up NTP Client & time keeping
   MQTT_Helper.connect();
+  MQTT_Helper.subscribeTopic("home/jroom/clock/brightness", 0);
 }
 
 // Main program loop

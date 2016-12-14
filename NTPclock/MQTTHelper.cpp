@@ -10,6 +10,7 @@
 //----------------------------------------------------------------------------------------------------------------
 
 #include "MQTTHelper.h"
+#include "LEDHelper.h"
 
 MQTTHelper MQTT_Helper = MQTTHelper();
 
@@ -22,11 +23,23 @@ void MQTTHelper::mqttLoop() {
   mqttClient.loop();
 }
 
+void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i=0;i<length;i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}
+
 // Technically, just configures the connection.
 // reconnect() technically does the connecting
 void MQTTHelper::connect() {
   mqttClient = PubSubClient(espClient);
   mqttClient.setServer(MQTT_SERVER, 1883);
+  mqttClient.setCallback(callback);
+  mqttClient.subscribe("home/jroom/clock/brightness", 1);
 }
 
 // Tries to reconnect MQTT, but only if it hasn't tried in the last MQTT_RECONNECT_TIME seconds...
@@ -48,6 +61,27 @@ void MQTTHelper::reconnect() {
   }
 }
 
+// 
 boolean MQTTHelper::publishMQTT(const char* channel, const char* data) {
   mqttClient.publish(channel, data);
+}
+
+// Register to recieve updates on a topic
+boolean MQTTHelper::subscribeTopic(char* topic, int qos) {
+  mqttClient.subscribe(topic, qos);
+}
+
+// This is a horrible hack we have to do because of library limitations
+void MQTTCallbackShim(char* topic, byte* payload, unsigned int length) {
+  Serial.println("callback called.  :)");
+  MQTT_Helper.MQTTCallback(topic, payload, length);
+}
+
+// This is the method that actually handles the MQTT update
+void MQTTHelper::MQTTCallback(char* topic, byte* payload, unsigned int length) {
+  if (strcmp(topic, "home/jroom/clock/brightness") == 0) {
+    char array2[length];
+    strncpy(array2, reinterpret_cast<const char*>(payload), length);
+    Serial.println(array2);
+  }
 }
