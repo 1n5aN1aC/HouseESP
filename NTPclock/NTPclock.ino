@@ -26,6 +26,9 @@
 unsigned long displayLastUpdated = millis();
 unsigned long lastTempSend = millis();
 
+#define DISPLAY_UPDATE_FREQUENCY 1000
+#define TEMPERATURE_UPDATE_FREQUENCY 60000
+
 // Initial set up routines
 void setup() {
   Serial.begin(115200);
@@ -43,24 +46,8 @@ void setup() {
 void loop() {
   MQTT_Helper.mqttLoop();
   
-  if (millis() > (displayLastUpdated + 1000)) {
-    LED_Helper.updateDigits(); //Update the time display
-    LED_Helper.updateMisc();   //Update the rest of the display
-    
-    Serial.println(NTP.getTimeDateString() );
-    
-    displayLastUpdated = millis();
-
-    if (millis() > lastTempSend + 10000) {
-      float celsius = Time_Manager.getTemperature();
-      float fahrenheit = celsius * 9.0 / 5.0 + 32.0;
-  
-      char result[8]; // Buffer big enough for 7-character float
-      dtostrf(fahrenheit, 6, 2, result); // Leave room for too large numbers!
-      MQTT_Helper.publishMQTT("temp/random", result);
-      lastTempSend = millis();
-    }
-  }
+  checkUpdate();
+  checkTemp();
   yield();
 }
 
@@ -71,4 +58,29 @@ void connectWifi() {
   Serial.println(SSID);
   WiFi.begin(SSID, PASS);
   delay(5000);
+}
+
+//Update the clock if need be
+void checkUpdate() {
+  if (millis() > (displayLastUpdated + DISPLAY_UPDATE_FREQUENCY)) {
+    LED_Helper.updateDigits(); //Update the time display
+    LED_Helper.updateMisc();   //Update the rest of the display
+    
+    Serial.println(NTP.getTimeDateString() );
+    
+    displayLastUpdated = millis();
+  }
+}
+
+//Send temp update if need be
+void checkTemp() {
+  if (millis() > lastTempSend + TEMPERATURE_UPDATE_FREQUENCY) {
+    float celsius = Time_Manager.getTemperature();
+    float fahrenheit = celsius * 9.0 / 5.0 + 32.0;
+  
+    char result[8]; // Buffer big enough for 7-character float
+    dtostrf(fahrenheit, 6, 2, result); // Leave room for too large numbers!
+    MQTT_Helper.publishMQTT("home/jroom/clock/temp", result);
+    lastTempSend = millis();
+  }
 }
