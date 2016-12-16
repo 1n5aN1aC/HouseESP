@@ -9,25 +9,31 @@
 // Created - 2016-11-13
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
 //----------------------------------------------------------------------------------------------------------------
-
-#include <ESP8266WiFi.h>  // We need to use the wifi for NTP
-
-#include "LEDHelper.h"
-#include "TimeManager.h"
-#include "MQTTHelper.h"
-
-//---------------------------------------------------------//
 //              CONFIGURE YOUR NETWORK HERE                //
 //---------------------------------------------------------//
-#define SSID "joshua"  // your network SSID (name)         //
-#define PASS ""        // your network password            //
+#define NETWORK_SSID "joshua"  // your network SSID (name) //
+#define NETWORK_PASS ""        // your network password    //
 //---------------------------------------------------------//
+//            CONFIGURE YOUR MQTT SERVER HERE              //
+//---------------------------------------------------------//
+#define MQTT_SERVER (10, 0, 0, 44)                         //
+#define MQTT_RECONNECT_TIME 10000                          //
+//---------------------------------------------------------//
+#define DISPLAY_UPDATE_FREQUENCY 1000                      //
+#define TEMPERATURE_UPDATE_FREQUENCY 60000                 //
+//---------------------------------------------------------//
+
+#include <ESP8266WiFi.h>  // We need to use the wifi for NTP
+#include <PubSubClient.h> // MQTT Messaging Library
+#include "LEDHelper.h"
+#include "TimeManager.h"
 
 unsigned long displayLastUpdated = millis();
 unsigned long lastTempSend = millis();
+unsigned long lastMQTTReconnect = millis();
 
-#define DISPLAY_UPDATE_FREQUENCY 1000
-#define TEMPERATURE_UPDATE_FREQUENCY 60000
+WiFiClient espClient;
+PubSubClient MQTTClient(espClient);
 
 // Initial set up routines
 void setup() {
@@ -39,14 +45,15 @@ void setup() {
   Time_Manager.RTCSetup();    //Restore RTC time immediently to current time
   connectWifi();              //Then connect to wifi
   Time_Manager.beginNTP();    //Start up NTP Client & time keeping
-  MQTT_Helper.connect();
-  MQTT_Helper.subscribeTopic("home/jroom/clock/brightness", 0);
+  
+  MQTTClient.setServer(MQTT_SERVER, 1883);
+  MQTTClient.setCallback(MQTTCallback);
+  MQTTClient.subscribe("home/jroom/clock/brightness", 1);
 }
 
 // Main program loop
 void loop() {
-  MQTT_Helper.mqttLoop();
-  
+  MQTTLoop();
   checkUpdate();
   checkTemp();
   yield();
@@ -56,8 +63,8 @@ void loop() {
 // We wait for 5 seconds to connect, but do not block on the connection.
 void connectWifi() {
   Serial.print("Connecting to ");
-  Serial.println(SSID);
-  WiFi.begin(SSID, PASS);
+  Serial.println(NETWORK_SSID);
+  WiFi.begin(NETWORK_SSID, NETWORK_PASS);
   delay(5000);
 }
 
@@ -81,7 +88,46 @@ void checkTemp() {
   
     char result[8]; // Buffer big enough for 7-character float
     dtostrf(fahrenheit, 6, 2, result); // Leave room for too large numbers!
-    MQTT_Helper.publishMQTT("home/jroom/clock/temp", result);
+    MQTTClient.publish("home/jroom/clock/temp", result);
     lastTempSend = millis();
+  }
+}
+
+//--------------------------------------------//
+//               MQTT Functions               //
+//--------------------------------------------//
+
+// Needs to be called by the main program loop frequently.
+// Makes sure we are still connected, and check for any new subscription replies.
+void MQTTLoop() {
+  MQTTClient.loop();
+  
+  if (!MQTTClient.connected()) {
+    //Not connected, so 
+    if (millis() > lastMQTTReconnect + MQTT_RECONNECT_TIME) {
+      Serial.print("Attempting MQTT connection...");
+      // Create a random client ID
+      String clientId = "ESP8266Client-";
+      clientId += String(random(0xffff), HEX);
+      // Attempt to connect
+      if (MQTTClient.connect(clientId.c_str())) {
+        Serial.println("connected");
+      } else {
+        Serial.print("failed, rc=");
+        Serial.print(MQTTClient.state());
+        Serial.println(" try again in MQTT_RECONNECT_TIME seconds");
+      }
+      lastMQTTReconnect = millis();
+    }
+  }
+}
+
+// This is the method that actually handles the MQTT update
+void MQTTCallback(char* topic, byte* payload, unsigned int length) {
+  Serial.println("got mqtt!");
+  if (strcmp(topic, "home/jroom/clock/brightness") == 0) {
+    char array2[length];
+    strncpy(array2, reinterpret_cast<const char*>(payload), length);
+    Serial.println(array2);
   }
 }
