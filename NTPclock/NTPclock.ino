@@ -48,7 +48,6 @@ void setup() {
   
   MQTTClient.setServer(MQTT_SERVER, 1883);
   MQTTClient.setCallback(MQTTCallback);
-  MQTTClient.subscribe("home/jroom/clock/brightness", 1);
 }
 
 // Main program loop
@@ -112,6 +111,8 @@ void MQTTLoop() {
       // Attempt to connect
       if (MQTTClient.connect(clientId.c_str())) {
         Serial.println("connected");
+        // ... and resubscribe
+        MQTTClient.subscribe("home/jroom/clock/brightness", 1);
       } else {
         Serial.print("failed, rc=");
         Serial.print(MQTTClient.state());
@@ -124,10 +125,11 @@ void MQTTLoop() {
 
 // This is the method that actually handles the MQTT update
 void MQTTCallback(char* topic, byte* payload, unsigned int length) {
-  Serial.println("got mqtt!");
-  if (strcmp(topic, "home/jroom/clock/brightness") == 0) {
-    char array2[length];
-    strncpy(array2, reinterpret_cast<const char*>(payload), length);
-    Serial.println(array2);
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i=0;i<length;i++) {
+    Serial.print((char)payload[i]);
   }
+  Serial.println();
 }
