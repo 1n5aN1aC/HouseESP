@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------------------------------------------------
 // MQTTHelper.cpp
-// 
+//
 // Manages controlling all MQTT communication & subscriptions.
 // For ease, we define a global object that can be used for all MQTT-related functions
-// 
+//
 // Author - Joshua Villwock
 // Created - 2016-12-09
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
@@ -30,23 +30,12 @@ void MQTTHelper::mqttLoop() {
   mqttClient.loop();
 }
 
-void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i=0;i<length;i++) {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
-}
-
 // Technically, just configures the connection.
 // reconnect() technically does the connecting
 void MQTTHelper::connect() {
   mqttClient = PubSubClient(espClient);
   mqttClient.setServer(MQTT_SERVER, 1883);
-  mqttClient.setCallback(callback);
-  mqttClient.subscribe("home/jroom/clock/brightness", 1);
+  mqttClient.setCallback(MQTTCallbackShim);
 }
 
 // Tries to reconnect MQTT, but only if it hasn't tried in the last MQTT_RECONNECT_TIME seconds...
@@ -59,6 +48,8 @@ void MQTTHelper::reconnect() {
     // Attempt to connect
     if (mqttClient.connect(clientId.c_str())) {
       Serial.println("connected");
+      // ... and resubscribe
+      mqttClient.subscribe("home/jroom/clock/brightness", 1);
     } else {
       Serial.print("failed, rc=");
       Serial.print(mqttClient.state());
@@ -68,14 +59,9 @@ void MQTTHelper::reconnect() {
   }
 }
 
-// 
+//
 boolean MQTTHelper::publishMQTT(const char* channel, const char* data) {
   mqttClient.publish(channel, data);
-}
-
-// Register to recieve updates on a topic
-boolean MQTTHelper::subscribeTopic(char* topic, int qos) {
-  mqttClient.subscribe(topic, qos);
 }
 
 // This is a horrible hack we have to do because of library limitations
@@ -85,10 +71,25 @@ void MQTTCallbackShim(char* topic, byte* payload, unsigned int length) {
 }
 
 // This is the method that actually handles the MQTT update
+// Here is what i have been using to handle subscriptions. I took it as a snippet from elsewhere but i cannot credit author as i dont have reference!
 void MQTTHelper::MQTTCallback(char* topic, byte* payload, unsigned int length) {
-  if (strcmp(topic, "home/jroom/clock/brightness") == 0) {
-    char array2[length];
-    strncpy(array2, reinterpret_cast<const char*>(payload), length);
-    Serial.println(array2);
+  char message_buff[128];   // initialise storage buffer (i haven't tested to this capacity.)
+  
+  Serial.println("Message arrived:  topic: " + String(topic));
+  
+  // create character buffer with ending null terminator (string)
+  int i = 0;
+  for(int i=0; i<length; i++) {
+    message_buff[i] = payload[i];
+  }
+  message_buff[i] = '\0';
+  
+  String msgString = String(message_buff);
+  
+  Serial.println("Payload: " + msgString);
+  int state = digitalRead(2);   // get the current state of GPIO1 pin
+  if (msgString == "1"){        // if there is a "1" published to any topic (#) on the broker then:
+    digitalWrite(2, !state);    // set pin to the opposite state
+    Serial.println("Switching LED");
   }
 }
