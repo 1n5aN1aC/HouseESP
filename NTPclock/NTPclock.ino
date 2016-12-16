@@ -16,7 +16,6 @@
 //---------------------------------------------------------//
 //            CONFIGURE YOUR MQTT SERVER HERE              //
 //---------------------------------------------------------//
-#define MQTT_SERVER (10, 0, 0, 44)                         //
 #define MQTT_RECONNECT_TIME 10000                          //
 //---------------------------------------------------------//
 #define DISPLAY_UPDATE_FREQUENCY 1000                      //
@@ -34,6 +33,7 @@ unsigned long lastMQTTReconnect = millis();
 
 WiFiClient espClient;
 PubSubClient MQTTClient(espClient);
+IPAddress MQTT_SERVER(10, 0, 0, 44);
 
 // Initial set up routines
 void setup() {
