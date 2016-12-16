@@ -12,6 +12,15 @@
 #include "MQTTHelper.h"
 #include "LEDHelper.h"
 
+//---------------------------------------------------------//
+//            CONFIGURE YOUR MQTT SERVER HERE              //
+//---------------------------------------------------------//
+IPAddress MQTT_SERVER(10, 0, 0, 44);                       //
+#define MQTT_USER ""                                       //
+#define MQTT_PASSWORD ""                                   //
+#define MQTT_RECONNECT_TIME 10000                          //
+//---------------------------------------------------------//
+
 MQTTHelper MQTT_Helper = MQTTHelper();
 
 // Needs to be called by the main program loop frequently.
