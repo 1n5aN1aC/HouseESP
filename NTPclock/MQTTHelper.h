@@ -28,7 +28,7 @@ public:
   void mqttLoop();
   void connect();
   void reconnect();
-  boolean publishMQTT(const char* channel, const char* data);
+  boolean publishMQTT(const char* channel, const char* data, bool retained);
   boolean subscribeTopic(char* topic, int qos);
   void MQTTCallback(char* topic, byte* payload, unsigned int length);
 };

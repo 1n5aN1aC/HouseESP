@@ -60,8 +60,8 @@ void MQTTHelper::reconnect() {
 }
 
 // Just a shim to allow you to call it via the MQTTHelper object
-boolean MQTTHelper::publishMQTT(const char* channel, const char* data) {
-  mqttClient.publish(channel, data);
+boolean MQTTHelper::publishMQTT(const char* channel, const char* data, bool retained) {
+  mqttClient.publish(channel, data, retained);
 }
 
 // This is a horrible hack we have to do because of library limitations

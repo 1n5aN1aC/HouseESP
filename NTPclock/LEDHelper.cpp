@@ -28,7 +28,7 @@ void LEDHelper::set_brightness(int new_brightness) {
   if (new_brightness != brightness) {
     char str[10];
     sprintf(str, "%d", new_brightness);
-    MQTT_Helper.publishMQTT("home/jroom/clock/brightness", str);
+    MQTT_Helper.publishMQTT("home/jroom/clock/brightness", str, true);
   }
 }
 

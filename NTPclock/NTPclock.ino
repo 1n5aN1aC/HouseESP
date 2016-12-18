@@ -79,7 +79,7 @@ void checkTemp() {
   
     char result[8]; // Buffer big enough for 7-character float
     dtostrf(temp, 6, 2, result); // Leave room for too large numbers!
-    MQTT_Helper.publishMQTT("home/jroom/clock/temp", result);
+    MQTT_Helper.publishMQTT("home/jroom/clock/temp", result, false);
     lastTempSend = millis();
   }
 }
