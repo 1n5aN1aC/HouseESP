@@ -14,7 +14,7 @@
 
 #include <DS3232RTC.h>    // RTC Library
 #include <TimeLib.h>      // Must be included AFTER DS3232RTC!!!
-#include <Wire.h>         // Incuded here so that Arduino library object file references work
+#include <Wire.h>         // Included here so that Arduino library object file references work
 
 TimeManager Time_Manager = TimeManager();
 
@@ -22,7 +22,7 @@ TimeManager Time_Manager = TimeManager();
 void TimeManager::RTCSetup() {
   time_t RTCTime = RTC.get();   //Get RTC time
   setTime(RTCTime);             //Set it as current time
-  RTC.squareWave(SQWAVE_NONE);  //Never assume the Rtc was last configured by you, so just clear them to your needed state
+  RTC.squareWave(SQWAVE_NONE);  //Never assume the RTC was last configured by you, so just clear them to your needed state
   LED_Helper.updateDigits();    //Force update of display while loop() not running
 }
 
@@ -44,6 +44,15 @@ void TimeManager::beginNTP() {
   Serial.println("Done.");
 }
 
+// Enables or Disables military time
+void TimeManager::setMilitary(boolean military) {
+  if (military != militaryTime) {
+    //update MQTT
+  }
+  militaryTime = military;
+}
+
+// Return the current hour, depending on the military time setting
 int TimeManager::getHours() {
   //If non-military time & 13-23 time, subtract 12 to get real hours...
   if (!militaryTime && hour() > 12)
@@ -55,7 +64,14 @@ int TimeManager::getHours() {
     return hour();
 }
 
+// gets the temperature from the RTC.  Also does unit conversion
 float TimeManager::getTemperature() {
-  int t = RTC.temperature();
-  return t / 4.0;
+  int temp = RTC.temperature();
+  float tempC = temp / 4.0;
+  float tempF = tempC * 9.0 / 5.0 + 32.0;
+
+  if (fahrenheit)
+    return tempF;
+  else
+    return tempC;
 }

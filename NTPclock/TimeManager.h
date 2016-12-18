@@ -18,10 +18,12 @@
 class TimeManager
 {
   bool militaryTime = false;
+  bool fahrenheit = true;
   
 public:
   void beginNTP();
   void RTCSetup();
+  void setMilitary(boolean military);
   float getTemperature();
   int getHours();
 };

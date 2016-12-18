@@ -16,13 +16,15 @@ LEDHelper LED_Helper = LEDHelper();
 
 //Called once to turn on the LEDs
 void LEDHelper::LED_Setup() {
-  brightness = 8;
-  LEDs.shutdown(0,false);
-  LEDs.setIntensity(0, brightness);     //TODO: Needs moved out to seperate function.  Plus controls to raise / lower.
+  LEDs.shutdown(0,false);     //Turn the display on
+  set_brightness(brightness); //Just temporary brightness.  Set over MQTT
 }
 
 //Set the new brightness
 void LEDHelper::set_brightness(int new_brightness) {
+  if (new_brightness != brightness) {
+    //send mqtt update.
+  }
   brightness = new_brightness;
   LEDs.setIntensity(0, brightness);
 }

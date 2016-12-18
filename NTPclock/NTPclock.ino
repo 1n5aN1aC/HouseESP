@@ -36,7 +36,7 @@ void setup() {
 
   LED_Helper.LED_Setup();     //Turn on the LEDS, etc.
 
-  Time_Manager.RTCSetup();    //Restore RTC time immediently to current time
+  Time_Manager.RTCSetup();    //Restore RTC time immediately to current time
   connectWifi();              //Then connect to wifi
   Time_Manager.beginNTP();    //Start up NTP Client & time keeping
   MQTT_Helper.connect();
@@ -75,11 +75,10 @@ void checkUpdate() {
 //Send temp update if need be
 void checkTemp() {
   if (millis() > lastTempSend + TEMPERATURE_UPDATE_FREQUENCY) {
-    float celsius = Time_Manager.getTemperature();
-    float fahrenheit = celsius * 9.0 / 5.0 + 32.0;
+    float temp = Time_Manager.getTemperature();
   
     char result[8]; // Buffer big enough for 7-character float
-    dtostrf(fahrenheit, 6, 2, result); // Leave room for too large numbers!
+    dtostrf(temp, 6, 2, result); // Leave room for too large numbers!
     MQTT_Helper.publishMQTT("home/jroom/clock/temp", result);
     lastTempSend = millis();
   }

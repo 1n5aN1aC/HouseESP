@@ -59,7 +59,7 @@ void MQTTHelper::reconnect() {
   }
 }
 
-//
+// Just a shim to allow you to call it via the MQTTHelper object
 boolean MQTTHelper::publishMQTT(const char* channel, const char* data) {
   mqttClient.publish(channel, data);
 }
@@ -73,23 +73,24 @@ void MQTTCallbackShim(char* topic, byte* payload, unsigned int length) {
 // This is the method that actually handles the MQTT update
 // Here is what i have been using to handle subscriptions. I took it as a snippet from elsewhere but i cannot credit author as i dont have reference!
 void MQTTHelper::MQTTCallback(char* topic, byte* payload, unsigned int length) {
-  char message_buff[128];   // initialise storage buffer (i haven't tested to this capacity.)
-  
-  Serial.println("Message arrived:  topic: " + String(topic));
-  
+  char message_buff[128];   // initialize storage buffer (I haven't tested to this capacity.)
   // create character buffer with ending null terminator (string)
   int i = 0;
-  for(int i=0; i<length; i++) {
+  for(i=0; i<length; i++) {
     message_buff[i] = payload[i];
   }
   message_buff[i] = '\0';
   
-  String msgString = String(message_buff);
-  
+  String msgString   = String(message_buff);
+  String topicString = String(topic);     //the topic is null-terminated, so we can easily convert it.
+  int    msgInt      = msgString.toInt(); //the int version of the message, if conversion is possible.
+
+  Serial.println("Topic:" + topicString);
   Serial.println("Payload: " + msgString);
-  int state = digitalRead(2);   // get the current state of GPIO1 pin
-  if (msgString == "1"){        // if there is a "1" published to any topic (#) on the broker then:
-    digitalWrite(2, !state);    // set pin to the opposite state
-    Serial.println("Switching LED");
+  Serial.println(msgInt);
+  
+  if (topicString.equalsIgnoreCase("home/jroom/clock/brightness")) {
+    LED_Helper.set_brightness(msgInt);
+    Serial.println("SET NEW BRIGHTNESS! " + msgString);
   }
 }
