@@ -21,15 +21,20 @@ void LEDHelper::LED_Setup() {
   set_brightness(brightness); //Just temporary brightness.  Set over MQTT
 }
 
-//Set the new brightness
+//Set the new brightness, without updating MQTT
 void LEDHelper::set_brightness(int new_brightness) {
   brightness = new_brightness;
   LEDs.setIntensity(0, brightness);
+}
+
+//Set the new brightness & updates MQTT
+void LEDHelper::set_brightness_update(int new_brightness) {
   if (new_brightness != brightness) {
     char str[10];
     sprintf(str, "%d", new_brightness);
     MQTT_Helper.publishMQTT("home/jroom/clock/brightness", str, true);
   }
+  set_brightness(new_brightness); //This may not be needed
 }
 
 // Handles updating the primary 7-segment display

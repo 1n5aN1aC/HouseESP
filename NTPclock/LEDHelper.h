@@ -23,6 +23,7 @@ class LEDHelper
 public:
   void LED_Setup();
   void set_brightness(int brightness);
+  void set_brightness_update(int new_brightness);
   void updateDigits();
   void updateMisc();
 };
