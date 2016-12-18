@@ -87,10 +87,8 @@ void MQTTHelper::MQTTCallback(char* topic, byte* payload, unsigned int length) {
 
   Serial.println("Topic:" + topicString);
   Serial.println("Payload: " + msgString);
-  Serial.println(msgInt);
   
   if (topicString.equalsIgnoreCase("home/jroom/clock/brightness")) {
     LED_Helper.set_brightness(msgInt);
-    Serial.println("SET NEW BRIGHTNESS! " + msgString);
   }
 }
