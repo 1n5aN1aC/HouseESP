@@ -22,7 +22,7 @@
 //---------------------------------------------------------//
 
 #define DHTTYPE DHT22   // DHT 22  (AM2302), AM2320, AM2321
-const int DHTPin = 5;
+const int DHTPin = 4;
 DHT dht(DHTPin, DHTTYPE);
 bool fahrenheit = true;
 
@@ -43,6 +43,7 @@ void loop() {
   MQTT_Helper.mqttLoop();
   
   checkTempHumid();
+  delay(1000); //saves power; we don't need to check often anyways...
   yield();
 }
 
@@ -53,6 +54,7 @@ void connectWifi() {
   Serial.println(SSID);
   WiFi.begin(SSID, PASS);
   delay(5000);
+  Serial.println(getTemperature() );
 }
 
 //Send temp / humidity update if need be
