@@ -4,7 +4,7 @@
 // This sketch only runs on an Arduino Nano, due to specific AVR functions called for voltage reading.
 //
 // Handles reading temperature, humidity, rain & wind speed for a weather station.
-// Transmits back results via serial for a ESP-based device in the attic to send via MQTT & gather attic data
+// Transmits back results via serial for a ESP-based device in the attic to process and send via MQTT.
 // 
 // Author - Joshua Villwock
 // Created - 2016-02-20
@@ -22,9 +22,9 @@
 #define TEMP_PIN_1_DELAY 10   // How often to update sensor
 
 #define TEXT_RAIN_FLIP "RAIN FLIP" // serial text to print on rain flip
-#define TEXT_OUTSIDE   "OUT:"      // serial text to print for temperature
-#define TEXT_TH_BREAK  ":"         // serial text to print for humidity
-#define TEXT_BATTERY   "bat:"      // serial text to print for voltage
+#define TEXT_OUTSIDE   "T:"        // serial text to print for temperature
+#define TEXT_HUMIDITY  "H:"        // serial text to print for humidity
+#define TEXT_BATTERY   "B:"        // serial text to print for voltage
 
 #define WIND_DEBOUNCE_TIME 200     // MICROseconds before accepting more wind
 #define RAIN_DEBOUNCE_TIME 2000    // MILLIseconds before accepting new rain
@@ -89,8 +89,8 @@ void updateTemp() {
   float h = dht.readHumidity();
   if ( !isnan(f) && !isnan(h) ) {
     Serial.print(TEXT_OUTSIDE);
-    Serial.print(f);
-    Serial.print(TEXT_TH_BREAK);
+    Serial.println(f);
+    Serial.print(TEXT_HUMIDITY);
     Serial.println(h);
   }
   updateVoltage();
