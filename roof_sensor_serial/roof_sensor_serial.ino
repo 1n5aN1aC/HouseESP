@@ -20,6 +20,7 @@
 #define TEMP_PIN_1 12         // Temp Sensor connected to digital pin 12
 #define TEMP_PIN_1_TYPE DHT22 // Temp Sensor type
 #define TEMP_PIN_1_DELAY 10   // How often to update sensor
+#define BATTERY_DELAY 60      // How often to update voltage
 
 #define TEXT_RAIN_FLIP "RAIN FLIP" // serial text to print on rain flip
 #define TEXT_WIND_UPDATE "W:"      // serial text to print on wind update
@@ -35,6 +36,7 @@ volatile unsigned long rainDebounce = 0; // last rain debounce
 unsigned long lastmillis  = 0;           // last time main loop reported
 volatile byte half_revolutions = 0;      // number of wind (half) revolutions since reset
 int tempCounter    = 0;                  // counter for how many seconds since last temp reading
+int batteryCounter = 0;                  // counter for how many seconds since last battery reading
 
 DHT dht(TEMP_PIN_1, TEMP_PIN_1_TYPE);    // Declare the DHT sensor
 
@@ -62,6 +64,12 @@ void loop() {
       updateTemp();                         // then get us temp data
     } else {
       tempCounter++;                        // otherwise, increment loop count
+    }
+
+    if (batteryCounter > BATTERY_DELAY) { // if we've ran this loop 10 times
+      updateVoltage();                      // then get us temp data
+    } else {
+      batteryCounter++;                     // otherwise, increment loop count
     }
 
     lastmillis = millis();                  // update lastmillis
@@ -95,8 +103,6 @@ void updateTemp() {
     Serial.print(TEXT_HUMIDITY);
     Serial.println(h);
   }
-  updateVoltage();
-  
   tempCounter = 1;
 }
 
