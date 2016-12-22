@@ -21,18 +21,22 @@
 #define PASS ""        // your network password            //
 //---------------------------------------------------------//
 
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2320, AM2321
+#define DHTTYPE DHT22     // DHT 22  (AM2302), AM2320, AM2321
 const int DHTPin = 4;
-DHT dht(DHTPin, DHTTYPE);
 bool fahrenheit = true;
+DHT dht(DHTPin, DHTTYPE);
+
+#define MAXCHARS  32        // Max chars before a line break
+#define ENDMARKER '\n'      // Character that defines the end of a line
+char serialChars[MAXCHARS]; // Array to store received data
+static byte next_loc = 0;   // Array location for next char
 
 unsigned long lastTempHumidSend = millis();
 #define TEMP_HUMID_UPDATE_FREQUENCY 60000
 
 // Initial set up routines
 void setup() {
-  Serial.begin(115200);
-  Serial.println();
+  Serial.begin(9600);
   dht.begin();
   connectWifi();        //Connect to wifi
   MQTT_Helper.setup();
@@ -41,23 +45,20 @@ void setup() {
 // Main program loop
 void loop() {
   MQTT_Helper.mqttLoop();
-  
   checkTempHumid();
-  delay(1000); //saves power; we don't need to check often anyways...
   yield();
+  checkSerial();
+  delay(50); //saves considerable power
 }
 
 // Initial connection to WiFi
 // We wait for 5 seconds to connect, but do not block on the connection.
 void connectWifi() {
-  Serial.print("Connecting to ");
-  Serial.println(SSID);
   WiFi.begin(SSID, PASS);
   delay(5000);
-  Serial.println(getTemperature() );
 }
 
-//Send temp / humidity update if need be
+// Send temp / humidity update if need be
 void checkTempHumid() {
   if (millis() > lastTempHumidSend + TEMP_HUMID_UPDATE_FREQUENCY) {
     
@@ -70,6 +71,49 @@ void checkTempHumid() {
     MQTT_Helper.publishMQTT("home/attic/controller/temp",  temp,  false);
     MQTT_Helper.publishMQTT("home/attic/controller/humid", humid, false);
     lastTempHumidSend = millis();
+  }
+}
+
+// Check for (and handle) any serial data sent to us from the roof sensor
+// Adapted from:  http://forum.arduino.cc/index.php?topic=288234.0
+void checkSerial() {
+  boolean newData = false;    // If we have a finished data packet
+  
+  //Get all the serial bytes we can until there is no more, or there is a newline.
+  while (Serial.available() > 0 && newData == false) {
+    char rc = Serial.read();
+
+    //If a regular character, append to the list
+    if (rc != ENDMARKER) {
+      serialChars[next_loc] = rc;
+      next_loc++;
+      //If it's more than the max length, just overight the last char
+      if (next_loc >= MAXCHARS) {
+        next_loc = MAXCHARS - 1;
+      }
+    }
+    //If a finishing character, then mark as complete
+    else {
+      serialChars[next_loc] = '\0'; // terminate the string
+      next_loc = 0;
+      newData = true;
+    }
+  }
+
+  //Once a full line has been found, send to processing.
+  if (newData == true) {
+    handleSerial();
+    newData = false;
+  }
+}
+
+// Process a complete serial line
+void handleSerial() {
+  Serial.print("This just in ... ");
+  Serial.println(serialChars);
+  char cleanChars[MAXCHARS];
+  if (serialChars[0] == 'T') {
+    
   }
 }
 
@@ -86,4 +130,3 @@ float getTemperature() {
 float getHumidity() {
   return dht.readHumidity();
 }
-
