@@ -78,7 +78,7 @@ void checkTempHumid() {
 // Adapted from:  http://forum.arduino.cc/index.php?topic=288234.0
 void checkSerial() {
   boolean newData = false;    // If we have a finished data packet
-  
+
   //Get all the serial bytes we can until there is no more, or there is a newline.
   while (Serial.available() > 0 && newData == false) {
     char rc = Serial.read();
@@ -107,13 +107,34 @@ void checkSerial() {
   }
 }
 
-// Process a complete serial line
+// Process a complete serial line, and publish results to MQTT
 void handleSerial() {
-  Serial.print("This just in ... ");
-  Serial.println(serialChars);
-  char cleanChars[MAXCHARS];
+  char cleanChars[MAXCHARS];  //serialChars, with first 2 chars 'removed'
+  strncpy(cleanChars, serialChars, MAXCHARS);
+  for(int i=2; i < MAXCHARS; i++) {
+    cleanChars[i-2] = cleanChars[i];
+  }
+
+  // Check the first character, and process the packet based on that.
+  //Wind Update
+  if (serialChars[0] == 'W') {
+    MQTT_Helper.publishMQTT("home/roof/weather/wind", cleanChars, false);
+  }
+  //Temperature Update
   if (serialChars[0] == 'T') {
-    
+    MQTT_Helper.publishMQTT("home/roof/weather/temp", cleanChars, false);
+  }
+  //Humidity Update
+  if (serialChars[0] == 'H') {
+    MQTT_Helper.publishMQTT("home/roof/weather/humid", cleanChars, false);
+  }
+  //'Battery' Update
+  if (serialChars[0] == 'B') {
+    MQTT_Helper.publishMQTT("home/roof/weather/battery", cleanChars, true);
+  }
+  //Rain Flip
+  if (serialChars[0] == 'R') {
+    MQTT_Helper.publishMQTT("home/roof/weather/rain", cleanChars, false);
   }
 }
 
