@@ -12,7 +12,7 @@
 
 #include <DHT.h>
 #include "MQTTHelper.h"
-#include <ESP8266WiFi.h>  // We need to use the wifi for NTP
+#include <ESP8266WiFi.h>
 
 //---------------------------------------------------------//
 //              CONFIGURE YOUR NETWORK HERE                //
