@@ -19,8 +19,8 @@
 
 #define TEMP_PIN_1 12         // Temp Sensor connected to digital pin 12
 #define TEMP_PIN_1_TYPE DHT22 // Temp Sensor type
-#define TEMP_PIN_1_DELAY 10   // How often to update sensor
-#define BATTERY_DELAY 60      // How often to update voltage
+#define TEMP_PIN_1_DELAY 30   // How often to update sensor
+#define BATTERY_DELAY 120     // How often to update voltage
 
 #define TEXT_RAIN_FLIP "RAIN FLIP" // serial text to print on rain flip
 #define TEXT_WIND_UPDATE "W:"      // serial text to print on wind update
