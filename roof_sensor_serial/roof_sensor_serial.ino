@@ -110,6 +110,7 @@ void updateTemp() {
 void updateVoltage() {
   Serial.print(TEXT_BATTERY);
   Serial.println( readVcc(), DEC );
+  batteryCounter = 1;
 }
 
 // gets the number of windTurns
