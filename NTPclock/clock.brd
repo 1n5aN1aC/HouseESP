@@ -902,8 +902,8 @@ design rules under a new name.</description>
 <element name="C3" library="SparkFun-Capacitors" package="1206" value="0.1μF" x="65" y="37.5" rot="MR0"/>
 <element name="C4" library="SparkFun-Capacitors" package="1206" value="10μF" x="42.75" y="7" rot="R180"/>
 <element name="C5" library="SparkFun-Capacitors" package="1206" value="1mF" x="22" y="31"/>
-<element name="C6" library="SparkFun-Capacitors" package="CPOL-RADIAL-100UF-25V" value="470mF" x="93" y="8" rot="R270"/>
-<element name="C7" library="SparkFun-Capacitors" package="CPOL-RADIAL-100UF-25V" value="330mF" x="53.5" y="5" rot="R90"/>
+<element name="C6" library="SparkFun-Capacitors" package="CPOL-RADIAL-100UF-25V" value="470μF" x="93" y="8" rot="R270"/>
+<element name="C7" library="SparkFun-Capacitors" package="CPOL-RADIAL-100UF-25V" value="47μF" x="53.5" y="5" rot="R90"/>
 <element name="C8" library="SparkFun-Capacitors" package="CPOL-RADIAL-100UF-25V" value="10μF" x="87.5" y="37.75" rot="R90"/>
 <element name="POWER" library="SparkFun-Connectors" package="JST-2-PTH-VERT" value="" x="104" y="8" rot="MR90"/>
 <element name="J0" library="SparkFun-Connectors" package="MOLEX-1X6" value="" x="22.25" y="37.75" rot="MR0"/>

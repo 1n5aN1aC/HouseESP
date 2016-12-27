@@ -4830,8 +4830,8 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="C3" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="0.1μF"/>
 <part name="C4" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="10μF"/>
 <part name="C5" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="1mF"/>
-<part name="C6" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="470mF"/>
-<part name="C7" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="330mF"/>
+<part name="C6" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="470μF"/>
+<part name="C7" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="47μF"/>
 <part name="C8" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="10μF"/>
 <part name="POWER" library="SparkFun-Connectors" deviceset="M02" device="JST-PTH-VERT"/>
 <part name="J0" library="SparkFun-Connectors" deviceset="M06" device="POLAR"/>
@@ -5665,8 +5665,18 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 </sheets>
 <errors>
 <approved hash="106,1,86.36,-27.94,32K,,,,,"/>
+<approved hash="106,1,88.9,96.52,DIGIT2,,,,,"/>
+<approved hash="113,1,50.8,82.2748,R1,,,,,"/>
+<approved hash="113,1,50.8,77.1948,R2,,,,,"/>
+<approved hash="113,1,34.8827,-27.7453,POWER,,,,,"/>
+<approved hash="113,1,83.1427,-32.8253,J0,,,,,"/>
 <approved hash="113,1,260.916,30.9795,BAR_GRAPH,,,,,"/>
+<approved hash="113,1,40.3606,90.0726,DOUT,,,,,"/>
+<approved hash="113,1,156.21,23.1817,D2,,,,,"/>
+<approved hash="113,1,156.21,13.0217,D3,,,,,"/>
+<approved hash="113,1,159.343,-22.6653,SERIAL,,,,,"/>
 <approved hash="113,1,128.863,-35.3653,BUTTONS,,,,,"/>
+<approved hash="113,1,50.8,-27.4532,D1,,,,,"/>
 </errors>
 </schematic>
 </drawing>
