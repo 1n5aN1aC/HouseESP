@@ -4825,13 +4825,13 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="IC1" library="max7219" deviceset="MAX7219CNG" device=""/>
 <part name="R1" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206"/>
 <part name="R2" library="SparkFun-Resistors" deviceset="RESISTOR" device="1206"/>
-<part name="C1" library="SparkFun-Capacitors" deviceset="CAP" device="1206"/>
-<part name="C2" library="SparkFun-Capacitors" deviceset="CAP" device="1206"/>
+<part name="C1" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="10μF"/>
+<part name="C2" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="0.1μF"/>
 <part name="C3" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="0.1μF"/>
-<part name="C4" library="SparkFun-Capacitors" deviceset="CAP" device="1206"/>
-<part name="C5" library="SparkFun-Capacitors" deviceset="CAP" device="1206"/>
-<part name="C6" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="470μF"/>
-<part name="C7" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1"/>
+<part name="C4" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="10μF"/>
+<part name="C5" library="SparkFun-Capacitors" deviceset="CAP" device="1206" value="1mF"/>
+<part name="C6" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="470mF"/>
+<part name="C7" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="330mF"/>
 <part name="C8" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH1" value="10μF"/>
 <part name="POWER" library="SparkFun-Connectors" deviceset="M02" device="JST-PTH-VERT"/>
 <part name="J0" library="SparkFun-Connectors" deviceset="M06" device="POLAR"/>
@@ -4880,12 +4880,12 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <instance part="R1" gate="G$1" x="50.8" y="81.28"/>
 <instance part="R2" gate="G$1" x="50.8" y="76.2"/>
 <instance part="C1" gate="G$1" x="45.72" y="-35.56"/>
-<instance part="C2" gate="G$1" x="152.4" y="71.12"/>
+<instance part="C2" gate="G$1" x="162.56" y="71.12"/>
 <instance part="C3" gate="G$1" x="38.1" y="60.96"/>
-<instance part="C4" gate="G$1" x="137.16" y="71.12"/>
+<instance part="C4" gate="G$1" x="147.32" y="71.12"/>
 <instance part="C5" gate="G$1" x="109.22" y="-38.1"/>
 <instance part="C6" gate="G$1" x="58.42" y="-33.02"/>
-<instance part="C7" gate="G$1" x="144.78" y="73.66"/>
+<instance part="C7" gate="G$1" x="137.16" y="73.66"/>
 <instance part="C8" gate="G$1" x="50.8" y="63.5"/>
 <instance part="POWER" gate="G$1" x="30.48" y="-30.48"/>
 <instance part="J0" gate="G$1" x="81.28" y="-35.56"/>
@@ -4978,18 +4978,18 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <pinref part="C4" gate="G$1" pin="2"/>
 <pinref part="C7" gate="G$1" pin="-"/>
 <pinref part="GND4" gate="1" pin="GND"/>
-<wire x1="144.78" y1="66.04" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="144.78" y1="66.04" x2="152.4" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="66.04" x2="152.4" y2="68.58" width="0.1524" layer="91"/>
-<junction x="144.78" y="66.04"/>
-<junction x="152.4" y="66.04"/>
-<wire x1="152.4" y1="66.04" x2="157.48" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="66.04" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="66.04" x2="157.48" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="66.04" x2="162.56" y2="68.58" width="0.1524" layer="91"/>
+<junction x="162.56" y="66.04"/>
 <junction x="157.48" y="66.04"/>
-<wire x1="157.48" y1="66.04" x2="210.82" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="66.04" x2="162.56" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="66.04" x2="210.82" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="137.16" y1="63.5" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
 <junction x="137.16" y="66.04"/>
-<wire x1="144.78" y1="68.58" x2="144.78" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="66.04" x2="137.16" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="68.58" x2="147.32" y2="66.04" width="0.1524" layer="91"/>
+<junction x="147.32" y="66.04"/>
+<wire x1="137.16" y1="68.58" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <wire x1="58.42" y1="-43.18" x2="58.42" y2="-40.64" width="0.1524" layer="91"/>
@@ -5505,15 +5505,15 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <pinref part="C7" gate="G$1" pin="+"/>
 <pinref part="C4" gate="G$1" pin="1"/>
 <pinref part="C2" gate="G$1" pin="1"/>
-<wire x1="165.1" y1="78.74" x2="152.4" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="78.74" x2="144.78" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="144.78" y1="78.74" x2="137.16" y2="78.74" width="0.1524" layer="91"/>
-<junction x="144.78" y="78.74"/>
-<wire x1="152.4" y1="76.2" x2="152.4" y2="78.74" width="0.1524" layer="91"/>
-<junction x="152.4" y="78.74"/>
+<wire x1="165.1" y1="78.74" x2="162.56" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="78.74" x2="147.32" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="78.74" x2="137.16" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="76.2" x2="162.56" y2="78.74" width="0.1524" layer="91"/>
+<junction x="162.56" y="78.74"/>
 <junction x="137.16" y="78.74"/>
-<wire x1="144.78" y1="78.74" x2="144.78" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="76.2" x2="137.16" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="78.74" x2="137.16" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="76.2" x2="147.32" y2="78.74" width="0.1524" layer="91"/>
+<junction x="147.32" y="78.74"/>
 </segment>
 <segment>
 <pinref part="C3" gate="G$1" pin="1"/>
@@ -5663,6 +5663,11 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="106,1,86.36,-27.94,32K,,,,,"/>
+<approved hash="113,1,260.916,30.9795,BAR_GRAPH,,,,,"/>
+<approved hash="113,1,128.863,-35.3653,BUTTONS,,,,,"/>
+</errors>
 </schematic>
 </drawing>
 </eagle>
