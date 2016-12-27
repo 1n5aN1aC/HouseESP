@@ -4870,7 +4870,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <wire x1="274.32" y1="53.34" x2="215.9" y2="53.34" width="0.1524" layer="97"/>
 <wire x1="215.9" y1="53.34" x2="129.54" y2="53.34" width="0.1524" layer="97"/>
 <wire x1="129.54" y1="53.34" x2="129.54" y2="134.62" width="0.1524" layer="97"/>
-<text x="264.16" y="-43.18" size="1.778" layer="97">1.1</text>
+<text x="264.16" y="-43.18" size="1.778" layer="97">1.0</text>
 <text x="193.04" y="-43.18" size="1.778" layer="97">Joshua Villwock</text>
 <wire x1="215.9" y1="134.62" x2="215.9" y2="53.34" width="0.1524" layer="97"/>
 </plain>
