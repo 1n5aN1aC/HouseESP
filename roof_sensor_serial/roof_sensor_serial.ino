@@ -40,7 +40,7 @@ int batteryCounter = 0;                  // counter for how many seconds since l
 
 DHT dht(TEMP_PIN_1, TEMP_PIN_1_TYPE);    // Declare the DHT sensor
 
-// setup code, runs once upon boot:
+// Setup code, runs once upon boot:
 void setup() {
   pinMode(LED_PIN, OUTPUT);        // set led pin as output
   pinMode(WIND_PIN, INPUT_PULLUP); // enable pullup for wind sensor
@@ -53,20 +53,20 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(RAIN_PIN), rainInterrupt, FALLING); // attach interrupt handler
 }
 
-// main code, runs forever:
+// Main code, runs forever:
 void loop() {
   if (millis() - lastmillis >= 1000) {    // if it's been more than 1000ms:
     noInterrupts();                         // disable interrupts when calculating
     Serial.print(TEXT_WIND_UPDATE);         // print header
     Serial.println(getWind(), DEC);         // print the rpm to serial
 
-    if (tempCounter > TEMP_PIN_1_DELAY) { // if we've ran this loop 10 times
+    if (tempCounter > TEMP_PIN_1_DELAY) { // if we've ran this loop 30 times
       updateTemp();                         // then get us temp data
     } else {
       tempCounter++;                        // otherwise, increment loop count
     }
 
-    if (batteryCounter > BATTERY_DELAY) { // if we've ran this loop 10 times
+    if (batteryCounter > BATTERY_DELAY) { // if we've ran this loop 120 times
       updateVoltage();                      // then get us temp data
     } else {
       batteryCounter++;                     // otherwise, increment loop count
@@ -77,7 +77,7 @@ void loop() {
   }
 }
 
-// when wind gauge is triggered
+// When wind gauge is triggered
 void windInterrupt() {
   if (micros() - windDebounce > WIND_DEBOUNCE_TIME) { // if we're not within the debounce time
     half_revolutions++;              // increment the half revolutions
@@ -85,11 +85,22 @@ void windInterrupt() {
   }
 }
 
-// when rain gauge is triggered
+// When rain gauge is triggered
+// This also checks for and rules out strange static flip readings
 void rainInterrupt() {
-  if (millis() - rainDebounce > RAIN_DEBOUNCE_TIME) { // if we're not within the debounce time
-    Serial.println(TEXT_RAIN_FLIP);     // then output that we flipped.
-    rainDebounce = millis();            // update the last debounce time
+  int triggers = 0;
+  for (int i=0;i<10;i++) {
+    if (digitalRead(RAIN_PIN) == 0)
+      triggers++;
+    delay(10);
+  }
+
+  //Only consider it as tripped if at least 90% of the 100ms after trip is also tripped
+  if (triggers > 8) {
+    if (millis() - rainDebounce > RAIN_DEBOUNCE_TIME) { // if we're not within the debounce time
+      Serial.println(TEXT_RAIN_FLIP);     // then output that we flipped.
+      rainDebounce = millis();            // update the last debounce time
+    }
   }
 }
 
