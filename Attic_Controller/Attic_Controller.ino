@@ -26,6 +26,7 @@ const int DHTPin = 4;
 bool fahrenheit = true;
 DHT dht(DHTPin, DHTTYPE);
 
+// Serial Variables
 #define MAXCHARS  32        // Max chars before a line break
 #define ENDMARKER '\n'      // Character that defines the end of a line
 char serialChars[MAXCHARS]; // Array to store received data

@@ -22,7 +22,7 @@
 #define TEMP_PIN_1_DELAY 30   // How often to update sensor
 #define BATTERY_DELAY 120     // How often to update voltage
 
-#define TEXT_RAIN_FLIP "RAIN FLIP" // serial text to print on rain flip
+#define TEXT_RAIN_FLIP "RAIN FLIP " // serial text to print on rain flip
 #define TEXT_WIND_UPDATE "W:"      // serial text to print on wind update
 #define TEXT_OUTSIDE     "T:"      // serial text to print for temperature
 #define TEXT_HUMIDITY    "H:"      // serial text to print for humidity
@@ -98,10 +98,11 @@ void rainInterrupt() {
   //Only consider it as tripped if at least 90% of the 100ms after trip is also tripped
   if (triggers > 8) {
     if (millis() - rainDebounce > RAIN_DEBOUNCE_TIME) { // if we're not within the debounce time
-      Serial.println(TEXT_RAIN_FLIP);     // then output that we flipped.
+      Serial.print(TEXT_RAIN_FLIP);     // then output that we flipped.
       rainDebounce = millis();            // update the last debounce time
     }
   }
+  Serial.println(triggers);
 }
 
 // Called to update & send temp data
