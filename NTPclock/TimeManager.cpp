@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------------------------------------------------
 // TimeManager.cpp
-// 
+//
 // Manages all time-related functions for the clock.  (Time, NTP, RTC)
 // For ease, we define a global object that should be used for all time-related functions
-// 
+//
 // Author - Joshua Villwock
 // Created - 2016-12-09
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
@@ -30,7 +30,7 @@ void TimeManager::RTCSetup() {
 void TimeManager::beginNTP() {
   Serial.print("Starting NTP client...");
   NTP.begin("pool.ntp.org", -8, true);    //-8 is pacific time, true means dst
-  NTP.setInterval(21600);                 //every 6 hours
+  NTP.setInterval(86400);                 //every 24 hours
 
   //Called on NTP update.
   NTP.onNTPSyncEvent([](NTPSyncEvent_t ntpEvent) {
@@ -40,7 +40,7 @@ void TimeManager::beginNTP() {
       RTC.set(NTP.getLastNTPSync());
     }
   });
-  
+
   Serial.println("Done.");
 }
 

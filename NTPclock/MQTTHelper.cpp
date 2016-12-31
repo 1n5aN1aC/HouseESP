@@ -80,14 +80,14 @@ void MQTTHelper::MQTTCallback(char* topic, byte* payload, unsigned int length) {
     message_buff[i] = payload[i];
   }
   message_buff[i] = '\0';
-  
+
   String msgString   = String(message_buff);
   String topicString = String(topic);     //the topic is null-terminated, so we can easily convert it.
   int    msgInt      = msgString.toInt(); //the int version of the message, if conversion is possible.
 
   Serial.println("Topic:" + topicString);
   Serial.println("Payload: " + msgString);
-  
+
   if (topicString.equalsIgnoreCase("home/jroom/clock/brightness")) {
     LED_Helper.set_brightness(msgInt);
   }

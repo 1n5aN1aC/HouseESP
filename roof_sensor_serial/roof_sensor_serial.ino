@@ -23,10 +23,10 @@
 #define BATTERY_DELAY 120     // How often to update voltage
 
 #define TEXT_RAIN_FLIP "RAIN FLIP " // serial text to print on rain flip
-#define TEXT_WIND_UPDATE "W:"      // serial text to print on wind update
-#define TEXT_OUTSIDE     "T:"      // serial text to print for temperature
-#define TEXT_HUMIDITY    "H:"      // serial text to print for humidity
-#define TEXT_BATTERY     "B:"      // serial text to print for voltage
+#define TEXT_WIND_UPDATE "W:"       // serial text to print on wind update
+#define TEXT_OUTSIDE     "T:"       // serial text to print for temperature
+#define TEXT_HUMIDITY    "H:"       // serial text to print for humidity
+#define TEXT_BATTERY     "B:"       // serial text to print for voltage
 
 #define WIND_DEBOUNCE_TIME 200     // MICROseconds before accepting more wind
 #define RAIN_DEBOUNCE_TIME 2000    // MILLIseconds before accepting new rain
