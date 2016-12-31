@@ -20,7 +20,7 @@ extern const char WIFI_SSID[];
 extern const char WIFI_PASS[];
 
 #define DHTTYPE DHT22     // DHT 22  (AM2302), AM2320, AM2321
-const int DHTPin = 4;
+const int DHTPin = D4;
 bool fahrenheit = true;
 DHT dht(DHTPin, DHTTYPE);
 
