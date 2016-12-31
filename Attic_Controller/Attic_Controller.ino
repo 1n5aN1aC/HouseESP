@@ -1,10 +1,11 @@
+#include <Arduino.h>
+
 //----------------------------------------------------------------------------------------------------------------
 // Attic_Controller.ino
-// 
-// Controls a LED clock using an ESP8266, several 7-segment displays, and a bargraph display
-// Uses NTP for internet time updating, and supports a Real-Time clock for outages.
-// Some extra features include a temperature & humidity sensor, brightness control, time zone control.
-// 
+//
+// Handles communicating with the roof sensors, as well as reading attic temperature / humidity
+// Processes that information, and passes it on via MQTT
+//
 // Author - Joshua Villwock
 // Created - 2016-11-13
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
@@ -13,20 +14,16 @@
 #include <DHT.h>
 #include "MQTTHelper.h"
 #include <ESP8266WiFi.h>
+#include "Options.cpp"
 
-//---------------------------------------------------------//
-//              CONFIGURE YOUR NETWORK HERE                //
-//---------------------------------------------------------//
-#define SSID "joshua"  // your network SSID (name)         //
-#define PASS ""        // your network password            //
-//---------------------------------------------------------//
+extern const char WIFI_SSID[];
+extern const char WIFI_PASS[];
 
 #define DHTTYPE DHT22     // DHT 22  (AM2302), AM2320, AM2321
 const int DHTPin = 4;
 bool fahrenheit = true;
 DHT dht(DHTPin, DHTTYPE);
 
-// Serial Variables
 #define MAXCHARS  32        // Max chars before a line break
 #define ENDMARKER '\n'      // Character that defines the end of a line
 char serialChars[MAXCHARS]; // Array to store received data
@@ -55,20 +52,20 @@ void loop() {
 // Initial connection to WiFi
 // We wait for 5 seconds to connect, but do not block on the connection.
 void connectWifi() {
-  WiFi.begin(SSID, PASS);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
   delay(5000);
 }
 
 // Send temp / humidity update if need be
 void checkTempHumid() {
   if (millis() > lastTempHumidSend + TEMP_HUMID_UPDATE_FREQUENCY) {
-    
+
     char temp[8]; // Buffer big enough for 7-character float
     dtostrf(getTemperature(), 6, 2, temp); // Leave room for too large numbers!
 
     char humid[8];
     dtostrf(getHumidity(), 6, 2, humid);
-    
+
     MQTT_Helper.publishMQTT("home/attic/controller/temp",  temp,  false);
     MQTT_Helper.publishMQTT("home/attic/controller/humid", humid, false);
     lastTempHumidSend = millis();
