@@ -132,7 +132,7 @@ void handleSerial() {
   }
   //Rain Flip
   if (serialChars[0] == 'R') {
-    MQTT_Helper.publishMQTT("home/roof/weather/rain", cleanChars, false);
+    MQTT_Helper.publishMQTT("home/roof/weather/rain", serialChars, false);
   }
 }
 
