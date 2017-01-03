@@ -46,7 +46,7 @@ void loop() {
   checkTempHumid();
   yield();
   checkSerial();
-  delay(50); //saves considerable power
+  delay(100); //saves considerable power & heat
 }
 
 // Initial connection to WiFi

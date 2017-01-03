@@ -42,10 +42,10 @@ void setup() {
 // Main program loop
 void loop() {
   MQTT_Helper.mqttLoop();
-
+  yield();
   checkTimeUpdate();
   checkTempUpdate();
-  yield();
+  delay(50); //saves considerable power & heat
 }
 
 // Initial connection to WiFi

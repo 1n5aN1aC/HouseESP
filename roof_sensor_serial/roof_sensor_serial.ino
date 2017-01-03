@@ -75,6 +75,7 @@ void loop() {
     lastmillis = millis();                  // update lastmillis
     interrupts();                           // re-enable interrupts
   }
+  delay(100); //saves considerable power & heat
 }
 
 // When wind gauge is triggered
