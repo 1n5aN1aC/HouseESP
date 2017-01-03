@@ -11,11 +11,13 @@
 //----------------------------------------------------------------------------------------------------------------
 
 #include <ESP8266WiFi.h>  // We need to use the wifi for NTP
-
 #include "LEDHelper.h"
 #include "TimeManager.h"
 #include "MQTTHelper.h"
 #include "Options.cpp"
+extern "C" {
+  #include "user_interface.h"
+}
 
 extern const char WIFI_SSID[];
 extern const char WIFI_PASS[];
@@ -28,12 +30,13 @@ unsigned long lastTempSend = millis();
 
 // Initial set up routines
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println();
 
   LED_Helper.LED_Setup();     //Turn on the LEDS, etc.
 
   Time_Manager.RTCSetup();    //Restore RTC time immediately to current time
+  wifi_station_set_hostname("ESP_Clock");
   connectWifi();              //Then connect to wifi
   Time_Manager.beginNTP();    //Start up NTP Client & time keeping
   MQTT_Helper.connect();

@@ -15,6 +15,9 @@
 #include "MQTTHelper.h"
 #include <ESP8266WiFi.h>
 #include "Options.cpp"
+extern "C" {
+  #include "user_interface.h"
+}
 
 extern const char WIFI_SSID[];
 extern const char WIFI_PASS[];
@@ -36,7 +39,8 @@ unsigned long lastTempHumidSend = millis();
 void setup() {
   Serial.begin(9600);
   dht.begin();
-  connectWifi();        //Connect to wifi
+  wifi_station_set_hostname("ESP_Attic");
+  connectWifi();
   MQTT_Helper.setup();
 }
 
