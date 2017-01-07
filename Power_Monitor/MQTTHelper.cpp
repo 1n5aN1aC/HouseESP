@@ -15,7 +15,7 @@
 //            CONFIGURE YOUR MQTT SERVER HERE              //
 //---------------------------------------------------------//
 const IPAddress MQTT_SERVER(10, 0, 0, 44);                 //
-const int       MQTT_RECONNECT_TIME = 30000;               //
+const int       MQTT_RECONNECT_TIME = 15000;               //
 //---------------------------------------------------------//
 
 MQTTHelper MQTT_Helper = MQTTHelper();

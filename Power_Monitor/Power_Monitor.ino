@@ -13,6 +13,10 @@
 #include <DHT.h>
 #include "MQTTHelper.h"
 #include <ESP8266WiFi.h>
+#include <ArduinoOTA.h>
+extern "C" {
+  #include "user_interface.h"
+}
 
 //---------------------------------------------------------//
 //              CONFIGURE YOUR NETWORK HERE                //
@@ -40,10 +44,13 @@ String powerReadings[UPDATES_PER_SEND];
 
 // Initial set up routines
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   dht.begin();
+  wifi_station_set_hostname("ESP_Power");
   connectWifi();
   MQTT_Helper.setup();
+  otaInit();
+  ArduinoOTA.setPassword((const char *)"123");
 }
 
 // Main program loop
@@ -52,7 +59,8 @@ void loop() {
   yield();
   checkPower();
   checkTempHumid();
-  delay(10); //saves considerable power
+  delay(100); //saves considerable power
+  ArduinoOTA.handle();
 }
 
 // Initial connection to WiFi
@@ -91,8 +99,8 @@ void checkTempHumid() {
     char humid[8];
     dtostrf(getHumidity(), 6, 2, humid);
     
-    MQTT_Helper.publishMQTT("home/attic/controller/temp",  temp,  false);
-    MQTT_Helper.publishMQTT("home/attic/controller/humid", humid, false);
+    MQTT_Helper.publishMQTT("home/garage/power/temp",  temp,  false);
+    MQTT_Helper.publishMQTT("home/garage/power/humid", humid, false);
     lastTempHumidSend = millis();
   }
 }
@@ -109,4 +117,25 @@ float getTemperature() {
 
 float getHumidity() {
   return dht.readHumidity();
+}
+
+void otaInit() {
+  ArduinoOTA.onStart([]() {
+  Serial.println("Starting OTA");
+  });
+  ArduinoOTA.onEnd([]() {
+  Serial.println("\nEnd of OTA");
+  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+  Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+  });
+  ArduinoOTA.onError([](ota_error_t error) {
+  Serial.printf("Error[%u]: ", error);
+  if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+  else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+  else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+  else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+  else if (error == OTA_END_ERROR) Serial.println("End Failed");
+  });
+  ArduinoOTA.begin();
 }
