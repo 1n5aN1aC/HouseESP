@@ -66,7 +66,6 @@ boolean MQTTHelper::publishMQTT(const char* channel, const char* data, bool reta
 
 // This is a horrible hack we have to do because of library limitations
 void MQTTCallbackShim(char* topic, byte* payload, unsigned int length) {
-  Serial.println("callback called.  :)");
   MQTT_Helper.MQTTCallback(topic, payload, length);
 }
 
