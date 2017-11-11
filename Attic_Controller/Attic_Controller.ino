@@ -2,6 +2,8 @@
 
 //----------------------------------------------------------------------------------------------------------------
 // Attic_Controller.ino
+// 
+// This sketch is designed to run on a WeMos D1 mini.  Other controllers will require extensive tweaking.
 //
 // Handles communicating with the roof sensors, as well as reading attic temperature / humidity
 // Processes that information, and passes it on via MQTT
