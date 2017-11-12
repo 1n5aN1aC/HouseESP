@@ -67,10 +67,10 @@ void checkTempHumid() {
   if (millis() > lastTempHumidSend + TEMP_HUMID_UPDATE_FREQUENCY) {
 
     char temp[8]; // Buffer big enough for 7-character float
-    dtostrf(getTemperature(), 6, 2, temp); // Leave room for too large numbers!
+    dtostrf(getTemperature(), -6, 2, temp); // Leave room for too large numbers!
 
     char humid[8];
-    dtostrf(getHumidity(), 6, 2, humid);
+    dtostrf(getHumidity(), -6, 2, humid);
 
     MQTT_Helper.publishMQTT("home/attic/controller/temp",  temp,  false);
     MQTT_Helper.publishMQTT("home/attic/controller/humid", humid, false);
@@ -143,13 +143,7 @@ void handleSerial() {
 }
 
 float getTemperature() {
-  float tempC = dht.readTemperature();
-  float tempF = tempC * 9.0 / 5.0 + 32.0;
-
-  if (fahrenheit)
-    return tempF;
-  else
-    return tempC;
+  return dht.readTemperature(fahrenheit);
 }
 
 float getHumidity() {
