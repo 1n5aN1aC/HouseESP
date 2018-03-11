@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 //----------------------------------------------------------------------------------------------------------------
 // Attic_Controller.ino
 // 
@@ -13,6 +11,7 @@
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
 //----------------------------------------------------------------------------------------------------------------
 
+#include <Arduino.h>
 #include <DHT.h>
 #include "MQTTHelper.h"
 #include <ESP8266WiFi.h>
@@ -41,6 +40,7 @@ unsigned long lastTempHumidSend = millis();
 void setup() {
   Serial.begin(9600);
   dht.begin();
+  WiFi.mode(WIFI_STA);
   wifi_station_set_hostname("ESP_Attic");
   connectWifi();
   MQTT_Helper.setup();

@@ -10,6 +10,7 @@
 // License - Mozilla Public License 2.0 (Do what you want, credit the author, must release under same license)
 //----------------------------------------------------------------------------------------------------------------
 
+#include <EmonLib.h>
 #include <DHT.h>
 #include "MQTTHelper.h"
 #include <ESP8266WiFi.h>
