@@ -24,10 +24,10 @@ extern "C" {
 void connectWifi();
 void checkTempHumid();
 
-#define UPDATE_FREQUENCY 60 // Time to sleep (in seconds)
-#define DHTTYPE DHT11       // DHT 11
-const int DHTPin = 2;       // Should be D4 on the Wemos D1 Mini
-bool fahrenheit = true;     // Yes, report fahrenheit
+#define UPDATE_FREQUENCY 300 // Time to sleep (in seconds)
+#define DHTTYPE DHT11        // DHT 11
+const int DHTPin = 2;        // Should be D4 on the Wemos D1 Mini
+bool fahrenheit = true;      // Yes, report fahrenheit
 DHT dht(DHTPin, DHTTYPE);
 
 //Wifi settings
@@ -54,6 +54,7 @@ void setup() {
 void loop() {
   delay(1000);  //Sometimes the MQTT doesn't seem to go through before sleep begins....
   yield();
+  Serial.println("Going into deep sleep for 5 minutes");
   ESP.deepSleep(UPDATE_FREQUENCY * 1000000);
 }
 
