@@ -39,22 +39,19 @@ void MQTTHelper::setup() {
 
 // Tries to reconnect MQTT, but only if it hasn't tried in the last MQTT_RECONNECT_TIME seconds...
 void MQTTHelper::reconnect() {
-  if (millis() > lastMQTTReconnect + MQTT_RECONNECT_TIME) {
-    Serial.print("Attempting MQTT connection...");
-    // Create a random client ID
-    String clientId = "ESP8266Client-";
-    clientId += String(random(0xffff), HEX);
-    // Attempt to connect
-    if (mqttClient.connect(clientId.c_str())) {
-      Serial.println("connected");
-      // ... and resubscribe
-      //mqttClient.subscribe("home/attic/controller/message", 1);
-    } else {
-      Serial.print("failed, rc=");
-      Serial.print(mqttClient.state());
-      Serial.println(" try again in MQTT_RECONNECT_TIME seconds");
-    }
-    lastMQTTReconnect = millis();
+  Serial.print("Attempting MQTT connection...");
+  // Create a random client ID
+  String clientId = "ESP8266Client-";
+  clientId += String(random(0xffff), HEX);
+  // Attempt to connect
+  if (mqttClient.connect(clientId.c_str())) {
+    Serial.println("connected");
+    // ... and resubscribe
+    //mqttClient.subscribe("home/attic/controller/message", 1);
+  } else {
+    Serial.print("failed, rc=");
+    Serial.print(mqttClient.state());
+    Serial.println(" try again in MQTT_RECONNECT_TIME seconds");
   }
 }
 

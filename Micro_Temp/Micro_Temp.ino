@@ -4,6 +4,7 @@
 // This sketch is designed to run on a WeMos D1 mini.  Other controllers will require extensive tweaking.
 //
 // Handles deep sleep, waking, reading temp & humidity via DHT22, and sending results via MQTT
+// NOTE:  Deep sleep requires a wire connecting D0 to RST.
 //
 // Author - Joshua Villwock
 // Created - 2018-03-11
@@ -23,7 +24,7 @@ extern "C" {
 void connectWifi();
 void checkTempHumid();
 
-#define UPDATE_FREQUENCY 20 // Time to sleep (in seconds)
+#define UPDATE_FREQUENCY 60 // Time to sleep (in seconds)
 #define DHTTYPE DHT11       // DHT 11
 const int DHTPin = 2;       // Should be D4 on the Wemos D1 Mini
 bool fahrenheit = true;     // Yes, report fahrenheit
@@ -42,14 +43,17 @@ void setup() {
   
   dht.begin();
   connectWifi();
-  MQTT_Helper.setup();
   yield();
+  MQTT_Helper.setup();
+  MQTT_Helper.mqttLoop();  //NOTE:  I had to hack this method to always reconnect, even though it normally does not force reconnections
   checkTempHumid();
+  MQTT_Helper.mqttLoop();
+  yield();
 }
 
 void loop() {
-  delay(2000);  //Sometimes the MQTT doesn't seem to go through before sleep begins....
-  Serial.println("Going into deep sleep for 20 seconds");
+  delay(1000);  //Sometimes the MQTT doesn't seem to go through before sleep begins....
+  yield();
   ESP.deepSleep(UPDATE_FREQUENCY * 1000000);
 }
 
@@ -65,6 +69,7 @@ void connectWifi() {
   unsigned long wifiConnectStart = millis();
   
   WiFi.begin(WIFI_SSID, WIFI_PASS);
+  Serial.print("Connecting wifi");
   while (WiFi.status() != WL_CONNECTED) {
     if (WiFi.status() == WL_CONNECT_FAILED) {
       Serial.println("Failed to connect to WiFi. Please verify credentials: ");
@@ -72,7 +77,6 @@ void connectWifi() {
     }
 
     delay(500);
-    Serial.print("Connecting wifi");
     Serial.print(".");
     // Only try for 5 seconds.
     if (millis() - wifiConnectStart > 15000) {
@@ -81,8 +85,7 @@ void connectWifi() {
     }
   }
   Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
+  Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 }
 
@@ -95,14 +98,17 @@ float getHumidity() {
   return dht.readHumidity();
 }
 
-// Send temp / humidity update if need be
+// Send temp / humidity update
 void checkTempHumid() {
+  Serial.println("Checking temp...");
   char temp[8]; // Buffer big enough for 7-character float
   dtostrf(getTemperature(), -6, 2, temp); // Leave room for too large numbers!
 
   char humid[8];
   dtostrf(getHumidity(), -6, 2, humid);
 
+  Serial.println(temp);
+  Serial.println(humid);
   MQTT_Helper.publishMQTT("home/living/micro/temp",  temp,  false);
   MQTT_Helper.publishMQTT("home/living/micro/humid", humid, false);
 }
