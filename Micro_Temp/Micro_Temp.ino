@@ -26,10 +26,8 @@ void checkTempHumid();
 
 #define UPDATE_FREQUENCY 300 // Time to sleep (in seconds)
 #define DHTTYPE DHT11        // DHT 11
-#define BATT_CAL 0.34        // Offset for internal vcc readings
 const int DHTPin = 2;        // Should be D4 on the Wemos D1 Mini
 bool fahrenheit = true;      // Yes, report fahrenheit
-ADC_MODE(ADC_VCC);           // Allows for reading VCC via internal vreg
 DHT dht(DHTPin, DHTTYPE);
 
 //Wifi settings
@@ -42,7 +40,7 @@ void setup() {
   Serial.begin(9600);
   while(!Serial) { }         // Wait for serial to initialize.
   Serial.println("I AM WOKE.");
-
+  
   dht.begin();
   connectWifi();
   yield();
@@ -110,12 +108,8 @@ void checkTempHumid() {
   char humid[8];
   dtostrf(getHumidity(), -6, 2, humid);
 
-  char batt[8];
-  dtostrf((((float)ESP.getVcc()/1024.0)+BATT_CAL), -6, 2, batt);
-  
   Serial.println(temp);
   Serial.println(humid);
   MQTT_Helper.publishMQTT("home/living/micro/temp",  temp,  false);
   MQTT_Helper.publishMQTT("home/living/micro/humid", humid, false);
-  MQTT_Helper.publishMQTT("home/living/micro/batt",  batt, false);
 }
