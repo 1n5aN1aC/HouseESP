@@ -44,10 +44,12 @@ static byte next_loc = 0;   // Array location for next char
 // Initial set up routines
 void setup() {
   Serial.begin(9600);
-  dht.begin();
+  
   WiFi.mode(WIFI_STA);
   wifi_station_set_hostname("ESP_Attic");
   connectWifi();
+  
+  dht.begin();
   MQTT_Helper.setup();
 }
 
