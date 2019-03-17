@@ -11,13 +11,7 @@
 
 #include "MQTTHelper.h"
 #include "LEDHelper.h"
-
-//---------------------------------------------------------//
-//            CONFIGURE YOUR MQTT SERVER HERE              //
-//---------------------------------------------------------//
-const IPAddress MQTT_SERVER(10, 0, 0, 44);                 //
-const int       MQTT_RECONNECT_TIME = 10000;               //
-//---------------------------------------------------------//
+#include "Options.cpp"
 
 MQTTHelper MQTT_Helper = MQTTHelper();
 
