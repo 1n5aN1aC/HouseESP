@@ -13,3 +13,6 @@
 // WiFi settings
 const char WIFI_SSID[] = "joshua";  // your network SSID (name)
 const char WIFI_PASS[] = "";        // your network password
+
+//What pin is the DHT connect to?
+const int DHTPin = 2;

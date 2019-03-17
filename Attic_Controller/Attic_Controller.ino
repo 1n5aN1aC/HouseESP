@@ -13,42 +13,59 @@
 
 #include <Arduino.h>
 #include <DHT.h>
-#include "MQTTHelper.h"
 #include <ESP8266WiFi.h>
+#include "Attic_Controller.h"
+#include "MQTTHelper.h"
 #include "Options.cpp"
 extern "C" {
   #include "user_interface.h"
 }
 
+//Settings from Options.cpp
 extern const char WIFI_SSID[];
 extern const char WIFI_PASS[];
+extern const int DHTPin;
 
+//DHT Variables
 #define DHTTYPE DHT22     // DHT 22  (AM2302), AM2320, AM2321
-const int DHTPin = 2;
 bool fahrenheit = true;
 DHT dht(DHTPin, DHTTYPE);
 
+unsigned long lastTempHumidSend = millis();
+#define TEMP_HUMID_UPDATE_FREQUENCY 60000
+
+//Serial Receive settings
 #define MAXCHARS  32        // Max chars before a line break
 #define ENDMARKER '\n'      // Character that defines the end of a line
 char serialChars[MAXCHARS]; // Array to store received data
 static byte next_loc = 0;   // Array location for next char
 
-unsigned long lastTempHumidSend = millis();
-#define TEMP_HUMID_UPDATE_FREQUENCY 60000
+
+// Initial set up routines
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  WiFi.mode(WIFI_STA);
+  wifi_station_set_hostname("ESP_Attic");
+  connectWifi();
+  MQTT_Helper.setup();
+}
+
+// Main program loop
+void loop() {
+  MQTT_Helper.mqttLoop();
+  checkTempHumid();
+  yield();
+  checkSerial();
+  delay(100); //saves considerable power & heat
+}
+
 
 // Initial connection to WiFi
 // We wait for 5 seconds to connect, but do not block on the connection.
 void connectWifi() {
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   delay(5000);
-}
-
-float getTemperature() {
-  return dht.readTemperature(fahrenheit);
-}
-
-float getHumidity() {
-  return dht.readHumidity();
 }
 
 // Send temp / humidity update if need be
@@ -67,35 +84,12 @@ void checkTempHumid() {
   }
 }
 
-// Process a complete serial line, and publish results to MQTT
-void handleSerial() {
-  char cleanChars[MAXCHARS];  //serialChars, with first 2 chars 'removed'
-  strncpy(cleanChars, serialChars, MAXCHARS);
-  for(int i=2; i < MAXCHARS; i++) {
-    cleanChars[i-2] = cleanChars[i];
-  }
+float getTemperature() {
+  return dht.readTemperature(fahrenheit);
+}
 
-  // Check the first character, and process the packet based on that.
-  //Wind Update
-  if (serialChars[0] == 'W') {
-    MQTT_Helper.publishMQTT("home/roof/weather/wind", cleanChars, false);
-  }
-  //Temperature Update
-  if (serialChars[0] == 'T') {
-    MQTT_Helper.publishMQTT("home/roof/weather/temp", cleanChars, false);
-  }
-  //Humidity Update
-  if (serialChars[0] == 'H') {
-    MQTT_Helper.publishMQTT("home/roof/weather/humid", cleanChars, false);
-  }
-  //'Battery' Update
-  if (serialChars[0] == 'B') {
-    MQTT_Helper.publishMQTT("home/roof/weather/battery", cleanChars, true);
-  }
-  //Rain Flip
-  if (serialChars[0] == 'R') {
-    MQTT_Helper.publishMQTT("home/roof/weather/rain", serialChars, false);
-  }
+float getHumidity() {
+  return dht.readHumidity();
 }
 
 // Check for (and handle) any serial data sent to us from the roof sensor
@@ -131,21 +125,33 @@ void checkSerial() {
   }
 }
 
-// Initial set up routines
-void setup() {
-  Serial.begin(9600);
-  dht.begin();
-  WiFi.mode(WIFI_STA);
-  wifi_station_set_hostname("ESP_Attic");
-  connectWifi();
-  MQTT_Helper.setup();
-}
+// Process a complete serial line, and publish results to MQTT
+void handleSerial() {
+  char cleanChars[MAXCHARS];  //serialChars, with first 2 chars 'removed'
+  strncpy(cleanChars, serialChars, MAXCHARS);
+  for(int i=2; i < MAXCHARS; i++) {
+    cleanChars[i-2] = cleanChars[i];
+  }
 
-// Main program loop
-void loop() {
-  MQTT_Helper.mqttLoop();
-  checkTempHumid();
-  yield();
-  checkSerial();
-  delay(100); //saves considerable power & heat
+  // Check the first character, and process the packet based on that.
+  //Wind Update
+  if (serialChars[0] == 'W') {
+    MQTT_Helper.publishMQTT("home/roof/weather/wind", cleanChars, false);
+  }
+  //Temperature Update
+  if (serialChars[0] == 'T') {
+    MQTT_Helper.publishMQTT("home/roof/weather/temp", cleanChars, false);
+  }
+  //Humidity Update
+  if (serialChars[0] == 'H') {
+    MQTT_Helper.publishMQTT("home/roof/weather/humid", cleanChars, false);
+  }
+  //'Battery' Update
+  if (serialChars[0] == 'B') {
+    MQTT_Helper.publishMQTT("home/roof/weather/battery", cleanChars, true);
+  }
+  //Rain Flip
+  if (serialChars[0] == 'R') {
+    MQTT_Helper.publishMQTT("home/roof/weather/rain", serialChars, false);
+  }
 }
