@@ -29,8 +29,6 @@ extern "C" {
 
 // How often to check for power off state
 unsigned long lastPowerCheck = millis();
-unsigned long whenPowerOn = millis();
-unsigned long whenRelayOn = millis();
 #define POWER_CHECK_FREQUENCY 10000
 
 // WiFi parameters
@@ -46,9 +44,7 @@ WiFiServer server(LISTEN_PORT);
 
 // Variables to be exposed to the API
 int           relayOn =               0;
-unsigned long relayOnSince =          0;
 int           computerOn =            0;
-unsigned long computerOnSince =       0;
 int           relayOffWhenPowerDown = 0;
 
 // Functions to be exposed to the API
@@ -64,9 +60,7 @@ void setup(void)
 
   // Expose variables to REST API
   rest.variable("relayOn",&relayOn);
-  rest.variable("relayOnSince",&relayOnSince);
   rest.variable("computerOn",&computerOn);
-  rest.variable("computerOnSince",&computerOnSince);
   rest.variable("relayOffWhenPowerDown",&relayOffWhenPowerDown);
 
   // Function to be exposed
@@ -94,7 +88,7 @@ void loop() {
   if (millis() > lastPowerCheck + POWER_CHECK_FREQUENCY) {
     if (relayOn && relayOffWhenPowerDown && !computerOn) {
       //It looks like we're shutdown, but lets make sure.
-      delay(500);
+      delay(100);
       if (digitalRead(POWER_LED) == 0) {
         //OK then, power off Relay.
         delay(2000);
@@ -107,7 +101,7 @@ void loop() {
   }
   // Check status to update variables
   computerOn = digitalRead(POWER_LED);
-  delay(10);
+  delay(1);
 }
 
 void initWifi() {
