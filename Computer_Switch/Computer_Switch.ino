@@ -13,7 +13,7 @@
 
 // Import required libraries
 #include <ESP8266WiFi.h>
-#include <aREST.h>
+#include <ESP8266WebServer.h>
 extern "C" {
   #include "user_interface.h"
 }
@@ -25,7 +25,7 @@ extern "C" {
 #define POWER_LED D2
 
 // The port to listen for incoming TCP connections
-#define LISTEN_PORT 80
+ESP8266WebServer server(80);
 
 // How often to check for power off state
 unsigned long lastPowerCheck = millis();
@@ -37,64 +37,43 @@ const char* password = "";
 //------------------------------------------------------------
 //------------------------------------------------------------
 
-// Create aREST instance
-aREST rest = aREST();
-// Create an instance of the server
-WiFiServer server(LISTEN_PORT);
-
 // Variables to be exposed to the API
-int           relayOn =               0;
-int           computerOn =            0;
-int           relayOffWhenPowerDown = 0;
+int relayOn =               0;
+int computerOn =            0;
+int relayOffWhenPowerDown = 0;
 
-// Functions to be exposed to the API
-int flashLed(String command);          // Flash the onboard LED as a test
-int powerOn(String command);           // Press the power button
-int hardPowerOff(String command);      // Hold the power button
-int powerOnGracefully(String command); // Turn on relay, then press power.
-
-void setup(void)
-{
+void setup() {
   Serial.begin(115200);
   initWifi();
 
-  // Expose variables to REST API
-  rest.variable("relayOn",&relayOn);
-  rest.variable("computerOn",&computerOn);
-  rest.variable("relayOffWhenPowerDown",&relayOffWhenPowerDown);
-
-  // Function to be exposed
-  rest.function("flash",flashLed);
-  rest.function("on",powerOn);
-  rest.function("off",hardPowerOff);
-  rest.function("powerUp",powerOnGracefully);
-
-  // Give name & ID to the device (ID should be 6 characters long)
-  rest.set_id("1");
-  rest.set_name("ESP_EIDOLON_IPMI");
+  server.on("/", getStatus);
+  server.on("/on", powerOn);
+  server.on("/off", hardPowerOff);
+  server.on("/relayon", powerOnGracefully);
 
   pinMode(LED_BUILTIN,  OUTPUT); //Built in LED for testing
   pinMode(POWER_BUTTON, INPUT);  //Connected to 'hot' wire of on button (switches between in and out)
   pinMode(POWER_LED,    INPUT);  //Connected to 'hot' wire of power LED (resistor?)
+
+  server.begin(); //Start the server
+  Serial.println("Server listening");
 }
 
 void loop() {
-  // Handle REST calls
-  WiFiClient client = server.available();
-  if (client && client.available()) {
-    rest.handle(client);
-  }
+  //Handling of incoming requests
+  server.handleClient();
+
   // Check for system power off state
   if (millis() > lastPowerCheck + POWER_CHECK_FREQUENCY) {
     if (relayOn && relayOffWhenPowerDown && !computerOn) {
       //It looks like we're shutdown, but lets make sure.
-      delay(100);
+      delay(250);
       if (digitalRead(POWER_LED) == 0) {
         //OK then, power off Relay.
         delay(2000);
-		digitalWrite(RELAY_PIN, LOW);
-		relayOn = 0;
-		relayOffWhenPowerDown = 0;
+        digitalWrite(RELAY_PIN, LOW);
+        relayOn = 0;
+        relayOffWhenPowerDown = 0;
       }
     }
     lastPowerCheck = millis();
@@ -128,56 +107,50 @@ void initWifi() {
   Serial.println(WiFi.localIP());
 }
 
-// Custom function accessible by the API
-int flashLed(String command) {
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);                       // wait for a second
-  return 1;
+void getStatus() {
+  String preString = "{\"relayOn\":\"" + String(relayOn) + "\",\"computerOn\":\"" + String(computerOn) + "\",\"relayOffWhenPowerDown\":\"" + String(relayOffWhenPowerDown) + "\"}";
+  const char * result = preString.c_str();
+  server.send(200, "application/json", result);
 }
 
 // Powers on the computer by pulling the power button low.
-int powerOn(String command) {
+void powerOn() {
   pinMode(POWER_BUTTON, OUTPUT);
   digitalWrite(POWER_BUTTON, LOW);
   delay(1000);
   digitalWrite(POWER_BUTTON, HIGH);
   pinMode(POWER_BUTTON, INPUT);
-  return 1;
+  server.send(200, "application/json", "{\"status\":\"complete\"}");
 }
 
 // Hard power off computer by holding power button 6 seconds.
-int hardPowerOff(String command) {
+void hardPowerOff() {
   pinMode(POWER_BUTTON, OUTPUT);
   digitalWrite(POWER_BUTTON, LOW);
   delay(6000);
   digitalWrite(POWER_BUTTON,HIGH);
   pinMode(POWER_BUTTON, INPUT);
-  return 1;
+  server.send(200, "application/json", "{\"status\":\"complete\"}");
 }
 
 // Turn on relay, then press power.
 // Parameter 0 = just do that.
 // Parameter 1 = also wait until computer shuts down, then automatically flip relay off.
-int powerOnGracefully(String command) {
+void powerOnGracefully() {
   //Relay on
   digitalWrite(RELAY_PIN, HIGH);
   relayOn = 1;
   delay(5000);
   //Then power computer on as normal
-  powerOn("");
+  powerOn();
   computerOn = 1;
   //Setup auto off if requested
-  int autoOff = command.toInt();
-  if (autoOff == 1) {
+  //int autoOff = command.toInt();
+  //if (autoOff == 1) {
+  if (1) {
     relayOffWhenPowerDown = 1;
   } else {
     relayOffWhenPowerDown = 0;
   }
-  return 1;
+  server.send(200, "application/json", "{\"status\":\"complete\"}");
 }
