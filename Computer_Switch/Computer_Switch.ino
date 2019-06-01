@@ -14,6 +14,9 @@
 // Import required libraries
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <timer.h>
+#include <lwip/netif.h>
+#include <lwip/etharp.h>
 extern "C" {
   #include "user_interface.h"
 }
@@ -42,6 +45,8 @@ int relayOn =               0;
 int computerOn =            0;
 int relayOffWhenPowerDown = 0;
 
+auto timer = timer_create_default(); // create a timer with default settings
+
 void setup() {
   Serial.begin(115200);
   initWifi();
@@ -57,6 +62,9 @@ void setup() {
 
   server.begin(); //Start the server
   Serial.println("Server listening");
+
+  // call the toggle_led function every 1000 millis (1 second)
+  timer.every(1000, GratuitousARPTask);
 }
 
 void loop() {
@@ -81,6 +89,16 @@ void loop() {
   // Check status to update variables
   computerOn = digitalRead(POWER_LED);
   delay(1);
+  timer.tick(); // tick the timer
+}
+
+bool GratuitousARPTask(void *) {
+  netif *n = netif_list;
+  while (n) {
+    etharp_gratuitous(n);
+    n = n->next;
+  }
+  return true; // repeat? true
 }
 
 void initWifi() {
@@ -108,7 +126,7 @@ void initWifi() {
 }
 
 void getStatus() {
-  String preString = "{\"relayOn\":\"" + String(relayOn) + "\",\"computerOn\":\"" + String(computerOn) + "\",\"relayOffWhenPowerDown\":\"" + String(relayOffWhenPowerDown) + "\"}";
+  String preString = "{\"relayOn\":\"" + String(relayOn) + "\",\"computerOn\":\"" + String(computerOn) + "\",\"relayOffWhenPowerDown\":\"" + String(relayOffWhenPowerDown) + "\",\"heapFree\":\"" + String(ESP.getFreeHeap()) + "\"}";
   const char * result = preString.c_str();
   server.send(200, "application/json", result);
 }
