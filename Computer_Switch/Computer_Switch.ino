@@ -15,6 +15,7 @@
 // Import required libraries
 #include <DHT.h>
 #include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
 #include <ESP8266WebServer.h>
 #include <lwip/netif.h>
 #include <lwip/etharp.h>
@@ -37,7 +38,7 @@ ESP8266WebServer server(80);
 
 // How often to report temperature
 unsigned long lastTempCheck = millis();
-#define TEMP_CHECK_FREQUENCY 10000
+#define TEMP_CHECK_FREQUENCY 60000
 
 // How often to check for power off state
 unsigned long lastPowerCheck = millis();
@@ -189,9 +190,18 @@ float getTemperature() {
 
 // Send temp / humidity update
 void checkTempHumid() {
-  Serial.println("Checking temp...");
-  float readTemp = getTemperature();
-  dtostrf(readTemp, -6, 2, temp); // Leave room for too large numbers!
+  float bob = getTemperature();
+  dtostrf(getTemperature(), -6, 2, temp); // Leave room for too large numbers!
 
+  Serial.print("temp: ");
   Serial.println(temp);
+  sendTempUpdate();
+}
+
+void sendTempUpdate() {
+  HTTPClient http;
+  http.begin("http://10.0.0.21:8086/write?db=vm_metrics");
+  http.POST("HARDWARE,host=EIDELON Temperature=" + String(temp));
+  http.writeToStream(&Serial);
+  http.end();
 }
