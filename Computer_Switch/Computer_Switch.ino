@@ -27,9 +27,17 @@ extern "C" {
 #define RELAY_PIN D1
 #define POWER_BUTTON D4
 #define POWER_LED D2
+#define DHT_PIN D5
+
+#define DHTTYPE DHT22        // DHT 22
+DHT dht(DHT_PIN, DHTTYPE);
 
 // The port to listen for incoming TCP connections
 ESP8266WebServer server(80);
+
+// How often to report temperature
+unsigned long lastTempCheck = millis();
+#define TEMP_CHECK_FREQUENCY 10000
 
 // How often to check for power off state
 unsigned long lastPowerCheck = millis();
@@ -45,10 +53,12 @@ const char* password = "";
 int relayOn =               0;
 int computerOn =            0;
 int relayOffWhenPowerDown = 0;
+char temp[8] =             "";
 
 void setup() {
   Serial.begin(115200);
   initWifi();
+  dht.begin();
 
   server.on("/", getStatus);
   server.on("/on", powerOn);
@@ -81,6 +91,11 @@ void loop() {
       }
     }
     lastPowerCheck = millis();
+  }
+  // Check the temperature and update the server
+  if (millis() > lastTempCheck + TEMP_CHECK_FREQUENCY) {
+    checkTempHumid();
+    lastTempCheck = millis();
   }
   // Check status to update variables
   computerOn = digitalRead(POWER_LED);
@@ -120,7 +135,7 @@ void initWifi() {
 }
 
 void getStatus() {
-  String preString = "{\"relayOn\":\"" + String(relayOn) + "\",\"computerOn\":\"" + String(computerOn) + "\",\"relayOffWhenPowerDown\":\"" + String(relayOffWhenPowerDown) + "\",\"heapFree\":\"" + String(ESP.getFreeHeap()) + "\"}";
+  String preString = "{\"relayOn\":\"" + String(relayOn) + "\",\"computerOn\":\"" + String(computerOn) + "\",\"relayOffWhenPowerDown\":\"" + String(relayOffWhenPowerDown) + "\",\"temp\":\"" + String(temp) + "\"}";
   const char * result = preString.c_str();
   server.send(200, "application/json", result);
 }
@@ -165,4 +180,18 @@ void powerOnGracefully() {
     relayOffWhenPowerDown = 0;
   }
   server.send(200, "application/json", "{\"status\":\"complete\"}");
+}
+
+// Literally returns the temperature
+float getTemperature() {
+  return dht.readTemperature(true);
+}
+
+// Send temp / humidity update
+void checkTempHumid() {
+  Serial.println("Checking temp...");
+  float readTemp = getTemperature();
+  dtostrf(readTemp, -6, 2, temp); // Leave room for too large numbers!
+
+  Serial.println(temp);
 }
