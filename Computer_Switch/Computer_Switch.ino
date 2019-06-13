@@ -5,6 +5,7 @@
 //
 // This runs a small webserver hosting a tiny API to remotely power on or off a computer
 // Also supports a rely to electrically isolate the server.
+// Includes functionality to report temperature back to influxDB
 //
 // Author - Joshua Villwock
 // Created - 2019-05-28
@@ -12,9 +13,9 @@
 //----------------------------------------------------------------------------------------------------------------
 
 // Import required libraries
+#include <DHT.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <timer.h>
 #include <lwip/netif.h>
 #include <lwip/etharp.h>
 extern "C" {
@@ -45,8 +46,6 @@ int relayOn =               0;
 int computerOn =            0;
 int relayOffWhenPowerDown = 0;
 
-auto timer = timer_create_default(); // create a timer with default settings
-
 void setup() {
   Serial.begin(115200);
   initWifi();
@@ -62,9 +61,6 @@ void setup() {
 
   server.begin(); //Start the server
   Serial.println("Server listening");
-
-  // call the toggle_led function every 1000 millis (1 second)
-  timer.every(1000, GratuitousARPTask);
 }
 
 void loop() {
@@ -88,8 +84,6 @@ void loop() {
   }
   // Check status to update variables
   computerOn = digitalRead(POWER_LED);
-  delay(1);
-  timer.tick(); // tick the timer
 }
 
 bool GratuitousARPTask(void *) {
