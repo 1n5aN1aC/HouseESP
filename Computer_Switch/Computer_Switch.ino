@@ -44,6 +44,10 @@ unsigned long lastTempCheck = millis();
 unsigned long lastPowerCheck = millis();
 #define POWER_CHECK_FREQUENCY 10000
 
+// How often to send the gratutousARP packet
+unsigned long lastGratuitousARP = millis();
+#define GRATUITOUS_ARP_FREQUENCY 10000
+
 // WiFi parameters
 const char* ssid = "joshua";
 const char* password = "";
@@ -98,19 +102,25 @@ void loop() {
     checkTempHumid();
     lastTempCheck = millis();
   }
+  
+  if (millis() > lastGratuitousARP + GRATUITOUS_ARP_FREQUENCY) {
+    SendGratuitousARP();
+    lastGratuitousARP = millis();
+  }
   // Check status to update variables
   computerOn = digitalRead(POWER_LED);
+  delay(1);
 }
 
-bool GratuitousARPTask(void *) {
+void SendGratuitousARP() {
   netif *n = netif_list;
   while (n) {
     etharp_gratuitous(n);
     n = n->next;
   }
-  return true; // repeat? true
 }
 
+// Set up WiFi
 void initWifi() {
   //Wifi settings
   WiFi.mode(WIFI_STA);
