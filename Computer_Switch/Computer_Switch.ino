@@ -210,8 +210,8 @@ void checkTempHumid() {
 
 void sendTempUpdate() {
   HTTPClient http;
-  http.begin("http://10.0.0.21:8086/write?db=vm_metrics");
-  http.POST("HARDWARE,host=EIDELON Temperature=" + String(temp));
+  http.begin("http://10.0.0.21:8086/write?db=sensors");
+  http.POST("weather,location=PLAYHOUSE Temperature=" + String(temp));
   http.writeToStream(&Serial);
   http.end();
 }
