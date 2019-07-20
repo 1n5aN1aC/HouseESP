@@ -14,8 +14,8 @@
 #include <Arduino.h>
 #include <DHT.h>
 #include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
 #include "Attic_Controller.h"
-#include "MQTTHelper.h"
 #include "Options.cpp"
 extern "C" {
   #include "user_interface.h"
@@ -50,12 +50,10 @@ void setup() {
   connectWifi();
   
   dht.begin();
-  MQTT_Helper.setup();
 }
 
 // Main program loop
 void loop() {
-  MQTT_Helper.mqttLoop();
   checkTempHumid();
   yield();
   checkSerial();
@@ -80,8 +78,11 @@ void checkTempHumid() {
     char humid[8];
     dtostrf(getHumidity(), -6, 2, humid);
 
-    MQTT_Helper.publishMQTT("home/attic/controller/temp",  temp,  false);
-    MQTT_Helper.publishMQTT("home/attic/controller/humid", humid, false);
+    HTTPClient http;
+    http.begin("http://10.0.0.21:8086/write?db=sensors");
+    http.POST("weather,location=ATTIC Temperature=" + String(temp) + ",Humidity=" + String(humid));
+    http.writeToStream(&Serial);
+    http.end();
     lastTempHumidSend = millis();
   }
 }
@@ -134,26 +135,48 @@ void handleSerial() {
   for(int i=2; i < MAXCHARS; i++) {
     cleanChars[i-2] = cleanChars[i];
   }
+  String stringChars = String(cleanChars);
+  stringChars.replace("\r", "");
 
   // Check the first character, and process the packet based on that.
   //Wind Update
   if (serialChars[0] == 'W') {
-    MQTT_Helper.publishMQTT("home/roof/weather/wind", cleanChars, false);
+    HTTPClient http;
+    http.begin("http://10.0.0.21:8086/write?db=sensors");
+    http.POST("weather,location=ROOF WindSpeed=" + String(stringChars));
+    http.writeToStream(&Serial);
+    http.end();
   }
   //Temperature Update
   if (serialChars[0] == 'T') {
-    MQTT_Helper.publishMQTT("home/roof/weather/temp", cleanChars, false);
+    HTTPClient http;
+    http.begin("http://10.0.0.21:8086/write?db=sensors");
+    http.POST("weather,location=ROOF Temperature=" + String(stringChars));
+    http.writeToStream(&Serial);
+    http.end();
   }
   //Humidity Update
   if (serialChars[0] == 'H') {
-    MQTT_Helper.publishMQTT("home/roof/weather/humid", cleanChars, false);
+    HTTPClient http;
+    http.begin("http://10.0.0.21:8086/write?db=sensors");
+    http.POST("weather,location=ROOF Humidity=" + String(stringChars));
+    http.writeToStream(&Serial);
+    http.end();
   }
   //'Battery' Update
   if (serialChars[0] == 'B') {
-    MQTT_Helper.publishMQTT("home/roof/weather/battery", cleanChars, true);
+    HTTPClient http;
+    http.begin("http://10.0.0.21:8086/write?db=sensors");
+    http.POST("weather,location=ROOF Battery=" + String(stringChars));
+    http.writeToStream(&Serial);
+    http.end();
   }
   //Rain Flip
   if (serialChars[0] == 'R') {
-    MQTT_Helper.publishMQTT("home/roof/weather/rain", serialChars, false);
+    HTTPClient http;
+    http.begin("http://10.0.0.21:8086/write?db=sensors");
+    http.POST("weather,location=ROOF RainFlip=" + String(1));
+    http.writeToStream(&Serial);
+    http.end();
   }
 }
