@@ -22,30 +22,10 @@
 #include <ESP8266WebServer.h>  //Server
 #include <lwip/netif.h>        //GratuitousARP
 #include <lwip/etharp.h>       //GratuitousARP
+#include "Options.cpp"         //User Options
 extern "C" {
   #include "user_interface.h"
 }
-
-//------------------------------------------------------------
-//------------------------------------------------------------
-#define DEVICE_NAME  "ESP_EIDOLON_IPMI"
-
-#define RELAY_PIN    D1
-#define POWER_BUTTON D4
-#define POWER_LED    D2
-#define DHT_PIN      D5
-
-#define DHTTYPE      DHT22
-
-#define TEMP_CHECK_FREQUENCY     60000  // How often to report temperature
-#define POWER_CHECK_FREQUENCY    10000 // How often to check for power off state
-#define GRATUITOUS_ARP_FREQUENCY 10000 // How often to send the gratutousARP packet
-
-// WiFi parameters
-const char* ssid = "villwock";
-const char* password = "1r4trb5tvkrt";
-//------------------------------------------------------------
-//------------------------------------------------------------
 
 //Setup DHT
 DHT dht(DHT_PIN, DHTTYPE);
@@ -66,6 +46,7 @@ char temp[8] =             "";
 
 void setup() {
   Serial.begin(115200);
+  Serial.println("Booting");
   initWifi();
   dht.begin();
 
@@ -116,14 +97,6 @@ void loop() {
   delay(1);
 }
 
-void SendGratuitousARP() {
-  netif *n = netif_list;
-  while (n) {
-    etharp_gratuitous(n);
-    n = n->next;
-  }
-}
-
 // Set up WiFi
 void initWifi() {
   //Wifi settings
@@ -133,13 +106,18 @@ void initWifi() {
   delay(100);
   
   // Connect to WiFi
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    Serial.println("Connection Failed! Rebooting...");
+    delay(5000);
+    ESP.restart();
   }
   Serial.println("");
   Serial.println("WiFi connected");
+
+  //Start OTA
+  ArduinoOTA.setHostname(DEVICE_NAME);
+  ArduinoOTA.setPassword(OTA_PASS);
 
   // Start the server
   server.begin();
@@ -147,6 +125,14 @@ void initWifi() {
 
   // Print the IP address
   Serial.println(WiFi.localIP());
+}
+
+void SendGratuitousARP() {
+  netif *n = netif_list;
+  while (n) {
+    etharp_gratuitous(n);
+    n = n->next;
+  }
 }
 
 void getStatus() {
