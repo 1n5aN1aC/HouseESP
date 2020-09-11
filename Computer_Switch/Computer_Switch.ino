@@ -13,46 +13,50 @@
 //----------------------------------------------------------------------------------------------------------------
 
 // Import required libraries
-#include <DHT.h>
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#include <ESP8266WebServer.h>
-#include <lwip/netif.h>
-#include <lwip/etharp.h>
+#include <DHT.h>               //Temp Sensor
+#include <ESP8266WiFi.h>       //WiFi
+#include <ESP8266mDNS.h>       //OTA
+#include <WiFiUdp.h>           //OTA
+#include <ArduinoOTA.h>        //OTA
+#include <ESP8266HTTPClient.h> //Server
+#include <ESP8266WebServer.h>  //Server
+#include <lwip/netif.h>        //GratuitousARP
+#include <lwip/etharp.h>       //GratuitousARP
 extern "C" {
   #include "user_interface.h"
 }
 
 //------------------------------------------------------------
 //------------------------------------------------------------
-#define RELAY_PIN D1
-#define POWER_BUTTON D4
-#define POWER_LED D2
-#define DHT_PIN D5
+#define DEVICE_NAME  "ESP_EIDOLON_IPMI"
 
-#define DHTTYPE DHT22        // DHT 22
+#define RELAY_PIN    D1
+#define POWER_BUTTON D4
+#define POWER_LED    D2
+#define DHT_PIN      D5
+
+#define DHTTYPE      DHT22
+
+#define TEMP_CHECK_FREQUENCY     60000  // How often to report temperature
+#define POWER_CHECK_FREQUENCY    10000 // How often to check for power off state
+#define GRATUITOUS_ARP_FREQUENCY 10000 // How often to send the gratutousARP packet
+
+// WiFi parameters
+const char* ssid = "villwock";
+const char* password = "1r4trb5tvkrt";
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+//Setup DHT
 DHT dht(DHT_PIN, DHTTYPE);
 
 // The port to listen for incoming TCP connections
 ESP8266WebServer server(80);
 
-// How often to report temperature
+//Init Starting Times
 unsigned long lastTempCheck = millis();
-#define TEMP_CHECK_FREQUENCY 60000
-
-// How often to check for power off state
 unsigned long lastPowerCheck = millis();
-#define POWER_CHECK_FREQUENCY 10000
-
-// How often to send the gratutousARP packet
 unsigned long lastGratuitousARP = millis();
-#define GRATUITOUS_ARP_FREQUENCY 10000
-
-// WiFi parameters
-const char* ssid = "joshua";
-const char* password = "";
-//------------------------------------------------------------
-//------------------------------------------------------------
 
 // Variables to be exposed to the API
 int relayOn =               0;
@@ -124,8 +128,8 @@ void SendGratuitousARP() {
 void initWifi() {
   //Wifi settings
   WiFi.mode(WIFI_STA);
-  WiFi.hostname("ESP_EIDOLON_IPMI");
-  wifi_station_set_hostname("ESP_EIDOLON_IPMI");
+  WiFi.hostname(DEVICE_NAME);
+  wifi_station_set_hostname(DEVICE_NAME);
   delay(100);
   
   // Connect to WiFi
@@ -183,7 +187,7 @@ void powerOnGracefully() {
   powerOn();
   computerOn = 1;
   //Setup auto off if requested
-  //int autoOff = command.toInt();
+  //int autoOff = command.toInt()
   //if (autoOff == 1) {
   if (1) {
     relayOffWhenPowerDown = 1;
