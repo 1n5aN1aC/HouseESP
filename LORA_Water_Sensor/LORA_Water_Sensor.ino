@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------------------------------------
 // LORA_Water_Sensor.ino
 // 
-// This sketch is designed to run on a WeMos D1 mini.  Other controllers may require extensive tweaking.
+// This sketch is designed to run on a TTGO LoRa v1 board.  Other controllers may require extensive tweaking.
 //
 // This uses a UltraSonic Distance sensor to determine the water level in a large tank.
 // Then it relays the results back to a receiving node via LoRa.
@@ -15,8 +15,8 @@
 #include <Wire.h>  
 #include "SSD1306.h"
 
-#define echoPin D7 // Echo Pin
-#define trigPin D6 // Trigger Pin
+#define echoPin 12 // Echo Pin
+#define trigPin 13 // Trigger Pin
 
 /////////////////////////////////////////////////////////////
 #define SCK     5    // GPIO5  -- SX1278's SCK
@@ -39,8 +39,10 @@ String packSize = "--";
 String packet ;
 
 void setup() {
-  pinMode(16,OUTPUT);
-  pinMode(2,OUTPUT);
+  pinMode(16,      OUTPUT);
+  pinMode(2,       OUTPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
   
   digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
   delay(50); 
@@ -74,7 +76,8 @@ void setup() {
 
 void loop() {
   int distance = checkDistance();
-  sendPacket("W:" + distance);
+  Serial.println(distance);
+  sendPacket("W:" + String(distance));
 
   delay(10000);
 }
@@ -119,7 +122,7 @@ int sonicMeasure() {
   digitalWrite(trigPin, LOW);
   long duration = pulseIn(echoPin, HIGH);
   //Calculate the distance (in cm) based on the speed of sound.
-  int distance = duration/58.2  + 1;
+  int distance = duration/58.2 + 1;
   return distance;
 }
 
