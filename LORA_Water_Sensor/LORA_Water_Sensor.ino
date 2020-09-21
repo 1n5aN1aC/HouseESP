@@ -14,6 +14,7 @@
 #include <LoRa.h>
 #include <Wire.h>  
 #include "SSD1306.h"
+#include "esp_deep_sleep.h"
 
 #define echoPin 12 // Echo Pin
 #define trigPin 13 // Trigger Pin
@@ -33,7 +34,6 @@
 #define LORA_CRC        true  //Default: false
 /////////////////////////////////////////////////////////////
 
-SSD1306 display(0x3c, 4, 15);
 String rssi = "RSSI --";
 String packSize = "--";
 String packet ;
@@ -44,14 +44,12 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   
-  digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
-  delay(50); 
-  digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high
+  //digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
+  //delay(50); 
+  //digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high
   
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial);
-  Serial.println();
-  Serial.println("LoRa Sender Test");
   
   SPI.begin(SCK,MISO,MOSI,SS);
   LoRa.setPins(SS,RST,DI0);
@@ -66,12 +64,8 @@ void setup() {
   LoRa.setPreambleLength(LORA_PRELENGTH);
   if (LORA_CRC)
     LoRa.enableCrc();
-  
-  Serial.println("init ok");
-  display.init();
-  display.flipScreenVertically();  
-  display.setFont(ArialMT_Plain_10);
-  delay(1500);
+
+  delay(1000);
 }
 
 void loop() {
@@ -79,18 +73,29 @@ void loop() {
   Serial.println(distance);
   sendPacket("W:" + String(distance));
 
-  delay(10000);
+  //delay(10000);
+  // Deep Sleep Instead:
+  LoRa.end();
+  LoRa.sleep();
+  pinMode(19, INPUT);
+  pinMode(18, INPUT);
+  pinMode(5,  INPUT);
+  pinMode(15, INPUT);
+  pinMode(2,  INPUT);
+  pinMode(4,  INPUT);
+  pinMode(16, INPUT);
+  pinMode(26, INPUT);
+  pinMode(27, INPUT);
+  pinMode(14, INPUT);
+  delay(100);
+  esp_deep_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
+  esp_deep_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
+  esp_deep_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
+  esp_sleep_enable_timer_wakeup(10000000);
+  esp_deep_sleep_start();
 }
 
 void sendPacket(String contents) {
-  display.clear();
-  display.setTextAlignment(TEXT_ALIGN_LEFT);
-  display.setFont(ArialMT_Plain_10);
-  
-  display.drawString(0, 0, "Sending packet: ");
-  display.drawString(90, 0, contents);
-  display.display();
-
   // send packet
   LoRa.beginPacket();
   String packet = (contents);
