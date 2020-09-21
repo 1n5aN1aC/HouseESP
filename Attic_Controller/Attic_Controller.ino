@@ -12,19 +12,17 @@
 //----------------------------------------------------------------------------------------------------------------
 
 #include <Arduino.h>
-#include <DHT.h>
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#include "Attic_Controller.h"
-#include "Options.cpp"
+#include <DHT.h>               //Temperature
+#include <ESP8266WiFi.h>       //WiFi
+#include <ESP8266HTTPClient.h> //Reporting
+#include <ESP8266mDNS.h>       //OTA
+#include <WiFiUdp.h>           //OTA
+#include <ArduinoOTA.h>        //OTA
+#include "Attic_Controller.h"  //Functions
+#include "Options.cpp"         //User Options
 extern "C" {
   #include "user_interface.h"
 }
-
-//Settings from Options.cpp
-extern const char WIFI_SSID[];
-extern const char WIFI_PASS[];
-extern const int DHTPin;
 
 //DHT Variables
 #define DHTTYPE DHT22     // DHT 22  (AM2302), AM2320, AM2321
@@ -46,8 +44,8 @@ void setup() {
   Serial.begin(9600);
   
   WiFi.mode(WIFI_STA);
-  wifi_station_set_hostname("ESP_Attic");
-  connectWifi();
+  initWifi();
+  initOTA();
   
   dht.begin();
 }
@@ -55,17 +53,68 @@ void setup() {
 // Main program loop
 void loop() {
   checkTempHumid();
-  yield();
   checkSerial();
+  yield();
   delay(100); //saves considerable power & heat
 }
 
 
-// Initial connection to WiFi
-// We wait for 5 seconds to connect, but do not block on the connection.
-void connectWifi() {
+// Set up WiFi
+void initWifi() {
+  //Wifi settings
+  WiFi.mode(WIFI_STA);
+  WiFi.hostname(DEVICE_NAME);
+  wifi_station_set_hostname(DEVICE_NAME);
+  delay(100);
+  
+  // Connect to WiFi
   WiFi.begin(WIFI_SSID, WIFI_PASS);
-  delay(5000);
+  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    Serial.println("Connection Failed! Rebooting...");
+    delay(5000);
+    ESP.restart();
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+}
+
+//Start OTA
+void initOTA() {
+  ArduinoOTA.setHostname(DEVICE_NAME);
+  ArduinoOTA.setPassword(OTA_PASS);
+
+  ArduinoOTA.onStart([]() {
+    String type;
+    if (ArduinoOTA.getCommand() == U_FLASH) {
+      type = "sketch";
+    } else { // U_FS
+      type = "filesystem";
+    }
+
+    // NOTE: if updating FS this would be the place to unmount FS using FS.end()
+    Serial.println("Start updating " + type);
+  });
+  ArduinoOTA.onEnd([]() {
+    Serial.println("\nEnd");
+  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+  });
+  ArduinoOTA.onError([](ota_error_t error) {
+    Serial.printf("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) {
+      Serial.println("Auth Failed");
+    } else if (error == OTA_BEGIN_ERROR) {
+      Serial.println("Begin Failed");
+    } else if (error == OTA_CONNECT_ERROR) {
+      Serial.println("Connect Failed");
+    } else if (error == OTA_RECEIVE_ERROR) {
+      Serial.println("Receive Failed");
+    } else if (error == OTA_END_ERROR) {
+      Serial.println("End Failed");
+    }
+  });
+  ArduinoOTA.begin();
 }
 
 // Send temp / humidity update if need be

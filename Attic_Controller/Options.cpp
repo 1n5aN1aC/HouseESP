@@ -11,8 +11,12 @@
 //----------------------------------------------------------------------------------------------------------------
 
 // WiFi settings
-const char WIFI_SSID[] = "joshua";  // your network SSID (name)
-const char WIFI_PASS[] = "";        // your network password
+#define WIFI_SSID "villwock"
+#define WIFI_PASS "SecurePassword"
+#define OTA_PASS  "SecurePassword"
+
+//Name of the device.  Both for DHCP name & OTA Name
+#define DEVICE_NAME  "ESP_EIDOLON_IPMI"
 
 //What pin is the DHT connect to?
 const int DHTPin = 2;

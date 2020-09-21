@@ -12,9 +12,10 @@
 void setup();
 void loop();
 
-void connectWifi();
+void  initWifi();
+void  initOTA();
 float getTemperature();
 float getHumidity();
-void checkTempHumid();
-void handleSerial();
-void checkSerial();
+void  checkTempHumid();
+void  handleSerial();
+void  checkSerial();
